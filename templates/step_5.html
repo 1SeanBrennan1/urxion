@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sales Assessment - Break-Even Analysis</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .tm-content-container {
+            padding: 40px 0;
+        }
+        .tm-analysis-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .tm-analysis-title {
+            color: #007bff;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .tm-analysis-subtitle {
+            color: #343a40;
+            font-weight: 500;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        .tm-analysis-value {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #28a745;
+        }
+        .tm-analysis-description {
+            color: #6c757d;
+            margin-top: 10px;
+        }
+        .tm-btn-next {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .tm-btn-next:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+        <div class="tm-logo" style="background-color: transparent;">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Your Logo" class="tm-logo-img">
+        </div>
+    </div>
+    <div class="tm-nav-container-outer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg" id="tm-main-nav">
+                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
+                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Step 5: Break-Even Analysis</h2>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3>Internal Team</h3>
+                <p>Break-Even Leads for Best Case: <span class="tm-analysis-value">{{ break_even_leads_internal_best }}</span></p>
+                <p>Break-Even Sales for Best Case: <span class="tm-analysis-value">${{ break_even_sales_internal_best }}</span></p>
+                <p>Break-Even Leads for Worst Case: <span class="tm-analysis-value">{{ break_even_leads_internal_worst }}</span></p>
+                <p>Break-Even Sales for Worst Case: <span class="tm-analysis-value">${{ break_even_sales_internal_worst }}</span></p>
+
+                <h3>External Team (Urxion)</h3>
+                <p>Break-Even Leads for Best Case: <span class="tm-analysis-value">{{ break_even_leads_urxion_best }}</span></p>
+                <p>Break-Even Sales for Best Case: <span class="tm-analysis-value">${{ break_even_sales_urxion_best }}</span></p>
+                <p>Break-Even Leads for Worst Case: <span class="tm-analysis-value">{{ break_even_leads_urxion_worst }}</span></p>
+                <p>Break-Even Sales for Worst Case: <span class="tm-analysis-value">${{ break_even_sales_urxion_worst }}</span></p>
+
+                <form method="POST" action="{{ url_for('step_6') }}">
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+     <!-- Footer -->
+    <footer class="container-fluid">
+        <div class="row">
+            <p class="col-lg-9 col-md-8 mb-5 mb-md-0">
+                Copyright © 2024 <span class="tm-text-primary">URXION</span>
+                - Contact Us At  <a href="mailto:Sean.Brennan@urxion.com" class="tm-link-primary">Sean.Brennan@urxion.com</a>
+            </p>
+            <div class="col-lg-3 col-md-4 text-right">
+                <a href="https://linkedin.com" class="tm-social-link">
+                    <i class="fab fa-linkedin fa-2x tm-social-icon"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tooplate-script.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#parallax-1').parallax({ imageSrc: "{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" });
+        });
+
+        function logFormData() {
+            var formData = {};
+            $('form').serializeArray().forEach(function(item) {
+                formData[item.name] = item.value;
+            });
+            console.log('Form Data:', formData);
+        }
+    </script>
+</body>
+</html>

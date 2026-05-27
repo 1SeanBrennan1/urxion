@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urxion - AI-Powered Sales Meetings That Convert</title>
+    <meta name="description" content="Transform your sales process with Urxion's AI-powered qualified meetings. Get expert lead generation while you focus on closing deals and growing your business.">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="/static/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="/static/js/bootstrap.min.js" as="script">
+    <link rel="preload" href="/static/js/jquery-3.4.1.min.js" as="script">
+
+    <!-- Prefetch other pages that might be visited -->
+    <link rel="prefetch" href="/cold_calling">
+    <link rel="prefetch" href="/business_assessment">
+    <link rel="prefetch" href="/knowledge_is_power">
+    <link rel="prefetch" href="/contact">
+
+    <!-- DNS Prefetch for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+
+    <!-- Preconnect to required origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Actually load the stylesheet -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Modern color scheme */
+            --primary: #1e40af;      /* Deep blue */
+            --primary-dark: #1e3a8a; /* Darker blue */
+            --secondary: #3b82f6;    /* Bright blue */
+            --accent: #60a5fa;       /* Light blue */
+            --light: #f8fafc;        /* Almost white */
+            --dark: #0f172a;         /* Almost black */
+            --text-light: #f8fafc;   /* Light text */
+            --text-dark: #1e293b;    /* Dark text */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            color: var(--text-dark);
+            background: var(--light);
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)),
+                      url('/static/img/hero-background.jpg') center/cover no-repeat;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            background: var(--light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Resources Section */
+        .resources {
+            padding: 5rem 2rem;
+            background: var(--light);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .resource-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+        }
+
+        .resource-card p {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 2rem;
+            background: var(--primary);
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        /* Updated Button Styles */
+        .btn-primary {
+            background: var(--primary-dark);
+            color: var(--light);
+            border-color: var(--primary-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--light);
+            color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .btn-light {
+            background: var(--primary);
+            color: #ffffff; /* White text */
+            border-color: var(--primary);
+        }
+
+        .btn-light:hover {
+            background: var(--light);
+            color: var(--primary-dark);
+            border-color: var(--primary);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 3rem; /* Adds space between logo and navigation links */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Logo styling */
+        .logo-container {
+            height: 75px;
+            width: 75px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tm-logo-img {
+            height: 100%;
+            width: 100%;
+            color: var(--primary); /* Uses your theme color */
+            transition: color 0.3s ease;
+        }
+
+        .tm-logo-img:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .logo-container {
+                height: 40px;
+                width: 40px;
+            }
+
+            .hero h1 {
+                font-size: 2rem; /* Mobile heading size */
+                padding: 0 1rem;
+            }
+        }
+    </style>
+
+    <!-- Preload critical images -->
+
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="tm-logo-img">
+                    <!-- Main U Shape with Internal Cuts -->
+                    <path d="
+                        M140 80
+                        L260 80
+                        L260 100
+                        L240 100
+                        L240 240
+                        Q240 270, 200 270
+                        Q160 270, 160 240
+                        L160 100
+                        L140 100
+                        L140 250
+                        Q140 300, 200 300
+                        Q260 300, 260 250
+                        L260 100
+                        L240 100
+                        L240 80
+                        L280 80
+                        L280 250
+                        Q280 320, 200 320
+                        Q120 320, 120 250
+                        L120 80
+                        Z
+
+                        M180 120
+                        L220 120
+                        L220 230
+                        Q220 250, 200 250
+                        Q180 250, 180 230
+                        Z"
+                        fill="currentColor"
+                    />
+
+                    <!-- Geometric Triangle Accent -->
+                    <polygon
+                        points="270,60 290,60 290,80"
+                        fill="currentColor"
+                    />
+                </svg>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('contact') }}">Contact Us</a>
+                <a href="{{ url_for('demo') }}">Schedule a Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Focus on Closing Deals,<br>Not Chasing Leads</h1>
+            <p class="text-xl mb-8">Transform your sales process with AI-powered qualified meetings. Let us handle the prospecting while you accelerate growth.</p>
+            <a href="#contact" class="btn btn-light">Schedule a Demo</a>
+        </div>
+    </section>
+
+    <section class="resources" id="resources">
+        <div class="resources-grid">
+          <div class="resource-card">
+            <h3>Cold Calling That Converts</h3>
+            <p>Generate a steady stream of qualified meetings. Our team leverages Urxion's AI-powered tools to generate a steady stream of qualified meetings.  Scale faster and close more deals by combining human expertise with AI-driven instights.</p>
+            <a href="{{ url_for('cold_calling') }}" class="btn btn-primary">Learn More</a>
+          </div>
+
+          <div class="resource-card">
+            <h3>Business Assessment</h3>
+            <p>Discover how many SDRs & leads you need to hit your revenue goals. Urxion's free Sales Assessment helps you calculate optimal staffing & lead generation targets.</p>
+            <a href="{{ url_for('business_assessment') }}" class="btn btn-primary">Start Assessment</a>
+          </div>
+
+          <div class="resource-card">
+            <h3>Knowledge is Power</h3>
+            <p>Level up your sales knowledge with Urxion's curated summaries of top sales books like 'The Challenger Sale' and 'Hacking Sales.'  Get key insights & actionable tips for startup founders.</p>
+            <a href="{{ url_for('knowledge_is_power') }}" class="btn btn-primary">Explore More</a>
+          </div>
+        </div>
+    </section>
+
+    <div class="container-fluid mt-7">
+        <div class="row mb-6">
+            <div class="col-lg-7 mb-lg-0 mb-5 pr-lg-5">
+                <section class="mb-10">
+                    <div>
+                        <h3 class="tm-title-gray mb-4">Meeting Generator - Fueling Your Business Growth</h3>
+                        <hr class="mb-5 tm-hr">
+                        <p class="mb-5">
+                            Our cutting-edge Meeting Generator service leverages a powerful combination of strategic outreach and intelligent automation to deliver a consistent flow of high-quality meetings, directly to your sales team.
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="tm-title-gray mb-4">Our Services</h3>
+                    <br><br>
+
+                    <p class="tm-strategy-text"><b>Unlock your sales potential with our suite of services designed to generate leads, secure qualified meetings, and enhance your sales skills. Partner with us to take your business to the next level.</b></p>
+                    <br><br>
+                    <hr class="mb-5 tm-hr">
+                    <div class="tm-services-box mb-60">
+                        <div class="tm-blog-content">
+                            <img src="{{ url_for('static', filename='img/Cold-Calling.jpg') }}" alt="Image" class="tm-blog-img">
+                            <div class="tm-blog-text">
+                                <h4 class="tm-text-primary mb-4"><b>Service 1: Meeting Generator</b></h4>
+                                <p class="tm-strategy-text">Supercharge your lead generation with our <b>Meeting Generator</b> service. We handle <b>1,500 cold calls per week</b> on your behalf, complete with personalized voicemails and detailed call transcripts.</p>
+                                 <br><br>
+                                <ul>
+                                    <li><b>Targeted Outreach</b>: Collaborate with our team to meticulously define your Ideal Customer Profile (ICP), ensuring every call reaches a potential high-value prospect.</li>
+                                    <li><b>Personalized Communication</b>: Each call is tailored, leaving personalized voicemails that resonate with your audience.</li>
+                                    <li><b>Affordable Volume</b>: At just <b>$0.33 per call</b>, you receive a robust outreach campaign for <b>$495 per week</b>.</li>
+                                </ul>
+                                 <br><br>
+                                <p class="tm-strategy-text"><b>Transform cold calls into warm leads. Boost your sales pipeline with consistent and targeted outreach designed to connect you with prospects who matter.</b></p>
+                            </div>
+                        </div>
+                    </div>
+                     <br><br>
+                    <div class="tm-services-box mb-5">
+                        <div class="tm-blog-content">
+                            <img src="{{ url_for('static', filename='img/handshake.jpg') }}" alt="Image" class="tm-blog-img">
+                            <div class="tm-blog-text">
+                                <h4 class="tm-text-primary mb-4"><b>Service 1A: Booked Meetings (Qualified & Attended)</b></h4>
+                                <p class="tm-strategy-text">Say goodbye to no-shows and unqualified leads. With our <b>Booked Meetings</b> service, we guarantee meetings that are both qualified and attended, so your time is always well spent.</p>
+                                 <br><br>
+                                <ul>
+                                    <li><b>Qualified Leads Only</b>: We ensure every meeting is with a prospect that fits your ideal customer profile.</li>
+                                    <li><b>Guaranteed Attendance</b>: Our scheduling process minimizes cancellations and no-shows.</li>
+                                    <li><b>Pay-for-Performance Pricing</b>: Only <b>$75</b> per meeting, and you’re charged <b>only when the meeting is attended and qualified</b>.</li>
+                                </ul>
+                                 <br><br>
+                                <p class="tm-strategy-text"><b>Maximize your sales efficiency. Focus on closing deals while we handle the scheduling and qualification of your prospects.</b></p>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="tm-services-box mb-5">
+                        <div class="tm-blog-content">
+                            <img src="{{ url_for('static', filename='img/robot.jpg') }}" alt="Image" class="tm-blog-img">
+                            <div class="tm-blog-text">
+                                <h4 class="tm-text-primary mb-4"><b>Service 2: Objection Handling Sales Practice with AI</b></h4>
+                                <p class="tm-strategy-text">Elevate your sales skills with our cutting-edge <b>AI Sales Practice</b> platform. Designed to refine your ability to handle objections, this tool empowers you to become a more confident and effective salesperson.</p>
+                                 <br><br>
+                                <ul>
+                                    <li><b>Interactive AI Coaching</b>: Practice real-life sales scenarios with our advanced AI to perfect your pitch and response strategies.</li>
+                                    <li><b>Customized Training</b>: Focus on the areas where you want to improve the most, from handling objections to closing techniques.</li>
+                                    <li><b>Exclusive Access for Current Clients</b>: Available only to our valued clients, with a one-time setup fee of <b>$500</b> and an hourly usage rate of <b>$5</b>.</li>
+                                </ul>
+                                 <br><br>
+                                <p class="tm-strategy-text"><b>Invest in your professional growth. Hone your sales techniques and overcome objections with ease using our AI-powered practice platform.</b></p>
+                            </div>
+                        </div>
+                    </div>
+ <br><br>
+                    <div class="tm-services-box mb-5">
+                        <div class="tm-blog-content">
+                            <img src="{{ url_for('static', filename='img/texting.jpg') }}" alt="Image" class="tm-blog-img">
+                            <div class="tm-blog-text">
+                                <h4 class="tm-text-primary mb-4">Service 3: AI-Powered Text Engagement for Missed Calls</h4>
+                                 <br><br>
+                                <p class="tm-strategy-text">Don't let missed calls become missed opportunities. Our AI assistant engages prospects within seconds via text messaging, allowing you to seamlessly schedule meetings and keep the conversation going.</p>
+                                 <br><br>
+                                <ul>
+                                    <li><strong>Affordable Solution for Small Businesses</strong>: Just $99/month.</li>
+                                    <li><strong>Your AI Assistant at Work</strong>: Acts on your behalf to gather essential information, without making unauthorized promises.</li>
+                                    <li><strong>Gain Valuable Time</strong>: Allows you to follow up personally when you're available, ensuring you never miss a chance to connect.</li>
+                                </ul>
+                                 <br><br>
+                                <p class="tm-strategy-text">Turn missed calls into scheduled meetings with instant AI text engagement. Stay ahead of the competition and keep your prospects engaged—right when it matters most.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+ <br><br>
+
+            <div class="col-lg-5">
+                <img src="{{ url_for('static', filename='img/waitlist.jpg') }}" alt="Image" class="img-fluid">
+                <div class="tm-bg-gray-dark tm-box-2">
+                    <h4 class="tm-text-primary tm-h3 mb-4">Ready to Supercharge Your Sales?</h4>
+                    <p class="mb-5">Our services currently have a waiting list.  Join today to secure your spot and start transforming your sales pipeline.</p>
+                    <p><a href="contact" class="btn btn-primary">Join the Waiting List</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+        <h2>Ready to Transform Your Sales Process?</h2>
+        <p>Schedule a demo to see how we can help you generate more qualified meetings.</p>
+            <a href="#" class="btn btn-light">Schedule a Demo</a>
+        </div>
+    </section>
+
+    <footer style="background: var(--dark); color: white; padding: 2rem;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p>© 2024 Urxion. All rights reserved.</p>
+                <a href="/privacy" style="color: white; margin-right: 1rem;">Privacy Policy</a>
+                <a href="/terms" style="color: white;">Terms of Use</a>
+            </div>
+            <a href="https://www.linkedin.com/in/1seanbrennan1/" style="color: white;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Defer non-critical scripts -->
+    <script defer src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
+
+    <!-- Add performance optimizations -->
+    <script>
+        // Preload images and resources for other pages
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create preload links for common resources
+            const preloadLinks = [
+                '/static/img/cold-calling-banner.jpg',
+                '/static/img/business-assessment-banner.jpg',
+                '/static/img/knowledge-banner.jpg',
+                // Add other common resources
+            ];
+
+            preloadLinks.forEach(link => {
+                const preloadLink = document.createElement('link');
+                preloadLink.rel = 'preload';
+                preloadLink.as = 'image';
+                preloadLink.href = link;
+                document.head.appendChild(preloadLink);
+            });
+
+            // Prerender next likely pages
+            const prerenderLinks = [
+                '/cold_calling',
+                '/business_assessment'
+            ];
+
+            prerenderLinks.forEach(link => {
+                const prerenderLink = document.createElement('link');
+                prerenderLink.rel = 'prerender';
+                prerenderLink.href = link;
+                document.head.appendChild(prerenderLink);
+            });
+        });
+
+        // Optimize scroll performance
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    // Handle scroll-based animations
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    </script>
+</body>
+</html>

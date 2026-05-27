@@ -1,0 +1,14 @@
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Sensitive variables (NEVER push passwords/API keys)
+.env
+
+# Local Database (Optional: ignore if you don't want to overwrite your live database)
+db.sqlite3

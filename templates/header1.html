@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Leads Change Lives, We Generate the Opportunities</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
+
+
+    <style>
+        /* Inline CSS for additional styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        .tm-blog-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+        .tm-blog-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Image and text side-by-side */
+        .tm-blog-content {
+            display: flex;
+            align-items: flex-start;
+        }
+        .tm-blog-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .tm-blog-text {
+            flex-grow: 1;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h4 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .tm-strategy-text {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .tm-nav-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #333;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .tm-blog-content {
+                flex-direction: column;
+            }
+            .tm-blog-img {
+                width: 100%;
+                height: auto;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+
+<head>
+<body>
+    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+        <div class="tm-logo" style="background-color: transparent;">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Your Logo" class="tm-logo-img">
+        </div>
+    </div>
+    <div class="tm-nav-container-outer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg" id="tm-main-nav">
+                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
+                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>

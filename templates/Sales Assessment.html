@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Assessment Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/ -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}"> <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-ocean-vibes.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <style>
+        .form-group label {
+            font-weight: bold;
+        }
+        .calculate-btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .calculate-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .calculate-btn:hover {
+            background-color: #0056b3;
+        }
+        .results-container {
+            margin-top: 20px;
+        }
+        .results-container h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .results-container .scenario-column {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .results-container .scenario-column h4 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .explanation {
+            margin-top: 30px;
+        }
+        .explanation h2, .explanation h3, .explanation h4 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="tm-site-header">
+        <h1 class="tm-mt-0 tm-mb-15"><span class="tm-color-primary">Sales</span> <span class="tm-color-gray-2">Assessment Tool</span></h1>
+        <em class="tm-tagline tm-color-light-gray">Calculate your sales team needs</em>
+    </header>
+
+    <div class="tm-container">
+        <nav class="tm-main-nav">
+            <ul id="inline-popups">
+                <li class="tm-nav-item">
+                    <a href="#intro" data-effect="mfp-move-from-top" class="tm-nav-link">
+                        Introduction
+                        <i class="fas fa-3x fa-water"></i>
+                    </a>
+                </li>
+                <li class="tm-nav-item">
+                    <a href="#calculator" data-effect="mfp-move-from-top" class="tm-nav-link" id="tm-gallery-link">
+                        Calculator
+                        <i class="far fa-3x fa-images"></i>
+                    </a>
+                </li>
+                <li class="tm-nav-item">
+                    <a href="#about" data-effect="mfp-move-from-top" class="tm-nav-link">
+                        About
+                        <i class="fas fa-3x fa-tint"></i>
+                    </a>
+                </li>
+                <li class="tm-nav-item">
+                    <a href="#contact" data-effect="mfp-move-from-top" class="tm-nav-link">
+                        Contact
+                        <i class="far fa-3x fa-comments"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="container-fluid mt-7">
+            <div class="row mb-4">
+                <section class="col-lg-12 mb-8 tm-px-3">
+                    <div class="tm-box-bordered p-5">
+                        <h2>Sales Assessment Calculator</h2>
+                        <form id="sales-form">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="averagedealsize">Average Deal Size:</label>
+                                    <input type="text" id="averagedealsize" name="averagedealsize" class="form-control" value="5000">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="leadsToSaleLow">Lead to Sale Conversion Rate (Low):</label>
+                                    <input type="text" id="leadsToSaleLow" name="leadsToSaleLow" class="form-control" value="25">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="leadsToSaleHigh">Lead to Sale Conversion Rate (High):</label>
+                                    <input type="text" id="leadsToSaleHigh" name="leadsToSaleHigh" class="form-control" value="5">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="aeSalary">AE Salary:</label>
+                                    <input type="text" id="aeSalary" name="aeSalary" class="form-control" value="65000">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="sdrSalary">SDR Salary:</label>
+                                    <input type="text" id="sdrSalary" name="sdrSalary" class="form-control" value="50000">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="aeVarCosts">AE Variable Costs per Deal:</label>
+                                    <input type="text" id="aeVarCosts" name="aeVarCosts" class="form-control" value="1000">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="sdrVarCosts">SDR Variable Costs per Booked Meeting:</label>
+                                    <input type="text" id="sdrVarCosts" name="sdrVarCosts" class="form-control" value="50">
+                                </div>
+                            </div>
+                            <div class="calculate-btn-container">
+                                <button type="button" class="calculate-btn" onclick="calculateResults()">Calculate</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            <div class="row mb-4">
+                <section class="col-lg-12 mb-8 tm-px-3">
+                    <div class="tm-box-bordered p-5">
+                        <h2>Analysis Summary</h2>
+                        <div id="total-results" class="results-container" style="display: none;">
+                            <h3>Results</h3>
+                            <div id="scenario-results" class="row">
+                                <div class="scenario-column col-md-6" id="scenario1-results">
+                                    <h4>In-House Team</h4>
+                                    <div class="scenario-description"></div>
+                                </div>
+                                <div class="scenario-column col-md-6" id="scenario2-results">
+                                    <h4>Outsourced Service</h4>
+                                    <div class="scenario-description"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="row mb-4">
+                <section class="col-lg-12 mb-8 tm-px-3">
+                    <div class="tm-box-bordered p-5 explanation">
+                        <h1>Implementation Plan: Mastering Managerial Accounting Concepts</h1>
+                        <p>This plan outlines actionable steps to grasp and implement key managerial accounting concepts from the provided lecture and text. It assumes no prior knowledge, building a solid foundation before tackling real-world applications.</p>
+
+                        <h2>Phase 1: Building Foundational Knowledge</h2>
+
+                        <h3>Key Concept 1: Cost Behavior and Activity Cost Drivers</h3>
+                        <p>Explanation: Costs behave differently based on changes in activity levels (output). Understanding this behavior is crucial for predicting future costs.</p>
+                        <p>Formula: Total Cost = Fixed Cost + (Variable Rate x Output)</p>
+
+                        <h4>Actionable Task 1.1: Identify Your Business's Cost Structure</h4>
+                        <ul>
+                            <li>Steps:
+                                <ul>
+                                    <li>List all significant costs your business incurs (e.g., rent, salaries, materials, marketing).</li>
+                                    <li>Categorize each cost as Fixed, Variable, or Mixed.</li>
+                                    <li>For Mixed costs, estimate the fixed and variable components.</li>
+                                </ul>
+                            </li>
+                            <li>Resources:
+                                <ul>
+                                    <li>Accounting records</li>
+                                    <li>Business expense reports</li>
+                                    <li>Industry benchmarks</li>
+                                </ul>
+                            </li>
+                            <li>Obstacles/Solutions:
+                                <ul>
+                                    <li>Difficulty categorizing mixed costs: Research industry standards or seek expert advice.</li>
+                                </ul>
+                            </li>
+                            <li>Evaluation Criteria:
+                                <ul>
+                                    <li>Successfully categorize 90% of costs and accurately estimate fixed/variable components for mixed costs.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h3>Key Concept 2: Break-Even Analysis</h3>
+                        <p>Explanation: The break-even point is the level of sales where total revenue equals total costs (no profit or loss). This is essential for understanding profitability.</p>
+                        <p>Formula: Break-Even Point (Units) = Fixed Costs / Contribution Margin per Unit</p>
+                        <p>Contribution Margin per Unit = Selling Price per Unit - Variable Cost per Unit</p>
+
+                        <h4>Actionable Task 2.1: Calculate Your Business's Break-Even Point</h4>
+                        <ul>
+                            <li>Steps:
+                                <ul>
+                                    <li>Gather data on fixed costs, selling price, and variable cost per unit.</li>
+                                    <li>Calculate the contribution margin per unit.</li>
+                                    <li>Determine the break-even point in units and sales revenue.</li>
+                                </ul>
+                            </li>
+                            <li>Resources:
+                                <ul>
+                                    <li>Accounting records</li>
+                                    <li>Sales data</li>
+                                    <li>Cost estimation tools</li>
+                                </ul>
+                            </li>
+                            <li>Obstacles/Solutions:
+                                <ul>
+                                    <li>Inaccurate cost estimates: Use multiple estimation techniques (high-low, scattergraph) or consider more advanced methods (regression analysis).</li>
+                                </ul>
+                            </li>
+                            <li>Evaluation Criteria:
+                                <ul>
+                                    <li>Accurately calculate break-even point in both units and revenue.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h3>Key Concept 3: Target Profit Analysis</h3>
+                        <p>Explanation: Determines the sales volume needed to achieve a specific profit goal.</p>
+                        <p>Formula: Target Profit (Units) = (Fixed Costs + Target Profit) / Contribution Margin per Unit</p>
+
+                        <h4>Actionable Task 3.1: Set Profit Goals and Calculate Required Sales</h4>
+                        <ul>
+                            <li>Steps:
+                                <ul>
+                                    <li>Set realistic short-term and long-term profit targets for your business.</li>
+                                    <li>Using the target profit formula, calculate the required sales volume (units and revenue) for each target.</li>
+                                </ul>
+                            </li>
+                            <li>Resources:
+                                <ul>
+                                    <li>Same as for break-even analysis</li>
+                                </ul>
+                            </li>
+                            <li>Obstacles/Solutions:
+                                <ul>
+                                    <li>Unrealistic profit targets: Re-evaluate goals based on market conditions and business capabilities.</li>
+                                </ul>
+                            </li>
+                            <li>Evaluation Criteria:
+                                <ul>
+                                    <li>Set achievable profit goals and accurately calculate corresponding sales targets.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h3>Additional Resources:</h3>
+                        <ul>
+                            <li>Introduction to Management Accounting textbooks (Horngren, Datar, Rajan is a good one)</li>
+                            <li>Online courses on Coursera or edX</li>
+                        </ul>
+
+                        <h2>Phase 2: Applying Concepts to Decision Making </h2>
+
+                        <h3>Key Concept 4: Relevant Costs</h3>
+                        <p>Explanation: Only future costs that differ among decision alternatives are relevant. Sunk costs are never relevant, and opportunity costs are always relevant.</p>
+
+                        <h3>Practical Application 1: Special Order Decision</h3>
+                        <p>Explanation: A customer offers to buy a large quantity at a discounted price. Should you accept?</p>
+
+                        <h4>Actionable Task 4.1: Analyze Special Order Profitability</h4>
+                        <ul>
+                            <li>Steps:
+                                <ul>
+                                    <li>Identify incremental costs and revenues associated with the order (what changes if you accept?).</li>
+                                    <li>Consider opportunity costs if you have to sacrifice regular sales due to limited capacity.</li>
+                                    <li>Compare incremental revenues to incremental costs to determine profitability.</li>
+                                </ul>
+                            </li>
+                            <li>Resources:
+                                <ul>
+                                    <li>Cost data</li>
+                                    <li>Sales forecasts</li>
+                                    <li>Capacity information</li>
+                                </ul>
+                            </li>
+                            <li>Obstacles/Solutions:
+                                <ul>
+                                    <li>Difficulty estimating opportunity costs: Use market data or competitor analysis.</li>
+                                </ul>
+                            </li>
+                            <li>Evaluation Criteria:
+                                <ul>
+                                    <li>Make a data-driven accept/reject decision based on relevant cost analysis.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h3>Practical Application 2: Make or Buy Decision</h3>
+                        <p>Explanation: Should you produce a component in-house or buy it from a supplier?</p>
+
+                        <h4>Actionable Task 4.2: Compare Make vs. Buy Costs</h4>
+                        <ul>
+                            <li>Steps:
+                                <ul>
+                                    <li>Identify all relevant costs for both options (including opportunity costs of using internal resources).</li>
+                                    <li>Use differential analysis to highlight cost differences.</li>
+                                    <li>Consider qualitative factors (quality control, supplier reliability).</li>
+                                </ul>
+                            </li>
+                            <li>Resources:
+                                <ul>
+                                    <li>Cost data</li>
+                                    <li>Supplier quotes</li>
+                                    <li>Production capacity data</li>
+                                </ul>
+                            </li>
+                            <li>Obstacles/Solutions:
+                                <ul>
+                                    <li>Incomplete cost information: Conduct a thorough cost analysis for both options.</li>
+                                </ul>
+                            </li>
+                            <li>Evaluation Criteria:
+                                <ul>
+                                    <li>Choose the most cost-effective option based on quantitative and qualitative factors.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h3>Additional Resources:</h3>
+                        <ul>
+                            <li>Articles and case studies on special order decisions and make-or-buy decisions</li>
+                            <li>Consult with a cost accountant or financial analyst for guidance</li>
+                        </ul>
+
+                        <h2>Phase 3: Continuous Learning and Refinement (Ongoing)</h2>
+
+                        <h4>Actionable Task 5.1: Track and Monitor Results</h4>
+                        <p>Steps:</p>
+                        <ul>
+                            <li>Regularly track actual costs, sales, and profitability against your forecasts and breakeven analysis.</li>
+                            <li>Analyze variances to identify areas for improvement in your cost management and pricing strategies.</li>
+                        </ul>
+
+                        <p>Resources:</p>
+                        <ul>
+                            <li>Accounting systems</li>
+                            <li>Data analytics tools</li>
+                            <li>Performance dashboards</li>
+                        </ul>
+
+                        <p>Obstacles/Solutions:</p>
+                        <ul>
+                            <li>Data collection challenges: Implement efficient data tracking processes and integrate with accounting systems.</li>
+                        </ul>
+
+                        <p>Timeline:</p>
+                        <ul>
+                            <li>Ongoing (monthly or quarterly reviews)</li>
+                        </ul>
+
+                        <p>Evaluation Criteria:</p>
+                        <ul>
+                            <li>Focus on continuous improvement in cost control, pricing accuracy, and overall profitability.</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <footer class="tm-footer">
+        <span>Copyright &copy; 2020 Ocean Vibes</span>
+        <span>Web Designed by TemplateMo</span>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/templatemo-script.js') }}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS -->
+    <script>
+        function calculateResults() {
+            // Get input values
+            const averageDealSize = parseFloat(document.getElementById('averagedealsize').value.replace(/,/g, ''));
+            const leadsToSaleLow = parseFloat(document.getElementById('leadsToSaleLow').value) / 100;
+            const leadsToSaleHigh = parseFloat(document.getElementById('leadsToSaleHigh').value) / 100;
+            const aeSalary = parseFloat(document.getElementById('aeSalary').value.replace(/,/g, ''));
+            const sdrSalary = parseFloat(document.getElementById('sdrSalary').value.replace(/,/g, ''));
+            const aeVarCosts = parseFloat(document.getElementById('aeVarCosts').value.replace(/,/g, ''));
+            const sdrVarCosts = parseFloat(document.getElementById('sdrVarCosts').value.replace(/,/g, ''));
+
+            // Outside service costs
+            const weeklyServiceCost = 495;
+            const perMeetingCost = 99;
+
+            // Perform calculations
+            const inHouseLow = calculateInHouseScenario(averageDealSize, leadsToSaleLow, aeSalary, sdrSalary, aeVarCosts, sdrVarCosts);
+            const inHouseHigh = calculateInHouseScenario(averageDealSize, leadsToSaleHigh, aeSalary, sdrSalary, aeVarCosts, sdrVarCosts);
+            const outsourceLow = calculateOutsourceScenario(averageDealSize, leadsToSaleLow, weeklyServiceCost, perMeetingCost);
+            const outsourceHigh = calculateOutsourceScenario(averageDealSize, leadsToSaleHigh, weeklyServiceCost, perMeetingCost);
+
+            // Display results
+            document.getElementById('total-results').style.display = 'block';
+            document.querySelector('#scenario1-results .scenario-description').innerHTML = generateScenarioHTML(inHouseLow, outsourceLow, leadsToSaleLow);
+            document.querySelector('#scenario2-results .scenario-description').innerHTML = generateScenarioHTML(inHouseHigh, outsourceHigh, leadsToSaleHigh);
+        }
+
+        function calculateInHouseScenario(averageDealSize, leadsToSale, aeSalary, sdrSalary, aeVarCosts, sdrVarCosts) {
+            const dealsNeeded = Math.ceil(52 * (aeSalary + sdrSalary) / (averageDealSize - aeVarCosts));
+            const leadsNeeded = Math.ceil(dealsNeeded / leadsToSale);
+            const aeNeeded = Math.ceil(dealsNeeded / 50); // Assuming 50 deals per AE per year
+            const sdrNeeded = Math.ceil(leadsNeeded / 600); // Assuming 600 leads per SDR per year
+
+            return {
+                dealsNeeded,
+                leadsNeeded,
+                aeNeeded,
+                sdrNeeded,
+                totalCost: (aeNeeded * aeSalary) + (sdrNeeded * sdrSalary) + (dealsNeeded * aeVarCosts) + (leadsNeeded * sdrVarCosts)
+            };
+        }
+
+        function calculateOutsourceScenario(averageDealSize, leadsToSale, weeklyServiceCost, perMeetingCost) {
+            const dealsNeeded = 1; // Start with 1 deal to calculate break-even
+            const leadsNeeded = Math.ceil(dealsNeeded / leadsToSale);
+            const totalCost = (52 * weeklyServiceCost) + (leadsNeeded * perMeetingCost);
+            const breakEvenDeals = Math.ceil(totalCost / averageDealSize);
+
+            return {
+                breakEvenDeals,
+                leadsNeeded: Math.ceil(breakEvenDeals / leadsToSale),
+                totalCost
+            };
+        }
+
+        function generateScenarioHTML(inHouse, outsource, conversionRate) {
+            return `
+                <h5>Conversion Rate: ${(conversionRate * 100).toFixed(2)}%</h5>
+                <h6>In-House Team</h6>
+                <p>Deals Needed: ${inHouse.dealsNeeded}</p>
+                <p>Leads Needed: ${inHouse.leadsNeeded}</p>
+                <p>AEs Needed: ${inHouse.aeNeeded}</p>
+                <p>SDRs Needed: ${inHouse.sdrNeeded}</p>
+                <p>Total Annual Cost: $${inHouse.totalCost.toLocaleString()}</p>
+                <h6>Outsourced Service</h6>
+                <p>Break-Even Deals: ${outsource.breakEvenDeals}</p>
+                <p>Leads Needed for Break-Even: ${outsource.leadsNeeded}</p>
+                <p>Annual Cost at Break-Even: $${outsource.totalCost.toLocaleString()}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

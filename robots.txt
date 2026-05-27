@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: http://seani.pythonanywhere.com/sitemap.xml

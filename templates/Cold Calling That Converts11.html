@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Invest in Predictable Growth - Urxion</title>
+    <meta name="description" content="Generate a steady stream of qualified meetings. Our team leverages Urxion's AI-powered tools to generate a steady stream of qualified meetings.  Scale faster and close more deals by combining human expertise with AI-driven instights.">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
+
+    <style>
+        /* Inline CSS for additional styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        .tm-blog-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+        .tm-blog-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Image and text side-by-side */
+        .tm-blog-content {
+            display: flex;
+            align-items: flex-start;
+        }
+        .tm-blog-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .tm-blog-text {
+            flex-grow: 1;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h4 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .tm-strategy-text {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .tm-nav-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #333;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .tm-blog-content {
+                flex-direction: column;
+            }
+            .tm-blog-img {
+                width: 100%;
+                height: auto;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+        <div class="tm-logo" style="background-color: transparent;">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Your Logo" class="tm-logo-img">
+        </div>
+    </div>
+    <div class="tm-nav-container-outer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg" id="tm-main-nav">
+                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
+                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-7">
+        <div class="row mb-6">
+            <div class="col-lg-7 mb-lg-0 mb-5 pr-lg-5">
+                <section class="mb-10">
+                    <div>
+                        <h3 class="tm-title-gray mb-4">Meeting Generator - Fueling Your Business Growth</h3>
+                        <hr class="mb-5 tm-hr">
+                        <p class="mb-5">
+                            Our cutting-edge Meeting Generator service leverages a powerful combination of strategic outreach and intelligent automation to deliver a consistent flow of high-quality meetings, directly to your sales team.
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="tm-title-gray mb-4">Our Services</h3>
+                    <br><br>
+
+                    <p class="tm-strategy-text"><b>Unlock your sales potential with our suite of services designed to generate leads, secure qualified meetings, and enhance your sales skills. Partner with us to take your business to the next level.</b></p>
+                    <br><br>
+                    <hr class="mb-5 tm-hr">
+                    <div class="tm-services-box mb-60">
+                        <div class="tm-blog-content">
+                            <img src="{{ url_for('static', filename='img/Cold-Calling.jpg') }}" alt="Image" class="tm-blog-img">
+                            <div class="tm-blog-text">
+                                <h4 class="tm-text-primary mb-4"><b>Service 1: Meeting Generator</b></h4>
+                                <p class="tm-strategy-text">Supercharge your lead generation with our <b>Meeting Generator</b> service. We handle <b>1,500 cold calls per week</b> on your behalf, complete with personalized voicemails and detailed call transcripts.</p>
+                                 <br><br>
+                                <ul>
+                                    <li><b>Targeted Outreach</b>: Collaborate with our team to meticulously define your Ideal Customer Profile (ICP), ensuring every call reaches a potential high-value prospect.</li>
+                                    <li><b>Personalized Communication</b>: Each call is tailored, leaving personalized voicemails that resonate with your audience.</li>
+                                    <li><b>Affordable Volume</b>: At just <b>$0.33 per call</b>, you receive a robust outreach campaign for <b>$495 per week</b>.</li>
+                                </ul>
+                                 <br><br>
+                                <p class="tm-strategy-text"><b>Transform cold calls into warm leads. Boost your sales pipeline with consistent and targeted outreach designed to connect you with prospects who matter.</b></p>
+                            </div>
+                        </div>
+                    </div>
+                     <br><br>
+                    <div class="tm-services-box mb-5">
+                        <div class="tm-blog-content">
+                            <img src="{{ url_for('static', filename='img/handshake.jpg') }}" alt="Image" class="tm-blog-img">
+                            <div class="tm-blog-text">
+                                <h4 class="tm-text-primary mb-4"><b>Service 1A: Booked Meetings (Qualified & Attended)</b></h4>
+                                <p class="tm-strategy-text">Say goodbye to no-shows and unqualified leads. With our <b>Booked Meetings</b> service, we guarantee meetings that are both qualified and attended, so your time is always well spent.</p>
+                                 <br><br>
+                                <ul>
+                                    <li><b>Qualified Leads Only</b>: We ensure every meeting is with a prospect that fits your ideal customer profile.</li>
+                                    <li><b>Guaranteed Attendance</b>: Our scheduling process minimizes cancellations and no-shows.</li>
+                                    <li><b>Pay-for-Performance Pricing</b>: Only <b>$75</b> per meeting, and you’re charged <b>only when the meeting is attended and qualified</b>.</li>
+                                </ul>
+                                 <br><br>
+                                <p class="tm-strategy-text"><b>Maximize your sales efficiency. Focus on closing deals while we handle the scheduling and qualification of your prospects.</b></p>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="tm-services-box mb-5">
+                        <div class="tm-blog-content">
+                            <img src="{{ url_for('static', filename='img/robot.jpg') }}" alt="Image" class="tm-blog-img">
+                            <div class="tm-blog-text">
+                                <h4 class="tm-text-primary mb-4"><b>Service 2: Objection Handling Sales Practice with AI</b></h4>
+                                <p class="tm-strategy-text">Elevate your sales skills with our cutting-edge <b>AI Sales Practice</b> platform. Designed to refine your ability to handle objections, this tool empowers you to become a more confident and effective salesperson.</p>
+                                 <br><br>
+                                <ul>
+                                    <li><b>Interactive AI Coaching</b>: Practice real-life sales scenarios with our advanced AI to perfect your pitch and response strategies.</li>
+                                    <li><b>Customized Training</b>: Focus on the areas where you want to improve the most, from handling objections to closing techniques.</li>
+                                    <li><b>Exclusive Access for Current Clients</b>: Available only to our valued clients, with a one-time setup fee of <b>$500</b> and an hourly usage rate of <b>$5</b>.</li>
+                                </ul>
+                                 <br><br>
+                                <p class="tm-strategy-text"><b>Invest in your professional growth. Hone your sales techniques and overcome objections with ease using our AI-powered practice platform.</b></p>
+                            </div>
+                        </div>
+                    </div>
+ <br><br>
+                    <div class="tm-services-box mb-5">
+                        <div class="tm-blog-content">
+                            <img src="{{ url_for('static', filename='img/texting.jpg') }}" alt="Image" class="tm-blog-img">
+                            <div class="tm-blog-text">
+                                <h4 class="tm-text-primary mb-4">Service 3: AI-Powered Text Engagement for Missed Calls</h4>
+                                 <br><br>
+                                <p class="tm-strategy-text">Don't let missed calls become missed opportunities. Our AI assistant engages prospects within seconds via text messaging, allowing you to seamlessly schedule meetings and keep the conversation going.</p>
+                                 <br><br>
+                                <ul>
+                                    <li><strong>Affordable Solution for Small Businesses</strong>: Just $99/month.</li>
+                                    <li><strong>Your AI Assistant at Work</strong>: Acts on your behalf to gather essential information, without making unauthorized promises.</li>
+                                    <li><strong>Gain Valuable Time</strong>: Allows you to follow up personally when you're available, ensuring you never miss a chance to connect.</li>
+                                </ul>
+                                 <br><br>
+                                <p class="tm-strategy-text">Turn missed calls into scheduled meetings with instant AI text engagement. Stay ahead of the competition and keep your prospects engaged—right when it matters most.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+ <br><br>
+
+            <div class="col-lg-5">
+                <img src="{{ url_for('static', filename='img/waitlist.jpg') }}" alt="Image" class="img-fluid">
+                <div class="tm-bg-gray-dark tm-box-2">
+                    <h4 class="tm-text-primary tm-h3 mb-4">Ready to Supercharge Your Sales?</h4>
+                    <p class="mb-5">Our services currently have a waiting list.  Join today to secure your spot and start transforming your sales pipeline.</p>
+                    <p><a href="contact" class="btn btn-primary">Join the Waiting List</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="container-fluid">
+    <div class="row">
+        <p class="col-lg-9 col-md-8 mb-5 mb-md-0">
+            Copyright &copy; 2024 <span class="tm-text-primary">URXION</span>&nbsp;&nbsp;
+            <a href="/privacy" class="tm-link-primary">Privacy Policy</a> |
+            <a href="/terms" class="tm-link-primary">Terms of Use</a>
+        </p>
+        <div class="col-lg-3 col-md-4 text-right">
+            <a href="https://www.linkedin.com/in/1seanbrennan1/" class="tm-social-link">
+                <i class="fab fa-linkedin fa-2x tm-social-icon"></i>
+            </a>
+        </div>
+    </div>
+</footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tooplate-script.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#parallax-1').parallax({ imageSrc: "{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" });
+        });
+    </script>
+</body>
+</html>

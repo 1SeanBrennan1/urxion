@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Business Assessment</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
+
+
+    <style>
+        /* Inline CSS for additional styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        .tm-blog-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+        .tm-blog-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Image and text side-by-side */
+        .tm-blog-content {
+            display: flex;
+            align-items: flex-start;
+        }
+        .tm-blog-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .tm-blog-text {
+            flex-grow: 1;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h4 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .tm-strategy-text {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .tm-nav-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #333;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .tm-blog-content {
+                flex-direction: column;
+            }
+            .tm-blog-img {
+                width: 100%;
+                height: auto;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+
+<head>
+<body>
+    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+        <div class="tm-logo" style="background-color: transparent;">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Your Logo" class="tm-logo-img">
+        </div>
+    </div>
+    <div class="tm-nav-container-outer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg" id="tm-main-nav">
+                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
+                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid mt-7">
+        <div class="row mb-4">
+            <section class="col-lg-7 mb-8 tm-px-3">
+                    <div class="tm-box-bordered p-5">
+                        <h3 class="tm-title-gray mb-3">Startup Growth Assessment</h3>
+                        <hr class="mb-4 tm-hr tm-hr-s">
+                        <a href="{{ url_for('sales_assessment') }}" class="btn btn-primary">Take the Free Assessment</a>
+                        <h3 class="tm-title-gray mb-3"></h3>
+                        <div class="row mb-4">
+                            <div class="col-lg-3">
+                                <img src="{{ url_for('static', filename='img/assessment.jpg') }}" alt="Image" class="tm-blog-img">
+                            </div>
+                            <div class="col-lg-9">
+                                <p class="mb-4">Are you on track to achieve your startup's growth goals? Our free assessment will benchmark your current sales process, identify areas for improvement, and provide you with personalized insights to accelerate your success.</p>
+                            </div>
+                        </div>
+                        <hr class="mb-4 tm-hr tm-hr-s">
+
+
+                    <h4 class="tm-text-primary tm-h3 mb-4">Benefits of the Assessment:</h4>
+                    <ul>
+                        <li><strong>Identify Cold Calling Bottlenecks:</strong> Discover exactly where your current cold calling process is falling short.</li>
+                        <li><strong>Improve Script Effectiveness:</strong> Get actionable advice to create more engaging and persuasive cold call scripts.</li>
+                        <li><strong>Master Objection Handling:</strong> Learn effective techniques to overcome common objections and keep conversations flowing.</li>
+                        <li><strong>Optimize Lead Qualification:</strong> Develop a system to identify high-value leads and prioritize your efforts.</li>
+                        <li><strong>Boost Meeting Booking Rates:</strong> Implement strategies to convert more conversations into booked meetings.</li>
+                        <li><strong>Enhance Sales Team Performance:</strong> Assess your hiring, training, and management practices to build a stronger sales team.</li>
+                        <li><strong>Gain Financial Clarity:</strong> Understand your key sales metrics, such as break-even point and customer acquisition cost.</li>
+                        <li><strong>Unlock Personalized Insights:</strong> Receive a customized report with tailored recommendations for improvement.</li>
+                    </ul>
+                    <div class="text-right">
+                        <a href="{{ url_for('sales_assessment') }}" class="btn btn-primary">Take the Free Assessment</a>
+                    </div>
+                </div>
+            </section>
+            <div class="col-lg-5">
+                <div class="tm-bg-gray-dark tm-box-2">
+                    <h4 class="tm-text-primary tm-h3 mb-4">About Sean:</h4>
+                    <img src="{{ url_for('static', filename='img/sean pic.png') }}" alt="Sean Brennan" class="mb-5" style="width: 100%; height: auto;">
+                    <p class="image-caption">Sean Brennan, Founder of Urxion</p>
+                    <p class="mb-5">
+                     As a seasoned sales veteran with over two decades of experience, I've experienced and witnessed firsthand the struggles of startups and small businesses to generate leads and book those crucial first meetings.
+                    </p>
+                    <p class="mb-5">
+                    My sales journey began in life insurance sales, where I learned from the school of hard knocks my skills forprospecting business owners and consistently exceeded sales targets. I led national sales teams at prominent companies, but I couldn't shake off the frustration I saw in talented people that lacked the expertise to effectively sell, or worse they were able to sell but were never able to teach and coach others to do it so they could focus on their business.
+                    </p>
+                    <p class="mb-5">
+                    Having used and reviewed countless softphone products and CRM systems, I realized none truly addressed the core issues I observed. They lacked the intelligent guidance and support that new and seasoned sales professionals needed to consistently overcome objections and secure meetings.
+                    </p>
+                    <p class="mb-5">
+                    This frustration sparked an idea - what if there was a service that combined the power of AI with the human touch of experienced sales agents?
+                    </p>
+                    <p class="mb-5">
+                    Driven by my vision, I leveraged my extensive sales knowledge and network to develop Meeting Generator. I poured my years of experience into crafting a comprehensive training program for agents, ensuring they were equipped with the skills and confidence to excel in even the most challenging sales conversations.
+                    </p>
+                    <p class="mb-5">
+                    I meticulously designed the AI-powered objection handling system, drawing upon my own successful strategies and incorporating best practices from the industry.
+                    </p>
+                    <p class="mb-5">
+                    Meeting Generator was born from a deep understanding of the challenges faced by startups and a passion for empowering them with the tools and resources they need to succeed.
+                    </p>
+                    <p class="mb-5">
+                    Today, Meeting Generator stands as a beacon of innovation in the sales landscape, helping startups and small businesses unlock their full potential by connecting them with the right clients and driving meaningful growth.
+                    </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid">
+        <div class="row">
+            <p class="col-lg-9 col-md-8 mb-5 mb-md-0">
+                Copyright © 2024 <span class="tm-text-primary">URXION</span>
+                - Contact Us At  <a href="mailto:Sean.Brennan@urxion.com" class="tm-link-primary">Sean.Brennan@urxion.com</a>
+            </p>
+            <div class="col-lg-3 col-md-4 text-right">
+                <a href="https://linkedin.com" class="tm-social-link">
+                    <i class="fab fa-linkedin fa-2x tm-social-icon"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tooplate-script.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#parallax-1').parallax({ imageSrc: "{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" });
+        });
+    </script>
+</body>
+</html>

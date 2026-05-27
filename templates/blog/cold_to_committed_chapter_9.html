@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cold to Commited Chapter 9: Metrics, Organization, and Workflow</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
+
+    <style>
+        /* Inline CSS for additional styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        .tm-blog-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+        .tm-blog-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Image and text side-by-side */
+        .tm-blog-content {
+            display: flex;
+            align-items: flex-start;
+        }
+        .tm-blog-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .tm-blog-text {
+            flex-grow: 1;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h4 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .tm-strategy-text {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .tm-nav-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #333;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .tm-blog-content {
+                flex-direction: column;
+            }
+            .tm-blog-img {
+                width: 100%;
+                height: auto;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+        <div class="tm-logo" style="background-color: transparent;">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Your Logo" class="tm-logo-img">
+        </div>
+    </div>
+    <div class="tm-nav-container-outer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg" id="tm-main-nav">
+                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
+                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="tm-nav-container-outer">
+<div class="container-fluid">
+<div class="container-fluid">
+<div class="row">
+<div class="col-12">
+<div class="chapter-content"><div>
+<h2>Chapter 9: Metrics, Organization, and Workflow</h2>
+<p>This chapter emphasizes the importance of tracking your progress and managing your workflow for consistent success. It covers:</p>
+<ul>
+<li><strong>Metrics:</strong> Tracking key performance indicators (Activities, Connects, Sets, Completes, Futures, SAOs, Closes) to identify areas for improvement and optimize your efforts.</li>
+<li><strong>Organization:</strong> Creating a structured daily schedule with activity blocks, prioritizing high-value tasks, and minimizing distractions.</li>
+<li><strong>Workflow:</strong> Developing efficient note-taking methods, logging your calls consistently, and using sales enablement tools to streamline your process.</li>
+</ul>
+<h3>Actionable Task 1: Track Your Key Performance Metrics</h3>
+<p>Consistently track your key performance metrics (Activities, Connects, Sets, Completes, Futures, SAOs, Closes) and analyze them regularly to identify areas for improvement.</p>
+<h4>Value:</h4>
+<p>Data-driven analysis provides insights into your strengths and weaknesses, allowing you to adjust your strategies and focus on activities that produce the best results.</p>
+<h4>How:</h4>
+<ol>
+<li><strong>Set up tracking within your CRM or spreadsheet:</strong> Configure your tracking system to capture data for each key metric, making it easy to record your daily progress.</li>
+<li><strong>Analyze your metrics weekly and monthly:</strong> Review your performance data regularly, looking for trends, patterns, and areas where your numbers are significantly above or below average.</li>
+<li><strong>Identify the levers for improvement:</strong> Determine which activities or metrics have the most significant impact on your overall goals and focus on improving those areas strategically.</li>
+</ol>
+<h3>Actionable Task 2: Create a Structured Daily Schedule</h3>
+<p>Develop a structured daily schedule by blocking off time for specific tasks based on your productivity levels, prioritizing high-value activities like cold calling during peak performance hours.</p>
+<h4>Value:</h4>
+<p>A structured schedule maximizes efficiency and ensures you dedicate sufficient time to essential tasks, contributing to greater productivity and consistent progress.</p>
+<h4>How:</h4>
+<ol>
+<li><strong>Create a visual schedule:</strong> Use a calendar, spreadsheet, or whiteboard to create a visual representation of your daily schedule, blocking off specific time slots for each task.</li>
+<li><strong>Prioritize your time based on impact:</strong> Allocate your peak performance hours to the most impactful activities like cold calling, reserving less demanding tasks for less productive times.</li>
+<li><strong>Be flexible and adjust as needed:</strong> Your ideal schedule may require adjustments based on your workload, meetings, or unexpected events. Be willing to adapt your schedule while maintaining the core structure.</li>
+</ol>
+<h3>Actionable Task 3: Develop Concise Note-Taking Methods</h3>
+<p>Implement concise note-taking methods using abbreviations and focusing on key information to optimize your logging efficiency and free up time for other tasks.</p>
+<h4>Value:</h4>
+<p>Efficient note-taking minimizes time spent on administrative tasks and provides valuable insights for future interactions with each account.</p>
+<h4>How:</h4>
+<ol>
+<li><strong>Identify common abbreviations:</strong> Create a list of standard abbreviations for terms like “Decision Maker” (DM), voicemail (VM), left message (LM), or other frequently used phrases.</li>
+<li><strong>Focus on capturing key information:</strong> When taking notes, prioritize capturing essential details like the prospect’s pain points, key objections, and agreed-upon next steps.</li>
+<li><strong>Review and update your notes regularly:</strong> After each call, take a moment to review and refine your notes, adding additional details or insights that may be helpful for future interactions.</li>
+<br><br>
+<br><br>
+<li>
+                                <h3>
+                                    <a href="cold_to_committed_chapter_10">Chapter 10: Strive to Be the Best</a>
+                                </h3>
+                                <ul>
+                                    <li>Motivates embracing the SDR challenges by emphasizing:</li>
+                                    <li>Passion: Embracing the SDR role for skill development.</li>
+                                    <li>Mentorship: Seeking guidance from experienced professionals.</li>
+                                    <li>Full Commitment: Giving 100% effort and viewing challenges as growth opportunities.</li>
+                                </ul>
+</li>
+
+</ol>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="container-fluid">
+<div class="row">
+<p class="col-lg-9 col-md-8 mb-5 mb-md-0">
+                Copyright © 2024 <span class="tm-text-primary">URXION</span>
+                - Contact Us At  <a class="tm-link-primary" href="mailto:Sean.Brennan@urxion.com">Sean.Brennan@urxion.com</a>
+</p>
+<div class="col-lg-3 col-md-4 text-right">
+<a class="tm-social-link" href="https://linkedin.com">
+<i class="fab fa-linkedin fa-2x tm-social-icon"></i>
+</a>
+</div>
+</div>
+</footer>
+<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tooplate-script.js') }}"></script>
+<script>
+        $(document).ready(function () {
+            $('#parallax-1').parallax({ imageSrc: "{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" });
+        });
+    </script>
+</body>
+</html>

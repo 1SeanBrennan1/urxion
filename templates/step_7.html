@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sales Assessment - Profit Target Analysis</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
+    <style>
+        /* Inline CSS for additional styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        .tm-blog-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+        .tm-blog-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .tm-blog-content {
+            display: flex;
+            align-items: flex-start;
+        }
+        .tm-blog-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .tm-blog-text {
+            flex-grow: 1;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h4 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .tm-strategy-text {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .tm-nav-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #333;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .tm-blog-content {
+                flex-direction: column;
+            }
+            .tm-blog-img {
+                width: 100%;
+                height: auto;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+        <div class="tm-logo" style="background-color: transparent;">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Your Logo" class="tm-logo-img">
+        </div>
+    </div>
+    <div class="tm-nav-container-outer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg" id="tm-main-nav">
+                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
+                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container tm-content-container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="tm-analysis-title text-center">Step 6: Profit Target Analysis</h2>
+                <p class="text-center mb-3">Let's analyze the sales activity needed to reach your profit goals for both internal and external sales models.</p>
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">Important Note:</h4>
+                    <p>This analysis provides a simplified model for comparison purposes. In real-world scenarios:</p>
+                    <ul>
+                        <li>Fixed costs often increase as sales volume grows (e.g., need for additional staff or infrastructure).</li>
+                        <li>Cost per sale typically decreases with higher volumes due to economies of scale.</li>
+                        <li>Variable costs may change based on order size or customer segments.</li>
+                    </ul>
+                    <p class="mb-0">These factors can significantly impact actual profitability and break-even points. Consider consulting with a financial advisor for a more detailed analysis tailored to your specific business situation.</p>
+                </div>
+            </div>
+        </div>
+
+        {% for profit_target in [100000, 1000000] %}
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3 class="tm-profit-target text-center">${{ "{:,}".format(profit_target) }} Profit Target</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="tm-analysis-card">
+                    <h4 class="tm-analysis-subtitle">Internal Team</h4>
+                    <p class="tm-scenario">Best-Case Scenario</p>
+                    <p>Orders Needed: <span class="tm-analysis-value">{{ "{:,.0f}".format(best_case_internal[profit_target]['orders']) }}</span></p>
+                    <p>Leads Needed: <span class="tm-analysis-value">{{ "{:,.0f}".format(best_case_internal[profit_target]['leads']) }}</span></p>
+                    <p>Cold Calls Needed: <span class="tm-analysis-value">{{ "{:,.0f}".format(best_case_internal[profit_target]['cold_calls']) }}</span></p>
+
+                    <p class="tm-scenario mt-4">Worst-Case Scenario</p>
+                    <p>Orders Needed: <span class="tm-analysis-value">{{ "{:,.0f}".format(worst_case_internal[profit_target]['orders']) }}</span></p>
+                    <p>Leads Needed: <span class="tm-analysis-value">{{ "{:,.0f}".format(worst_case_internal[profit_target]['leads']) }}</span></p>
+                    <p>Cold Calls Needed: <span class="tm-analysis-value">{{ "{:,.0f}".format(worst_case_internal[profit_target]['cold_calls']) }}</span></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="tm-analysis-card">
+                    <h4 class="tm-analysis-subtitle">External Team (Urxion)</h4>
+                    <p class="tm-scenario">Best-Case Scenario</p>
+                    <p>Leads Needed: <span class="tm-analysis-value">{{ "{:,.0f}".format(best_case_external[profit_target]['leads']) }}</span></p>
+                    <p>Cold Calls Needed: <span class="tm-analysis-value">{{ "{:,.0f}".format(best_case_external[profit_target]['cold_calls']) }}</span></p>
+
+                    <p class="tm-scenario mt-4">Worst-Case Scenario</p>
+                    <p>Leads Needed: <span class="tm-analysis-value">{{ "{:,.0f}".format(worst_case_external[profit_target]['leads']) }}</span></p>
+                    <p>Cold Calls Needed: <span class="tm-analysis-value">{{ "{:,.0f}".format(worst_case_external[profit_target]['cold_calls']) }}</span></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    <h4 class="alert-heading">Interpretation Guidance:</h4>
+                    <p>The numbers presented above are based on the initial inputs and assumptions. In practice:</p>
+                    <ul>
+                        <li>As sales volume increases, you may need to hire additional staff or expand infrastructure, increasing fixed costs.</li>
+                        <li>With higher volumes, you might negotiate better rates with suppliers or optimize processes, potentially reducing variable costs per unit.</li>
+                        <li>The external team (Urxion) model may offer more flexibility in scaling up or down based on demand.</li>
+                    </ul>
+                    <p class="mb-0">Consider these factors when evaluating the feasibility of reaching these profit targets with each approach.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <form method="POST" action="{{ url_for('step_7') }}">
+                    <!-- Add hidden inputs for passing data to the next step -->
+                    <!--<button type="submit" class="tm-btn-next">Proceed to Final Recommendation</button-->>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer class="container-fluid">
+        <div class="row">
+            <p class="col-lg-9 col-md-8 mb-5 mb-md-0">
+                Copyright © 2024 <span class="tm-text-primary">URXION</span>
+                - Contact Us At  <a href="mailto:Sean.Brennan@urxion.com" class="tm-link-primary">Sean.Brennan@urxion.com</a>
+            </p>
+            <div class="col-lg-3 col-md-4 text-right">
+                <a href="https://linkedin.com" class="tm-social-link">
+                    <i class="fab fa-linkedin fa-2x tm-social-icon"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tooplate-script.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#parallax-1').parallax({ imageSrc: "{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" });
+
+            var projectedOrdersInternalSlider = document.getElementById('projected-orders-internal-slider');
+            var projectedOrdersExternalSlider = document.getElementById('projected-orders-external-slider');
+            var annualProfitInternal = {{ annual_profit_internal }};
+            var annualProfitExternal = {{ annual_profit_external }};
+
+            function updateInternalProfit() {
+                var projectedOrders = projectedOrdersInternalSlider.value;
+                var annualProfit = annualProfitInternal * (projectedOrders / {{ projected_orders_internal }});
+                document.getElementById('annual-profit-internal').textContent = annualProfit.toFixed(2);
+            }
+
+            function updateExternalProfit() {
+                var projectedOrders = projectedOrdersExternalSlider.value;
+                var annualProfit = annualProfitExternal * (projectedOrders / {{ projected_orders_external }});
+                document.getElementById('annual-profit-external').textContent = annualProfit.toFixed(2);
+            }
+
+            projectedOrdersInternalSlider.addEventListener('input', updateInternalProfit);
+            projectedOrdersExternalSlider.addEventListener('input', updateExternalProfit);
+
+            updateInternalProfit();
+            updateExternalProfit();
+        });
+    </script>
+</body>
+</html>

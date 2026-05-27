@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>How to Write a Cold Call Script</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
+
+
+    <style>
+        /* Inline CSS for additional styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        .tm-blog-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+        .tm-blog-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Image and text side-by-side */
+        .tm-blog-content {
+            display: flex;
+            align-items: flex-start;
+        }
+        .tm-blog-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .tm-blog-text {
+            flex-grow: 1;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h4 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .tm-strategy-text {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .tm-nav-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #333;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .tm-blog-content {
+                flex-direction: column;
+            }
+            .tm-blog-img {
+                width: 100%;
+                height: auto;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+
+<head>
+<body>
+    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+        <div class="tm-logo" style="background-color: transparent;">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Your Logo" class="tm-logo-img">
+        </div>
+    </div>
+    <div class="tm-nav-container-outer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg" id="tm-main-nav">
+                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
+                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div>
+    Here is the complete outline with all sections filled in:
+<div>
+<h1>The Ultimate Guide to Cold Calling for Startups</h1>
+<div>
+<h2>I. Introduction</h2>
+<h3>Josh Braun's Approach</h3>
+<p>Start with a hook to grab attention, then introduce yourself and your company</p>
+<ul>
+<li>Example: "Are you tired of [common problem]?"</li>
+<li>Pros: grabs attention quickly, sets the tone for the call</li>
+<li>Cons: may come across as too salesy, doesn't personalize the call</li>
+</ul>
+<h3>Cold to Committed's Approach</h3>
+<p>Start with a personalized statement, then introduce yourself and your company</p>
+<ul>
+<li>Example: "I saw that [company] is [briefly mention something relevant]"</li>
+<li>Pros: personalizes the call, shows you've done research</li>
+<li>Cons: may take too long to get to the point, requires research</li>
+</ul>
+<h3>Sandler's Approach</h3>
+<p>Start with a question to pique interest, then introduce yourself and your company</p>
+<ul>
+<li>Example: "What's the biggest challenge you're facing with [specific area]?"</li>
+<li>Pros: encourages engagement, gets the prospect thinking</li>
+<li>Cons: may not work if the question is too vague, requires active listening</li>
+</ul>
+</div>
+<div>
+<h2>II. Handling Initial Objections</h2>
+<h3>Josh Braun's Approach</h3>
+<p>Acknowledge the objection, then pivot to a question or statement</p>
+<ul>
+<li>Example: "I understand you're busy, but can I ask, are you happy with your current [solution]?"</li>
+<li>Pros: addresses the objection directly, keeps the conversation moving</li>
+<li>Cons: may come across as dismissive, doesn't fully address the concern</li>
+</ul>
+<h3>Cold to Committed's Approach</h3>
+<p>Empathize with the prospect, then offer a solution or alternative</p>
+<ul>
+<li>Example: "I understand you're on a tight budget, but have you considered [alternative solution]?"</li>
+<li>Pros: shows understanding, offers a solution</li>
+<li>Cons: may take too long to get to the solution, requires active listening</li>
+</ul>
+<h3>Sandler's Approach</h3>
+<p>Use the Feel-Felt-Found framework to acknowledge and address the objection</p>
+<ul>
+<li>Example: "I understand you feel [emotion], and many of our clients have felt the same way. They've found that [solution] has helped them [achieve desired outcome]."
+
+<div>
+<h2>III. Presenting Value and Building Interest</h2>
+<h3>Josh Braun's Approach</h3>
+<p>Focus on the benefits and results of your solution</p>
+<ul>
+<li>Example: "Our solution has helped companies like yours increase [desirable metric] by [percentage]."</li>
+<li>Pros: clearly communicates value, focuses on results</li>
+<li>Cons: may come across as too focused on features, doesn't build rapport</li>
+</ul>
+<h3>Cold to Committed's Approach</h3>
+<p>Use storytelling to illustrate the value and impact of your solution</p>
+<ul>
+<li>Example: "One of our clients was struggling with [common problem], but after implementing our solution, they were able to [achieve desired outcome]." </li>
+<li>Pros: builds rapport, makes the solution more relatable</li>
+<li>Cons: may take too long to get to the point, requires good storytelling skills</li>
+</ul>
+<h3>Sandler's Approach</h3>
+<p>Use the Pain-Pleasure-Priority framework to understand the prospect's motivations</p>
+<ul>
+<li>Example: "Can you tell me more about what's causing you pain in your current [process/system]?"</li>
+<li>Pros: helps understand the prospect's motivations, builds rapport</li>
+<li>Cons: may take too long to get to the solution, requires active listening</li>
+</ul>
+</div>
+<div>
+<h2>IV. Handling Further Objections and Concerns</h2>
+<!-- repeat the format for each section -->
+</div>
+<div>
+<h2>V. Closing and Next Steps</h2>
+<!-- repeat the format for each section -->
+</div>
+</div>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DispatchAI for Plumbers | Urxion</title>
+    <meta name="description" content="DispatchAI's AI Receptionist turns your missed calls into booked jobs, automatically. Become a Founding Partner and get an unbeatable offer from Urxion.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
+
+    <style>
+        :root {
+            --primary: #1e40af; --primary-dark: #1e3a8a; --secondary: #3b82f6; --accent: #60a5fa;
+            --light: #f8fafc; --dark: #0f172a; --text-light: #f8fafc; --text-dark: #1e293b;
+            --color-primary: var(--dark); --color-secondary: var(--text-dark); --color-accent: var(--primary);
+            --color-accent-hover: var(--primary-dark); --color-background: var(--light); --color-white: #ffffff;
+            --color-highlight-bg: #ebf8ff; --color-highlight-border: #63b3ed; --font-family-base: 'Inter', sans-serif;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-family-base); background-color: var(--color-background); color: var(--text-dark); line-height: 1.6; font-size: 18px; }
+        .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; }
+        h1, h2 { font-weight: 900; color: var(--color-primary); line-height: 1.2; margin-bottom: 24px; text-align: center; }
+        h1 { font-size: 52px; }
+        h2 { font-size: 40px; }
+        p { margin-bottom: 20px; max-width: 720px; margin-left: auto; margin-right: auto; }
+        .text-center { text-align: center; }
+        .nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); padding: 1rem 2rem; z-index: 1000; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #e2e8f0; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; gap: 3rem; }
+        .logo-container { height: 75px; width: 75px; display: flex; align-items: center; }
+        .tm-logo-img { height: 100%; width: 100%; color: var(--primary); }
+        .nav-links { display: flex; gap: 2rem; justify-content: flex-end; }
+        .nav-links a { color: var(--dark); text-decoration: none; font-weight: 500; }
+        .cta-button { display: inline-block; background-color: var(--color-accent); color: var(--color-white); padding: 16px 32px; font-size: 18px; font-weight: 700; text-decoration: none; border-radius: 8px; transition: background-color 0.3s ease, transform 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .cta-button:hover { background-color: var(--color-accent-hover); transform: translateY(-2px); }
+        .secondary-cta { display: block; margin-top: 20px; color: var(--color-accent); font-weight: 600; text-decoration: none; }
+        .secondary-cta:hover { text-decoration: underline; }
+        .hero { background-color: var(--color-white); padding: 80px 0; text-align: center; }
+        .hero h1 { max-width: 800px; margin-left: auto; margin-right: auto; }
+        .hero p { font-size: 20px; color: var(--color-secondary); margin-bottom: 40px; }
+        #offer { background-color: var(--color-white); }
+        .offer-list { list-style: none; max-width: 800px; margin: 40px auto 0; padding: 0; }
+        .offer-list li { display: flex; align-items: flex-start; gap: 15px; font-size: 18px; padding: 24px; margin-bottom: 16px; border-left: 5px solid var(--text-dark); background-color: #edf2f7; border-radius: 0 8px 8px 0; }
+        .offer-list li.highlight { background-color: var(--color-highlight-bg); border-color: var(--color-highlight-border); }
+        .offer-list li svg { flex-shrink: 0; width: 28px; height: 28px; margin-top: 5px; color: var(--color-accent); }
+        .offer-list li strong { display: block; font-size: 20px; font-weight: 700; color: var(--color-primary); margin-bottom: 8px; }
+        .scarcity-tracker { max-width: 720px; margin: 40px auto 0; text-align: center; }
+        .progress-bar-container { background-color: #e2e8f0; border-radius: 8px; height: 12px; width: 100%; overflow: hidden; margin-bottom: 10px; }
+        .progress-bar { background-color: var(--color-accent); height: 100%; border-radius: 8px; transition: width 0.5s ease-in-out; }
+        .progress-text { font-weight: 700; color: var(--color-primary); }
+        #how-it-works { text-align: center; }
+        #how-it-works .proof-container { max-width: 400px; margin: 40px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-radius: 20px; overflow: hidden; border: 4px solid var(--color-white); }
+        #how-it-works img { display: block; width: 100%; height: auto; }
+        .setup-grid { display: flex; justify-content: space-around; gap: 40px; margin-top: 60px; }
+        .setup-item { text-align: center; flex-basis: 30%; }
+        .setup-item svg { width: 64px; height: 64px; margin-bottom: 20px; color: var(--color-accent); }
+        .setup-item h3 { font-size: 22px; font-weight: 700; color: var(--color-primary); margin-bottom: 10px; }
+        #book-demo { background-color: var(--dark); color: var(--color-background); }
+        #book-demo h2 { color: var(--color-white); }
+        #book-demo .container > p { color: #a0aec0; }
+        .calendar-wrapper { background-color: var(--color-white); border-radius: 12px; padding: 15px; margin-top: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .founder-box { display: flex; align-items: center; justify-content: center; gap: 20px; max-width: 720px; margin: 60px auto 0; background-color: var(--color-primary); padding: 20px; border-radius: 8px; }
+        .founder-box img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--accent); }
+        .founder-box p { color: var(--color-background); font-style: italic; margin-bottom: 0; text-align: left; }
+
+        @media (max-width: 768px) {
+            body { font-size: 16px; } h1 { font-size: 36px; } h2 { font-size: 30px; }
+            .nav-links { display: none; }
+            .setup-grid { flex-direction: column; align-items: center; }
+            .founder-box { flex-direction: column; text-align: center; }
+            .founder-box p { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="{{ url_for('index') }}" class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="tm-logo-img">
+                    <path d="M140 80 L260 80 L260 100 L240 100 L240 240 Q240 270, 200 270 Q160 270, 160 240 L160 100 L140 100 L140 250 Q140 300, 200 300 Q260 300, 260 250 L260 100 L240 100 L240 80 L280 80 L280 250 Q280 320, 200 320 Q120 320, 120 250 L120 80 Z M180 120 L220 120 L220 230 Q220 250, 200 250 Q180 250, 180 230 Z" fill="currentColor"/>
+                    <polygon points="270,60 290,60 290,80" fill="currentColor"/>
+                </svg>
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('cold_calling') }}">Cold Calling That Converts</a>
+                <a href="{{ url_for('business_assessment') }}">Business Assessment</a>
+                <a href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
+                <a href="{{ url_for('demo') }}">Schedule a Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>The Most Expensive Sound in Your Business Isn't a Burst Pipe. It's a Ringing Phone You Can't Answer.</h1>
+            <p>You know the moment. You’re under a sink, hands covered in grime, and your phone buzzes. It could be a new customer with a four-figure emergency. But you can't answer. They call the next name on the list, and the opportunity is gone forever.</p>
+            <a href="#offer" class="cta-button">See the Founding Partner Offer</a>
+            <a href="#how-it-works" class="secondary-cta">Or, see how it works in 60 seconds</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="offer">
+            <div class="container">
+                <h2 class="text-center">An Offer For Our First 15 Founding Partners.</h2>
+                <div class="scarcity-tracker">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 13.33%;"></div>
+                    </div>
+                    <p class="progress-text">Only 13 of 15 spots left!</p>
+                </div>
+                <ul class="offer-list">
+                    <li class="highlight">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <div><strong>1. A Zero-Risk Performance Guarantee.</strong> Your first 60 days are free. We set everything up. If our system doesn't book you a paying job, you walk away owing nothing. Your subscription only begins *after* that first job is booked. We don't get paid until you do.</div>
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <div><strong>2. A Locked-In Founder's Rate.</strong> Our standard rate will be $199/month. As a Founding Partner, your rate is locked in at just $75/month. You save over $1,400 every year, forever.</div>
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        <div><strong>3. VIP Founder Support.</strong> You get my personal cell number. If you have a problem or an idea, you call me directly. No support tickets, no waiting. You are always at the front of the line.</div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <div class="container">
+                <h2 class="text-center">From Missed Call to Booked Job.</h2>
+                <div class="proof-container">
+                    <img src="{{ url_for('static', filename='img/dispatchai-demo.gif') }}" alt="Animation showing DispatchAI booking a job on a phone.">
+                </div>
+            </div>
+        </section>
+
+        <section id="setup" style="background-color: var(--color-white);">
+            <div class="container">
+                <h2 class="text-center">Set Up in 10 Minutes. Keep Your Existing Number.</h2>
+                <div class="setup-grid">
+                    <div class="setup-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18" /></svg>
+                        <h3>1. Connect Your Calendar</h3>
+                        <p>Authorize Google or Microsoft Calendar with two clicks. The AI only suggests times you've marked as available.</p>
+                    </div>
+                    <div class="setup-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg>
+                        <h3>2. Set Your Greeting</h3>
+                        <p>Use our proven template or write your own custom message.</p>
+                    </div>
+                    <div class="setup-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-6-6" /></svg>
+                        <h3>3. Forward When Busy</h3>
+                        <p>We show you how to enable "Conditional Call Forwarding" in 60 seconds. This simply sends calls to the AI *only when you don't answer*. <strong>Your business number never changes.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="book-demo">
+            <div class="container text-center">
+                <h2>Claim Your Founding Partner Spot.</h2>
+                <p>This tech will be standard in a few years—but as a Founding Partner, you get a permanent head start. Book a 15-minute demo to see it live.</p>
+
+                <div class="calendar-wrapper">
+                    <!-- Google Calendar Appointment Scheduling begin -->
+                    <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2j73kXbjNNRnFLL65x53XWKMnlSM8elrVsM2mIogFi8d2R8ycXr9M34Pp38jPpmPmnndF_jzru?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+                    <!-- end Google Calendar Appointment Scheduling -->
+                </div>
+
+                <div class="founder-box">
+                    <img src="{{ url_for('static', filename='img/sean pic.png') }}" alt="Headshot of Sean Brennan, Founder of Urxion">
+                    <p>“I built DispatchAI after seeing family in the trades lose thousands to voicemail. As a Founding Partner, your success is my personal guarantee. You get my direct line.”<br><strong>- Sean Brennan, Founder of Urxion</strong></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="background: var(--dark); color: white; padding: 2rem;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p>© 2024 Urxion. All rights reserved.</p>
+                <a href="/privacy" style="color: white; margin-right: 1rem;">Privacy Policy</a>
+                <a href="/terms" style="color: white;">Terms of Use</a>
+            </div>
+            <a href="https://www.linkedin.com/in/1seanbrennan1/" style="color: white;">
+                <i class="fab fa-linkedin fa-2x"></i>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Defer non-critical scripts -->
+    <script defer src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>
