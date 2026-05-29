@@ -451,13 +451,13 @@ def _score(opportunity: dict[str, Any], company_info: str) -> tuple[int, list[st
             domain_reasons.append(
                 f"Domain fit ({label}): {', '.join(domain_overlap[:3])}"
             )
-    if opportunity.get("source_status") == "source_linked":
+    if opportunity.get("source_status") == "source_linked" and score > 0:
         score += 10
     reasons = domain_reasons + [
         f"Keyword match: {term}" for term in (priority_overlap or overlap)[:4]
     ]
     if not reasons:
-        reasons = ["General public-sector fit based on limited public listing text"]
+        reasons = ["No strong keyword match. Add more company details or paste the full RFP for a better recommendation."]
     return score, reasons[:5]
 
 
@@ -473,19 +473,47 @@ def ranked_opportunities(
         }
     else:
         payload = load_opportunity_cache(refresh_if_stale=True)
-        if not payload.get("opportunities"):
+        live_opportunities = payload.get("opportunities") or []
+        combined: list[dict[str, Any]] = []
+        seen_ids: set[str] = set()
+        for opportunity in list(live_opportunities) + SAMPLE_OPPORTUNITIES:
+            opportunity_id = str(opportunity.get("id") or opportunity.get("source_url") or opportunity.get("title"))
+            if opportunity_id in seen_ids:
+                continue
+            seen_ids.add(opportunity_id)
+            combined.append(opportunity)
+        payload = {**payload, "opportunities": combined, "count": len(combined)}
+        if not combined:
             payload = {
                 "version": 1,
                 "fetched_at": None,
                 "count": len(SAMPLE_OPPORTUNITIES),
                 "opportunities": SAMPLE_OPPORTUNITIES,
             }
+    company_terms = set(_keywords(company_info))
+    limited_context = len(company_terms) < 4
     ranked = []
     for opportunity in payload.get("opportunities", []):
         item = dict(opportunity)
         score, reasons = _score(item, company_info)
         item["fit_score"] = score
+        if score >= 80:
+            item["fit_confidence"] = "strong"
+        elif score >= 30:
+            item["fit_confidence"] = "possible"
+        else:
+            item["fit_confidence"] = "weak"
         item["match_reasons"] = reasons
         ranked.append(item)
     ranked.sort(key=lambda item: item.get("fit_score", 0), reverse=True)
-    return ranked[:limit], payload
+    meta = {
+        **payload,
+        "limited_context": limited_context,
+        "context_terms_count": len(company_terms),
+        "guidance": (
+            "Only a few keywords were supplied. Add project examples, certifications, service area, buyer type, and constraints, or paste the full RFP on the next page."
+            if limited_context
+            else "Recommendations are based on the company context supplied and limited public listing text."
+        ),
+    }
+    return ranked[:limit], meta

@@ -1653,7 +1653,6 @@ def try_rfp():
         ), 429
     company_name = request.form.get("company_name", "").strip() or "Demo Company"
     company_info = request.form.get("company_info", "").strip()
-    pasted_rfp = request.form.get("rfp_text", "").strip()
     email = request.form.get("email", "").strip().lower()
     if not email or "@" not in email:
         return render_template(
@@ -1666,29 +1665,23 @@ def try_rfp():
     run_id = secrets.token_hex(8)
     run_dir = _rfp_demo_run_dir(run_id)
     run_dir.mkdir(parents=True, exist_ok=True)
-    if pasted_rfp:
-        opportunities = [_rfp_demo_opportunity_from_pasted_rfp(pasted_rfp)]
-        cache_meta = {
-            "fetched_at": None,
-            "count": 1,
-            "mode": "pasted_rfp",
-        }
-    else:
-        opportunities, cache_meta = ranked_opportunities(
-            company_info, testing=app.config.get("TESTING", False)
-        )
+    opportunities, cache_meta = ranked_opportunities(
+        company_info, testing=app.config.get("TESTING", False)
+    )
     state = {
         "run_id": run_id,
         "company_name": company_name,
         "email_domain": email.split("@")[-1],
         "company_info": company_info,
-        "rfp_text": pasted_rfp,
+        "rfp_text": "",
         "created_at": datetime.now(UTC).isoformat(),
         "opportunities": opportunities,
         "cache_meta": {
             "fetched_at": cache_meta.get("fetched_at"),
             "count": cache_meta.get("count"),
             "mode": cache_meta.get("mode", "public_listing_match"),
+            "limited_context": cache_meta.get("limited_context", False),
+            "guidance": cache_meta.get("guidance", ""),
         },
     }
     _rfp_demo_state_path(run_id).write_text(
@@ -1713,6 +1706,11 @@ def try_rfp_select(run_id, opportunity_id):
     opportunity = _rfp_demo_find_opportunity(state or {}, opportunity_id)
     if not state or not opportunity:
         abort(404)
+    pasted_rfp = request.form.get("rfp_text", "").strip()
+    if pasted_rfp:
+        opportunity = _rfp_demo_opportunity_from_pasted_rfp(pasted_rfp)
+        state["rfp_text"] = pasted_rfp
+        state["cache_meta"]["mode"] = "pasted_rfp"
     try:
         package = _rfp_demo_build_package(
             state["company_name"], state["company_info"], opportunity

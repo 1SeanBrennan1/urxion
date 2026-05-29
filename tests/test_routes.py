@@ -163,7 +163,8 @@ def test_try_demo_routes_render(client):
     assert "URXION RFP demo" in rfp_body
     assert "Find Matching RFPs" in rfp_body
     assert "public demo is intentionally simple" in rfp_body
-    assert "paste full RFP or solicitation text" in rfp_body
+    assert 'name="rfp_text"' not in rfp_body
+    assert "Use construction sample" in rfp_body
 
     compliance_response = client.get("/try-compliance")
     compliance_body = compliance_response.get_data(as_text=True)
@@ -224,9 +225,11 @@ def test_try_rfp_public_demo_can_run_and_download(client):
     opportunities_response = client.get(opportunities_path)
     opportunities_body = opportunities_response.get_data(as_text=True)
     assert opportunities_response.status_code == 200
-    assert "Choose One Matched Public Opportunity" in opportunities_body
+    assert "Choose a starting opportunity" in opportunities_body
     assert "Generate Package" in opportunities_body
     assert "Sample fallback" in opportunities_body
+    assert "Optional full RFP text for this package" in opportunities_body
+    assert "Recommendation confidence" in opportunities_body
 
     run_id = opportunities_path.rstrip("/").split("/")[-1]
     select_response = client.post(
@@ -263,18 +266,26 @@ def test_try_rfp_public_demo_can_use_pasted_rfp_text(client):
             "email": "demo@example.com",
             "company_name": "Demo Construction Co.",
             "company_info": "We are a general contractor with WSIB, insurance, bonding, safety procedures, and municipal renovation experience.",
-            "rfp_text": """Project: Community Centre Renovation\nDeadline: 2026-03-31\nThe bidder must provide WSIB clearance and insurance.\nThe bidder shall describe occupied facility renovation experience.\nSubmit construction schedule, safety plan, subcontractor management process, pricing, and references.""",
         },
         follow_redirects=False,
     )
     assert response.status_code == 302
     opportunities_path = response.headers["Location"]
-    opportunities_response = client.get(opportunities_path)
-    opportunities_body = opportunities_response.get_data(as_text=True)
-    assert opportunities_response.status_code == 200
-    assert "Use Your Pasted RFP" in opportunities_body
-    assert "Community Centre Renovation" in opportunities_body
-    assert "Better demo mode" in opportunities_body
+    run_id = opportunities_path.rstrip("/").split("/")[-1]
+
+    select_response = client.post(
+        f"/try-rfp/select/{run_id}/sample-on-construction-004",
+        data={
+            "rfp_text": """Project: Community Centre Renovation\nDeadline: 2026-03-31\nThe bidder must provide WSIB clearance and insurance.\nThe bidder shall describe occupied facility renovation experience.\nSubmit construction schedule, safety plan, subcontractor management process, pricing, and references."""
+        },
+        follow_redirects=False,
+    )
+    assert select_response.status_code == 302
+    results_response = client.get(select_response.headers["Location"])
+    results_body = results_response.get_data(as_text=True)
+    assert results_response.status_code == 200
+    assert "Community Centre Renovation" in results_body
+    assert "Construction compliance evidence" in results_body
 
 
 def test_rfp_matching_prioritizes_construction_for_construction_context():

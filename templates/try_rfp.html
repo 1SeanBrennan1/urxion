@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block title %}Try URXION RFP | Public demo{% endblock %}
-{% block meta_description %}Run the URXION RFP public demo with either public listing matching or pasted RFP text for a better preview.{% endblock %}
+{% block meta_description %}Run the URXION RFP public demo: describe your company, choose a sample or matched opportunity, then optionally paste the full RFP before generating the package.{% endblock %}
 {% block hero %}
 <section class="hero">
     <div class="container hero-grid">
         <div>
             <div class="eyebrow">URXION RFP demo</div>
-            <h1>Try a lightweight RFP workflow before a full build.</h1>
-            <p class="lead">This public demo uses a simpler demo setup and limited public listing text. Production URXION workflows use stronger models, complete RFP documents, your evidence package, and tighter human review gates.</p>
+            <h1>Start with your company. Add the RFP when you generate.</h1>
+            <p class="lead">This public demo first finds likely-fit opportunities from your company context. On the next page, paste the full RFP or solicitation text before generating the package if the public listing does not include enough detail.</p>
         </div>
         <div class="hero-panel">
             <div class="flow">
-                <div class="flow-step"><div class="flow-num">1</div><div>Paste company capability context</div></div>
-                <div class="flow-step"><div class="flow-num">2</div><div>Optional: paste the full RFP for a better demo</div></div>
-                <div class="flow-step"><div class="flow-num">3</div><div>Generate a review-ready preview package</div></div>
+                <div class="flow-step"><div class="flow-num">1</div><div>Describe your company or use a sample profile</div></div>
+                <div class="flow-step"><div class="flow-num">2</div><div>Choose a matched/sample opportunity</div></div>
+                <div class="flow-step"><div class="flow-num">3</div><div>Optional: paste full RFP text before generating</div></div>
             </div>
         </div>
     </div>
@@ -22,15 +22,22 @@
 {% block content %}
 <section class="section">
     <div class="container grid-2">
-        <div class="card">
+        <div class="card demo-form-card">
             <div class="eyebrow">Start demo</div>
-            <h2>Use matching or paste the actual RFP.</h2>
+            <h2>Tell URXION what your company does.</h2>
+            <p class="muted">If you only type one word like construction, the match will be weak. Use a sample profile below or add details like project type, certifications, insurance, location, team, and past work.</p>
             {% if error %}<p class="founder-note">{{ error }}</p>{% endif %}
-            <form method="post">
-                <div class="form-group"><label for="email">Email</label><input id="email" name="email" type="email" class="form-control" required placeholder="you@company.com"></div>
-                <div class="form-group"><label for="company_name">Company name</label><input id="company_name" name="company_name" class="form-control" required placeholder="Example Company"></div>
-                <div class="form-group"><label for="company_info">Company info, past work, certifications, or capabilities</label><textarea id="company_info" name="company_info" class="form-control" required rows="10" placeholder="Paste a capability statement, project summaries, certifications, services, team experience, safety/security evidence, or reference notes."></textarea></div>
-                <div class="form-group"><label for="rfp_text">Optional: paste full RFP or solicitation text for a better demo</label><textarea id="rfp_text" name="rfp_text" class="form-control" rows="10" placeholder="If the public posting requires login or only shows a summary, paste the RFP scope, requirements, evaluation criteria, mandatory forms, and submission instructions here."></textarea></div>
+            <form method="post" class="demo-form">
+                <div class="form-grid-2">
+                    <div class="form-group"><label for="email">Email</label><input id="email" name="email" type="email" class="form-control" required placeholder="you@company.com"></div>
+                    <div class="form-group"><label for="company_name">Company name</label><input id="company_name" name="company_name" class="form-control" required placeholder="Example Company"></div>
+                </div>
+                <div class="sample-buttons" aria-label="Sample company profiles">
+                    <button type="button" class="btn-secondary sample-fill" data-target="company_info" data-value="We are a general contractor serving Ontario municipalities. We complete occupied facility renovations, accessibility upgrades, concrete repairs, scheduling, subcontractor coordination, deficiency closeout, and site safety management. We maintain WSIB clearance, commercial liability insurance, bonding capacity, supervisor training, and municipal references.">Use construction sample</button>
+                    <button type="button" class="btn-secondary sample-fill" data-target="company_info" data-value="We provide IT consulting for public-sector teams, including cloud migration, data analytics, workflow automation, Python and Flask applications, security review support, documentation, training, and implementation governance. We have experience with evidence mapping, approval gates, privacy-aware workflows, and support handoff.">Use IT sample</button>
+                    <button type="button" class="btn-secondary sample-fill" data-target="company_info" data-value="We provide facilities cleaning and janitorial services for public buildings, including staffing plans, supervisor inspections, health and safety training, supply management, issue escalation, quality reporting, WSIB clearance, insurance, and continuity planning.">Use facility services sample</button>
+                </div>
+                <div class="form-group"><label for="company_info">Company info, past work, certifications, or capabilities</label><textarea id="company_info" name="company_info" class="form-control" required rows="10" placeholder="Example: We are a general contractor in Ontario with WSIB, insurance, bonding, occupied facility renovation experience, accessibility upgrade work, safety procedures, and municipal references."></textarea></div>
                 <button class="btn-primary" type="submit">Find Matching RFPs</button>
             </form>
         </div>
@@ -40,7 +47,7 @@
             <ul>
                 <li>Public opportunity matching uses cached listing snippets and sample fallbacks.</li>
                 <li>Many official RFPs require login, attachments, or buyer portals to access full documents.</li>
-                <li>Pasting the actual RFP gives a better preview because URXION can use your supplied requirements directly.</li>
+                <li>You paste the actual RFP on the next page, right before generating the package.</li>
                 <li>Production workflows use stronger models, full RFP packages, source files, evidence folders, and deeper review.</li>
                 <li>No demo output should be used as a final bid without human review.</li>
             </ul>
@@ -48,4 +55,14 @@
         </div>
     </div>
 </section>
+{% endblock %}
+{% block scripts %}
+<script>
+    document.querySelectorAll('.sample-fill').forEach((button) => {
+        button.addEventListener('click', () => {
+            const target = document.getElementById(button.dataset.target);
+            if (target) target.value = button.dataset.value;
+        });
+    });
+</script>
 {% endblock %}

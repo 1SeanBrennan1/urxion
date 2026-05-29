@@ -5,8 +5,9 @@
     <div class="container hero-grid">
         <div>
             <div class="eyebrow">URXION RFP demo</div>
-            <h1>{% if state.cache_meta.mode == 'pasted_rfp' %}Use Your Pasted RFP.{% else %}Choose One Matched Public Opportunity.{% endif %}</h1>
-            <p class="lead">{% if state.cache_meta.mode == 'pasted_rfp' %}You pasted solicitation text, so this demo will use that text directly instead of relying on limited public listings.{% else %}URXION ranked cached public tender listings and sample fallbacks against your company context. If results feel generic, paste the full RFP on the previous page for a better demo.{% endif %}</p>
+            <h1>Choose a starting opportunity.</h1>
+            <p class="lead">These are recommendations from your company context and limited public listing text. Paste the full RFP in the selected card before generating if the posting summary is not enough.</p>
+            {% if state.cache_meta.guidance %}<p class="founder-note">{{ state.cache_meta.guidance }}</p>{% endif %}
             {% if state.cache_meta.fetched_at %}<p class="muted">Opportunity cache last refreshed: {{ state.cache_meta.fetched_at }}</p>{% endif %}
         </div>
         <div class="hero-panel"><div class="metric">{{ state.opportunities|length }}</div><p class="muted">RFP option{% if state.opportunities|length != 1 %}s{% endif %} shown</p></div>
@@ -18,18 +19,21 @@
 <section class="section">
     <div class="container grid-3">
         {% for opp in state.opportunities %}
-        <div class="card">
+        <div class="card opportunity-card">
             <div class="eyebrow">{{ opp.source_name }} · {{ opp.source_status }}</div>
             <h2>{{ opp.title }}</h2>
             <p class="muted">Agency: {{ opp.agency }}</p>
             <p class="muted">Deadline: {{ opp.deadline }} · Value: {{ opp.estimated_value }}</p>
             <p>{{ opp.summary }}</p>
-            <p class="muted">Fit score: {{ opp.fit_score }}</p>
+            <p><span class="badge">Recommendation confidence: {{ opp.fit_confidence|default('possible') }}</span></p>
             {% if opp.match_reasons %}<ul>{% for reason in opp.match_reasons %}<li>{{ reason }}</li>{% endfor %}</ul>{% endif %}
-            {% if opp.source_status == 'sample_fallback' %}<p class="founder-note">Sample fallback only. Public listings are limited; paste a full RFP for a better demo.</p>{% endif %}
-            {% if opp.source_status == 'pasted_full_text' %}<p class="founder-note">Better demo mode: using your pasted RFP text.</p>{% endif %}
+            {% if opp.fit_confidence == 'weak' %}<p class="founder-note">Weak match. Add more company details next time or paste the full RFP below before generating.</p>{% endif %}
+            {% if opp.source_status == 'sample_fallback' %}<p class="founder-note">Sample fallback. This is useful for testing, but a real pasted RFP gives a better package.</p>{% endif %}
             <div class="actions">{% if opp.source_url %}<a class="btn-secondary" href="{{ opp.source_url }}">Open source posting</a>{% endif %}</div>
-            <form method="post" action="{{ url_for('try_rfp_select', run_id=state.run_id, opportunity_id=opp.id) }}"><button class="btn-primary" type="submit">Generate Package</button></form>
+            <form method="post" action="{{ url_for('try_rfp_select', run_id=state.run_id, opportunity_id=opp.id) }}" class="generate-form">
+                <div class="form-group"><label for="rfp_text_{{ loop.index }}">Optional full RFP text for this package</label><textarea id="rfp_text_{{ loop.index }}" name="rfp_text" class="form-control" rows="7" placeholder="Paste scope, mandatory requirements, evaluation criteria, submission instructions, forms, addenda, or portal text here before generating."></textarea></div>
+                <button class="btn-primary" type="submit">Generate Package</button>
+            </form>
         </div>
         {% endfor %}
     </div>
