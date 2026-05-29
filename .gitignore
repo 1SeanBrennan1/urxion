@@ -12,3 +12,6 @@ __pycache__/
 
 # Local Database (Optional: ignore if you don't want to overwrite your live database)
 db.sqlite3
+
+# OS/editor
+.DS_Store
