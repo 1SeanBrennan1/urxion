@@ -7,7 +7,7 @@ import re
 import secrets
 import time
 import zipfile
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from functools import wraps
 from io import BytesIO
 from pathlib import Path
@@ -1362,9 +1362,9 @@ RFP_DEMO_TTL = timedelta(hours=48)
 
 def _rfp_demo_cleanup() -> None:
     RFP_DEMO_ROOT.mkdir(parents=True, exist_ok=True)
-    cutoff = datetime.now(UTC) - RFP_DEMO_TTL
+    cutoff = datetime.now(timezone.utc) - RFP_DEMO_TTL
     for path in RFP_DEMO_ROOT.iterdir():
-        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, UTC) < cutoff:
+        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) < cutoff:
             import shutil
 
             shutil.rmtree(path, ignore_errors=True)
@@ -1763,7 +1763,7 @@ def _rfp_demo_opportunity_from_pasted_rfp(rfp_text: str) -> dict:
         "source_name": "User-pasted RFP",
         "source_url": "",
         "source_status": "pasted_full_text",
-        "fetched_at": datetime.now(UTC).isoformat(),
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
         "fit_score": 999,
         "match_reasons": [
             "User pasted RFP text, so this demo uses the supplied solicitation instead of public listing snippets."
@@ -1834,7 +1834,7 @@ def try_rfp():
         "email_domain": email.split("@")[-1],
         "company_info": company_info,
         "rfp_text": "",
-        "created_at": datetime.now(UTC).isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
         "opportunities": opportunities,
         "cache_meta": {
             "fetched_at": cache_meta.get("fetched_at"),
@@ -1947,9 +1947,9 @@ Safety policy provided, but project-specific hazard controls are not included.
 
 def _compliance_demo_cleanup() -> None:
     COMPLIANCE_DEMO_ROOT.mkdir(parents=True, exist_ok=True)
-    cutoff = datetime.now(UTC) - COMPLIANCE_DEMO_TTL
+    cutoff = datetime.now(timezone.utc) - COMPLIANCE_DEMO_TTL
     for path in COMPLIANCE_DEMO_ROOT.iterdir():
-        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, UTC) < cutoff:
+        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) < cutoff:
             import shutil
 
             shutil.rmtree(path, ignore_errors=True)
@@ -2270,7 +2270,7 @@ def try_compliance():
     run_dir.mkdir(parents=True, exist_ok=True)
     state = {
         "run_id": run_id,
-        "created_at": datetime.now(UTC).isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
         "email_domain": email.split("@")[-1],
         "filename": filename,
         "review": review,
@@ -2562,7 +2562,7 @@ def contact():
     CONTACT_SUBMISSIONS_PATH.parent.mkdir(parents=True, exist_ok=True)
     submission = {
         **fields,
-        "created_at": datetime.now(UTC).isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
         "source": "website_contact_form",
     }
     with CONTACT_SUBMISSIONS_PATH.open("a", encoding="utf-8") as handle:
