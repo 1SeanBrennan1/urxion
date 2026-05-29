@@ -136,6 +136,28 @@ textarea:focus-visible {
     font-weight: 950;
     letter-spacing: -0.05em;
 }
+.sample-preview {
+    display: grid;
+    gap: 0.55rem;
+    margin: 1rem 0;
+    padding: 0.9rem;
+    border: 1px solid rgba(30, 58, 95, 0.16);
+    border-radius: 18px;
+    background: #f8fafc;
+}
+.preview-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(30, 58, 95, 0.12);
+}
+.preview-row:last-child {
+    border-bottom: 0;
+}
+.preview-row strong {
+    color: #1e3a5f !important;
+}
 .legacy-content {
     background: #fff;
     padding: clamp(1rem, 3vw, 2rem);

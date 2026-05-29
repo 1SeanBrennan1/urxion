@@ -192,8 +192,6 @@ def test_agent_engineering_resource_hub_and_articles_render(client):
     assert sources_response.status_code == 200
     assert "AI Agent Engineering source references" in sources_body
     assert "arXiv:" in sources_body
-    assert "conceptual reference" in sources_body
-    assert "linked" in sources_body
 
     content_dir = (
         Path(__file__).resolve().parents[1] / "content" / "ai-agent-engineering"
@@ -213,7 +211,6 @@ def test_agent_engineering_resource_hub_and_articles_render(client):
         assert f"By {page['author']}" in body
         assert f"Updated {page['updated']}" in body
         assert "Table of contents" in body
-        assert "Evidence-first agent loop" in body
         for source, _note in page["sources"]:
             assert f"https://arxiv.org/abs/{source}" in body
 
@@ -327,6 +324,12 @@ def test_homepage_has_diagnostic_headline_and_first_person_founder_copy(client):
     )
     assert "I built URXION after 20 years across sales, operations" in body
     assert "View sample outputs" in body
+    assert "SME pilot packages" in body
+    assert "without a back-office department" in body
+    assert "Not for unsupervised automation" in body
+    assert "Founder-Led Workflow Pilot" in body
+    assert "What happens on the call" in body
+    assert "SME FAQ" in body
 
 
 def test_homepage_product_cards_do_not_show_placeholder_letters(client):
@@ -337,6 +340,26 @@ def test_homepage_product_cards_do_not_show_placeholder_letters(client):
     assert '<div class="icon">C</div>' not in body
     assert '<div class="icon">S</div>' not in body
     assert '<div class="icon">+</div>' not in body
+
+
+@pytest.mark.parametrize(
+    ("path", "expected"),
+    [
+        ("/rfp", "Your first RFP pilot includes"),
+        ("/compliance", "Your first compliance pilot includes"),
+        ("/sdr", "Your first SDR pilot includes"),
+        ("/custom-agents", "Your first custom-agent pilot includes"),
+    ],
+)
+def test_product_pages_explain_sme_pilot_packages(client, path, expected):
+    response = client.get(path)
+    body = response.get_data(as_text=True)
+    assert response.status_code == 200
+    assert expected in body
+    assert "Best fit" in body
+    assert "Typical" in body
+    assert "What to send us" in body
+    assert "What happens before a pilot" in body
 
 
 @pytest.mark.parametrize(

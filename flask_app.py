@@ -7,7 +7,7 @@ import re
 import secrets
 import time
 import zipfile
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from functools import wraps
 from io import BytesIO
 from pathlib import Path
@@ -39,9 +39,9 @@ CANONICAL_HOST = os.environ.get("CANONICAL_HOST", "www.urxion.com")
 CANONICAL_BASE_URL = os.environ.get(
     "CANONICAL_BASE_URL", f"https://{CANONICAL_HOST}"
 ).rstrip("/")
-BOOKING_URL = os.environ.get("BOOKING_URL", "https://calendly.com/sean-brennan-urxion/30min")
+BOOKING_URL = os.environ.get("BOOKING_URL", "https://calendly.com/urxion/30min")
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "sean.brennan@urxion.com")
-STATIC_ASSET_VERSION = os.environ.get("STATIC_ASSET_VERSION", "2026-05-29")
+STATIC_ASSET_VERSION = os.environ.get("STATIC_ASSET_VERSION", "2026-05-29-form-refresh")
 CONTACT_SUBMISSIONS_PATH = Path(
     os.environ.get(
         "CONTACT_SUBMISSIONS_PATH",
@@ -450,6 +450,10 @@ INDEXABLE_EXACT_PATHS = {
     "/custom-agents",
     "/data-security",
     "/sample-outputs",
+    "/demo-vs-production",
+    "/resources/founder-led-workflow-pilot",
+    "/resources/rfp-intake-checklist",
+    "/resources/compliance-package-checklist",
     "/demo",
     "/contact",
     "/privacy",
@@ -1280,6 +1284,21 @@ def demo_vs_production():
     return render_template("demo-vs-production.html")
 
 
+@app.route("/resources/founder-led-workflow-pilot")
+def founder_led_workflow_pilot():
+    return render_template("resources/founder_led_workflow_pilot.html")
+
+
+@app.route("/resources/rfp-intake-checklist")
+def rfp_intake_checklist():
+    return render_template("resources/rfp_intake_checklist.html")
+
+
+@app.route("/resources/compliance-package-checklist")
+def compliance_package_checklist():
+    return render_template("resources/compliance_package_checklist.html")
+
+
 @app.route("/resources/ai-agent-engineering")
 def agent_resource_hub():
     return render_template("resources/agent_hub.html", pages=AGENT_RESOURCE_PAGES)
@@ -1343,9 +1362,9 @@ RFP_DEMO_TTL = timedelta(hours=48)
 
 def _rfp_demo_cleanup() -> None:
     RFP_DEMO_ROOT.mkdir(parents=True, exist_ok=True)
-    cutoff = datetime.now(timezone.utc) - RFP_DEMO_TTL
+    cutoff = datetime.now(UTC) - RFP_DEMO_TTL
     for path in RFP_DEMO_ROOT.iterdir():
-        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) < cutoff:
+        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, UTC) < cutoff:
             import shutil
 
             shutil.rmtree(path, ignore_errors=True)
@@ -1744,7 +1763,7 @@ def _rfp_demo_opportunity_from_pasted_rfp(rfp_text: str) -> dict:
         "source_name": "User-pasted RFP",
         "source_url": "",
         "source_status": "pasted_full_text",
-        "fetched_at": datetime.now(timezone.utc).isoformat(),
+        "fetched_at": datetime.now(UTC).isoformat(),
         "fit_score": 999,
         "match_reasons": [
             "User pasted RFP text, so this demo uses the supplied solicitation instead of public listing snippets."
@@ -1815,7 +1834,7 @@ def try_rfp():
         "email_domain": email.split("@")[-1],
         "company_info": company_info,
         "rfp_text": "",
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
         "opportunities": opportunities,
         "cache_meta": {
             "fetched_at": cache_meta.get("fetched_at"),
@@ -1928,9 +1947,9 @@ Safety policy provided, but project-specific hazard controls are not included.
 
 def _compliance_demo_cleanup() -> None:
     COMPLIANCE_DEMO_ROOT.mkdir(parents=True, exist_ok=True)
-    cutoff = datetime.now(timezone.utc) - COMPLIANCE_DEMO_TTL
+    cutoff = datetime.now(UTC) - COMPLIANCE_DEMO_TTL
     for path in COMPLIANCE_DEMO_ROOT.iterdir():
-        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) < cutoff:
+        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, UTC) < cutoff:
             import shutil
 
             shutil.rmtree(path, ignore_errors=True)
@@ -1963,36 +1982,6 @@ def _compliance_demo_safe_filename(filename: str) -> str:
     return cleaned or "subcontractor-package.txt"
 
 
-def _extract_pdf_text(raw: bytes) -> str:
-    try:
-        from pypdf import PdfReader
-
-        reader = PdfReader(BytesIO(raw))
-        pages = [(page.extract_text() or "").strip() for page in reader.pages[:30]]
-        text = "\n".join(page for page in pages if page)
-        return text.strip()
-    except Exception:
-        return ""
-
-
-def _extract_docx_text(raw: bytes) -> str:
-    try:
-        from docx import Document
-
-        document = Document(BytesIO(raw))
-        paragraphs = [paragraph.text.strip() for paragraph in document.paragraphs]
-        tables = []
-        for table in document.tables:
-            for row in table.rows:
-                cells = [cell.text.strip() for cell in row.cells if cell.text.strip()]
-                if cells:
-                    tables.append(" | ".join(cells))
-        text = "\n".join([item for item in paragraphs + tables if item])
-        return text.strip()
-    except Exception:
-        return ""
-
-
 def _compliance_demo_read_upload(upload) -> tuple[str, str]:
     filename = _compliance_demo_safe_filename(
         upload.filename or "subcontractor-package.txt"
@@ -2008,17 +1997,9 @@ def _compliance_demo_read_upload(upload) -> tuple[str, str]:
             return filename, raw.decode("utf-8")
         except UnicodeDecodeError:
             return filename, raw.decode("latin-1", errors="ignore")
-    if suffix == ".pdf":
-        text = _extract_pdf_text(raw)
-        if text:
-            return filename, text
-    if suffix == ".docx":
-        text = _extract_docx_text(raw)
-        if text:
-            return filename, text
     return (
         filename,
-        f"Uploaded {suffix.upper()} file {filename}. Text extraction did not return readable text in this public demo preview. A production workflow would use stronger document extraction and a human reviewer should verify the original document.",
+        f"Uploaded {suffix.upper()} file {filename}. Text extraction is limited in this public demo preview. A human reviewer should verify the original document.",
     )
 
 
@@ -2289,7 +2270,7 @@ def try_compliance():
     run_dir.mkdir(parents=True, exist_ok=True)
     state = {
         "run_id": run_id,
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
         "email_domain": email.split("@")[-1],
         "filename": filename,
         "review": review,
@@ -2581,7 +2562,7 @@ def contact():
     CONTACT_SUBMISSIONS_PATH.parent.mkdir(parents=True, exist_ok=True)
     submission = {
         **fields,
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
         "source": "website_contact_form",
     }
     with CONTACT_SUBMISSIONS_PATH.open("a", encoding="utf-8") as handle:
