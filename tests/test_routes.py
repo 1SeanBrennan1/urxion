@@ -357,6 +357,8 @@ def test_try_demo_routes_render(client):
     assert compliance_response.status_code == 200
     assert "URXION Compliance demo" in compliance_body
     assert "Run Compliance Demo" in compliance_body
+    assert "Use built-in sample subcontractor package" in compliance_body
+    assert "PDF and DOCX text extraction is limited" in compliance_body
 
 
 def test_try_compliance_public_demo_can_run_and_download(client):
@@ -393,6 +395,30 @@ def test_try_compliance_public_demo_can_run_and_download(client):
     download_response = client.get(f"/try-compliance/download/{run_id}")
     assert download_response.status_code == 200
     assert download_response.content_type == "application/zip"
+
+
+def test_try_compliance_public_demo_can_run_with_sample_package(client):
+    response = client.post(
+        "/try-compliance",
+        data={
+            "email": "demo@example.com",
+            "subcontractor_name": "Demo Roofing Ltd.",
+            "project_name": "Main Street Renovation",
+            "project_location": "Toronto, Ontario",
+            "planned_start_date": "2026-01-15",
+            "work_type": "roofing",
+            "use_sample_package": "1",
+        },
+        follow_redirects=False,
+    )
+    assert response.status_code == 302
+    results_response = client.get(response.headers["Location"])
+    body = results_response.get_data(as_text=True)
+    assert results_response.status_code == 200
+    assert "Your Compliance Review Packet Is Ready" in body
+    assert "WSIB clearance" in body
+    assert "Insurance certificate" in body
+    assert "Start-work blockers" in body
 
 
 def test_try_rfp_public_demo_can_run_and_download(client):

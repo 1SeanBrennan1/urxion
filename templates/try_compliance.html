@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% block title %}Try URXION Compliance | Public demo{% endblock %}
-{% block meta_description %}Run the URXION Compliance public demo and download an evidence matrix, blockers, and remediation plan.{% endblock %}
+{% block meta_description %}Run the URXION Compliance public demo with your own TXT/PDF/DOCX package or a built-in sample subcontractor package.{% endblock %}
 {% block hero %}
 <section class="hero">
     <div class="container hero-grid">
         <div>
             <div class="eyebrow">URXION Compliance demo</div>
-            <h1>Upload a Subcontractor Package. Get Evidence, Blockers, and Remediation.</h1>
-            <p class="lead">This public demo reviews WSIB, insurance, training, safety, and contract evidence for human approval. Nothing is auto-certified.</p>
+            <h1>Test compliance review with your file or a built-in sample.</h1>
+            <p class="lead">No subcontractor documents yet? Use the sample package. The public demo reviews WSIB, insurance, training, safety, and start-work evidence for human approval. Nothing is auto-certified.</p>
         </div>
         <div class="hero-panel">
             <div class="flow">
-                <div class="flow-step"><div class="flow-num">1</div><div>Upload package</div></div>
-                <div class="flow-step"><div class="flow-num">2</div><div>Check evidence</div></div>
-                <div class="flow-step"><div class="flow-num">3</div><div>Flag blockers</div></div>
-                <div class="flow-step"><div class="flow-num">4</div><div>Download remediation plan</div></div>
+                <div class="flow-step"><div class="flow-num">1</div><div>Upload TXT/PDF/DOCX or use sample</div></div>
+                <div class="flow-step"><div class="flow-num">2</div><div>Map evidence to rules</div></div>
+                <div class="flow-step"><div class="flow-num">3</div><div>Flag blockers and gaps</div></div>
+                <div class="flow-step"><div class="flow-num">4</div><div>Download remediation packet</div></div>
             </div>
         </div>
     </div>
@@ -23,18 +23,27 @@
 {% block content %}
 <section class="section">
     <div class="container grid-2">
-        <div class="card">
+        <div class="card demo-form-card">
             <div class="eyebrow">Start demo</div>
-            <h2>Upload the subcontractor package.</h2>
+            <h2>Upload a package or use the sample.</h2>
             {% if error %}<p class="founder-note">{{ error }}</p>{% endif %}
-            <form method="post" enctype="multipart/form-data">
-                <p><label>Email<br><input name="email" type="email" required placeholder="you@company.com"></label></p>
-                <p><label>Subcontractor name<br><input name="subcontractor_name" placeholder="Demo Roofing Ltd."></label></p>
-                <p><label>Project name<br><input name="project_name" placeholder="Main Street Renovation"></label></p>
-                <p><label>Project/location<br><input name="project_location" placeholder="Toronto, Ontario"></label></p>
-                <p><label>Planned start date<br><input name="planned_start_date" type="date"></label></p>
-                <p><label>Work type<br><input name="work_type" placeholder="roofing, electrical, concrete"></label></p>
-                <p><label>Subcontractor documents (PDF, DOCX, TXT, max 10 MB)<br><input name="documents" type="file" accept=".pdf,.docx,.txt" required></label></p>
+            <form method="post" enctype="multipart/form-data" class="demo-form">
+                <div class="form-grid-2">
+                    <div class="form-group"><label for="email">Email</label><input id="email" name="email" type="email" class="form-control" required placeholder="you@company.com"></div>
+                    <div class="form-group"><label for="subcontractor_name">Subcontractor name</label><input id="subcontractor_name" name="subcontractor_name" class="form-control" placeholder="Demo Roofing Ltd."></div>
+                </div>
+                <div class="form-grid-2">
+                    <div class="form-group"><label for="project_name">Project name</label><input id="project_name" name="project_name" class="form-control" placeholder="Main Street Renovation"></div>
+                    <div class="form-group"><label for="project_location">Project/location</label><input id="project_location" name="project_location" class="form-control" placeholder="Toronto, Ontario"></div>
+                </div>
+                <div class="form-grid-2">
+                    <div class="form-group"><label for="planned_start_date">Planned start date</label><input id="planned_start_date" name="planned_start_date" type="date" class="form-control"></div>
+                    <div class="form-group"><label for="work_type">Work type</label><input id="work_type" name="work_type" class="form-control" placeholder="roofing, electrical, concrete"></div>
+                </div>
+                <div class="sample-buttons" aria-label="Sample package option">
+                    <label class="sample-option"><input name="use_sample_package" type="checkbox" value="1"> Use built-in sample subcontractor package</label>
+                </div>
+                <div class="form-group"><label for="documents">Subcontractor documents <span class="muted">optional if using sample</span></label><input id="documents" name="documents" type="file" class="form-control" accept=".pdf,.docx,.txt"></div>
                 <button class="btn-primary" type="submit">Run Compliance Demo</button>
             </form>
         </div>
@@ -43,11 +52,12 @@
             <h2>Compliance outputs for review.</h2>
             <ul>
                 <li>Evidence matrix</li>
-                <li>Missing or expired evidence findings</li>
+                <li>Missing, expired, or mismatched evidence findings</li>
                 <li>Start-work blockers</li>
                 <li>Remediation actions</li>
                 <li>Human approval note</li>
             </ul>
+            <p class="founder-note">Best public-demo results come from TXT files or the built-in sample. PDF and DOCX text extraction is limited in this preview; production workflows use stronger document extraction and full evidence handling.</p>
             <p class="muted">Not legal advice. Built for qualified human review. The system never auto-certifies compliance.</p>
         </div>
     </div>

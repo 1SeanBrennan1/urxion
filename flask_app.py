@@ -37,7 +37,7 @@ CANONICAL_BASE_URL = os.environ.get(
 ).rstrip("/")
 BOOKING_URL = os.environ.get("BOOKING_URL", "https://calendly.com/sean-brennan-urxion/30min")
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "sean.brennan@urxion.com")
-STATIC_ASSET_VERSION = os.environ.get("STATIC_ASSET_VERSION", "2026-05-29")
+STATIC_ASSET_VERSION = os.environ.get("STATIC_ASSET_VERSION", "2026-05-29-form-refresh")
 CONTACT_SUBMISSIONS_PATH = Path(
     os.environ.get(
         "CONTACT_SUBMISSIONS_PATH",
@@ -1899,6 +1899,15 @@ def try_rfp_download(run_id):
 
 COMPLIANCE_DEMO_ROOT = Path(__file__).resolve().parent / "demo_runs" / "compliance"
 COMPLIANCE_DEMO_TTL = timedelta(hours=48)
+SAMPLE_COMPLIANCE_PACKAGE_TEXT = """
+Subcontractor package for Demo Roofing Ltd.
+Project: Main Street Renovation, Toronto, Ontario.
+Work type: roofing and exterior repairs.
+WSIB clearance expired on 2025-12-31 and must be renewed before mobilization.
+Insurance certificate shows name mismatch: Demo Roofing Limited vs Demo Roofing Ltd.
+No Working at Heights training records attached for assigned workers.
+Safety policy provided, but project-specific hazard controls are not included.
+""".strip()
 
 
 def _compliance_demo_cleanup() -> None:
@@ -2193,15 +2202,21 @@ def try_compliance():
         return render_template(
             "try_compliance.html", error="Enter a valid email address."
         ), 400
+    use_sample_package = request.form.get("use_sample_package") == "1"
     upload = request.files.get("documents")
-    if not upload or not upload.filename:
-        return render_template(
-            "try_compliance.html", error="Upload a subcontractor package file."
-        ), 400
-    try:
-        filename, document_text = _compliance_demo_read_upload(upload)
-    except ValueError as exc:
-        return render_template("try_compliance.html", error=str(exc)), 400
+    if use_sample_package:
+        filename = "sample-subcontractor-package.txt"
+        document_text = SAMPLE_COMPLIANCE_PACKAGE_TEXT
+    else:
+        if not upload or not upload.filename:
+            return render_template(
+                "try_compliance.html",
+                error="Upload a subcontractor package file or choose the sample package.",
+            ), 400
+        try:
+            filename, document_text = _compliance_demo_read_upload(upload)
+        except ValueError as exc:
+            return render_template("try_compliance.html", error=str(exc)), 400
     if re.search(
         r"ignore\s+(all\s+)?previous\s+instructions|system\s+prompt|prompt\s+injection|bypass\s+approval",
         document_text,
