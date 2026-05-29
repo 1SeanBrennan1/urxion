@@ -8,14 +8,14 @@
             <h1>Choose a real cached public opportunity.</h1>
             <p class="lead">These recommendations come from cached public tender listings with source links. Public listings are often incomplete, so paste the full RFP before generating whenever you have it.</p>
             {% if state.cache_meta.guidance %}<p class="founder-note">{{ state.cache_meta.guidance }}</p>{% endif %}
-            {% if state.cache_meta.fetched_at %}<p class="muted">Opportunity cache last refreshed: {{ state.cache_meta.fetched_at }}</p>{% endif %}
+            {% if state.cache_meta.fetched_at %}<p class="muted">Last refreshed: {{ state.cache_meta.fetched_at[:10] }}</p>{% endif %}
         </div>
         <div class="hero-panel"><div class="metric">{{ state.opportunities|length }}</div><p class="muted">real cached listing{% if state.opportunities|length != 1 %}s{% endif %} shown</p></div>
     </div>
 </section>
 {% endblock %}
 {% block content %}
-{% if error %}<section class="section"><div class="container"><div class="card proof-card"><h2>RFP demo could not generate yet.</h2><p>{{ error }}</p><p class="muted">Set Groq, Azure OpenAI, or OpenAI credentials on the server to enable real proposal generation.</p></div></div></section>{% endif %}
+{% if error %}<section class="section"><div class="container"><div class="card proof-card"><h2>RFP demo could not generate yet.</h2><p>{{ error }}</p><p class="muted">Set Cerebras, Groq, DeepSeek, Azure OpenAI, or OpenAI credentials on the server to enable real proposal generation.</p></div></div></section>{% endif %}
 {% if not state.opportunities %}
 <section class="section">
     <div class="container grid-2">
