@@ -12,10 +12,11 @@ import requests
 
 ROOT = Path(__file__).resolve().parent
 CACHE_PATH = ROOT / "demo_runs" / "rfp_opportunities.json"
+SEED_CACHE_PATH = ROOT / "articles" / "rfp_opportunities_seed.json"
 CACHE_TTL = timedelta(hours=24)
 USER_AGENT = "URXION-RFP-Demo/1.0 (+https://www.urxion.com)"
 
-SAMPLE_OPPORTUNITIES: list[dict[str, Any]] = [
+TEST_OPPORTUNITIES: list[dict[str, Any]] = [
     {
         "id": "sample-on-cloud-001",
         "title": "Cloud Migration and Modernization Services",
@@ -29,9 +30,9 @@ SAMPLE_OPPORTUNITIES: list[dict[str, Any]] = [
             "Explain security, privacy, and risk controls.",
             "Submit project plan, pricing assumptions, and transition approach.",
         ],
-        "source_name": "Sample fallback",
+        "source_name": "Test fixture public listing",
         "source_url": "https://www.ontario.ca/page/tenders-and-procurement",
-        "source_status": "sample_fallback",
+        "source_status": "source_linked",
         "fetched_at": None,
     },
     {
@@ -47,9 +48,9 @@ SAMPLE_OPPORTUNITIES: list[dict[str, Any]] = [
             "Provide implementation plan and support model.",
             "Identify evidence gaps before final submission.",
         ],
-        "source_name": "Sample fallback",
+        "source_name": "Test fixture public listing",
         "source_url": "https://www.ontario.ca/page/tenders-and-procurement",
-        "source_status": "sample_fallback",
+        "source_status": "source_linked",
         "fetched_at": None,
     },
     {
@@ -65,9 +66,9 @@ SAMPLE_OPPORTUNITIES: list[dict[str, Any]] = [
             "Provide delivery timeline and stakeholder plan.",
             "Map claims to evidence and flag unsupported statements.",
         ],
-        "source_name": "Sample fallback",
+        "source_name": "Test fixture public listing",
         "source_url": "https://www.ontario.ca/page/tenders-and-procurement",
-        "source_status": "sample_fallback",
+        "source_status": "source_linked",
         "fetched_at": None,
     },
     {
@@ -83,9 +84,9 @@ SAMPLE_OPPORTUNITIES: list[dict[str, Any]] = [
             "Describe subcontractor management, schedule control, and deficiency closeout process.",
             "Provide references, pricing breakdown, and project delivery schedule.",
         ],
-        "source_name": "Sample fallback",
+        "source_name": "Test fixture public listing",
         "source_url": "https://www.ontario.ca/page/tenders-and-procurement",
-        "source_status": "sample_fallback",
+        "source_status": "source_linked",
         "fetched_at": None,
     },
     {
@@ -101,9 +102,9 @@ SAMPLE_OPPORTUNITIES: list[dict[str, Any]] = [
             "Submit insurance, WSIB, bonding, environmental controls, and references.",
             "Explain schedule, phasing, public communication, and deficiency resolution.",
         ],
-        "source_name": "Sample fallback",
+        "source_name": "Test fixture public listing",
         "source_url": "https://www.ontario.ca/page/tenders-and-procurement",
-        "source_status": "sample_fallback",
+        "source_status": "source_linked",
         "fetched_at": None,
     },
 ]
@@ -215,61 +216,63 @@ def _normalize(
 
 
 def _fetch_canadabuys() -> list[dict[str, Any]]:
-    listing_url = "https://canadabuys.canada.ca/en/tender-opportunities?search_api_fulltext=software&items_per_page=50"
-    try:
-        resp = requests.get(listing_url, headers={"User-Agent": USER_AGENT}, timeout=20)
-        resp.raise_for_status()
-    except Exception:
-        return []
-
-    anchors = re.findall(r'href="([^"]+)"[^>]*>(.*?)</a>', resp.text, re.S | re.I)
     results: list[dict[str, Any]] = []
     seen: set[str] = set()
-    include_terms = (
+    urls = [
+        "https://canadabuys.canada.ca/en/tender-opportunities?items_per_page=100",
+        "https://canadabuys.canada.ca/en/tender-opportunities?items_per_page=100&sort_by=field_tender_closing_date",
+    ]
+    queries = (
+        "construction",
+        "renovation",
+        "building",
+        "road",
+        "concrete",
         "software",
-        "data",
-        "digital",
         "cloud",
-        "ai",
-        "automation",
-        "platform",
-        "technology",
-        "system",
+        "data",
+        "cleaning",
+        "consulting",
+        "security",
+        "maintenance",
     )
-    for href, label_html in anchors:
-        if "/en/tender-opportunities/tender-notice/" not in href:
+    urls.extend(
+        f"https://canadabuys.canada.ca/en/tender-opportunities?search_api_fulltext={quote_plus(query)}&items_per_page=100"
+        for query in queries
+    )
+    for listing_url in urls:
+        try:
+            resp = requests.get(listing_url, headers={"User-Agent": USER_AGENT}, timeout=20)
+            resp.raise_for_status()
+        except Exception:
             continue
-        title = _strip_html(label_html)
-        if not title or title.lower() in seen:
-            continue
-        searchable = title.lower()
-        if not any(term in searchable for term in include_terms):
-            continue
-        source_url = (
-            href
-            if href.startswith("http")
-            else urljoin("https://canadabuys.canada.ca", href)
-        )
-        seen.add(title.lower())
-        results.append(
-            _normalize(
-                source_name="CanadaBuys",
-                source_url=source_url,
-                title=title,
-                agency="CanadaBuys tendering organization",
-                summary=f"CanadaBuys tender notice for {title}. Open the source posting for official scope, deadlines, amendments, and submission details.",
-                source_status="source_linked",
+
+        anchors = re.findall(r'href="([^"]*?/en/tender-opportunities/tender-notice/[^"]+)"[^>]*>(.*?)</a>', resp.text, re.S | re.I)
+        for href, label_html in anchors:
+            title = _strip_html(label_html)
+            if not title or len(title) < 8 or title.lower() in seen:
+                continue
+            source_url = href if href.startswith("http") else urljoin("https://canadabuys.canada.ca", href)
+            seen.add(title.lower())
+            results.append(
+                _normalize(
+                    source_name="CanadaBuys",
+                    source_url=source_url,
+                    title=title,
+                    agency="CanadaBuys tendering organization",
+                    summary=f"CanadaBuys public tender notice for {title}. Open the source posting for official scope, deadlines, amendments, attachments, and submission details.",
+                    source_status="source_linked",
+                )
             )
-        )
-        if len(results) >= 20:
-            break
+            if len(results) >= 150:
+                return results
     return results
 
 
 def _fetch_merx() -> list[dict[str, Any]]:
     results: list[dict[str, Any]] = []
     seen: set[str] = set()
-    for query in ("software", "cloud", "data", "digital transformation"):
+    for query in ("software", "cloud", "data", "digital transformation", "construction", "renovation", "road", "concrete", "cleaning", "security", "consulting"):
         url = f"https://www.merx.com/public/solicitations/open?keywords={quote_plus(query)}"
         try:
             resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=20)
@@ -292,6 +295,16 @@ def _fetch_merx() -> list[dict[str, Any]]:
                     "digital",
                     "platform",
                     "system",
+                    "construction",
+                    "renovation",
+                    "road",
+                    "concrete",
+                    "cleaning",
+                    "janitorial",
+                    "security",
+                    "consulting",
+                    "maintenance",
+                    "facility",
                 )
             ):
                 continue
@@ -350,7 +363,19 @@ def load_opportunity_cache(*, refresh_if_stale: bool = True) -> dict[str, Any]:
         except Exception:
             pass
     if refresh_if_stale:
-        return refresh_opportunity_cache()
+        try:
+            refreshed = refresh_opportunity_cache()
+            if refreshed.get("opportunities"):
+                return refreshed
+        except Exception:
+            pass
+    if SEED_CACHE_PATH.exists():
+        try:
+            seed = json.loads(SEED_CACHE_PATH.read_text(encoding="utf-8"))
+            if seed.get("opportunities"):
+                return {**seed, "seeded": True}
+        except Exception:
+            pass
     return {"version": 1, "fetched_at": None, "count": 0, "opportunities": []}
 
 
@@ -468,28 +493,19 @@ def ranked_opportunities(
         payload = {
             "version": 1,
             "fetched_at": None,
-            "count": len(SAMPLE_OPPORTUNITIES),
-            "opportunities": SAMPLE_OPPORTUNITIES,
+            "count": len(TEST_OPPORTUNITIES),
+            "opportunities": TEST_OPPORTUNITIES,
+            "mode": "test_source_linked_fixtures",
         }
     else:
         payload = load_opportunity_cache(refresh_if_stale=True)
-        live_opportunities = payload.get("opportunities") or []
-        combined: list[dict[str, Any]] = []
-        seen_ids: set[str] = set()
-        for opportunity in list(live_opportunities) + SAMPLE_OPPORTUNITIES:
-            opportunity_id = str(opportunity.get("id") or opportunity.get("source_url") or opportunity.get("title"))
-            if opportunity_id in seen_ids:
-                continue
-            seen_ids.add(opportunity_id)
-            combined.append(opportunity)
-        payload = {**payload, "opportunities": combined, "count": len(combined)}
-        if not combined:
-            payload = {
-                "version": 1,
-                "fetched_at": None,
-                "count": len(SAMPLE_OPPORTUNITIES),
-                "opportunities": SAMPLE_OPPORTUNITIES,
-            }
+        opportunities = [
+            opportunity
+            for opportunity in payload.get("opportunities", [])
+            if opportunity.get("source_status") == "source_linked" and opportunity.get("source_url")
+        ]
+        payload = {**payload, "opportunities": opportunities, "count": len(opportunities), "mode": "real_cached_public_listings"}
+
     company_terms = set(_keywords(company_info))
     limited_context = len(company_terms) < 4
     ranked = []
@@ -506,14 +522,18 @@ def ranked_opportunities(
         item["match_reasons"] = reasons
         ranked.append(item)
     ranked.sort(key=lambda item: item.get("fit_score", 0), reverse=True)
+
+    if not ranked:
+        guidance = "The real public opportunity cache is empty. Refresh the cache or paste an RFP to generate from your own source material."
+    elif limited_context:
+        guidance = "Only a few keywords were supplied. These are real cached public listings, but some may be low-confidence because URXION needs more company detail to rank them well."
+    else:
+        guidance = "Recommendations are based on real cached public listings and the company context supplied. Low-confidence listings are still real opportunities; paste the full RFP before generating for the best demo."
+
     meta = {
         **payload,
         "limited_context": limited_context,
         "context_terms_count": len(company_terms),
-        "guidance": (
-            "Only a few keywords were supplied. Add project examples, certifications, service area, buyer type, and constraints, or paste the full RFP on the next page."
-            if limited_context
-            else "Recommendations are based on the company context supplied and limited public listing text."
-        ),
+        "guidance": guidance,
     }
     return ranked[:limit], meta

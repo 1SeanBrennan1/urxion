@@ -161,10 +161,10 @@ def test_try_demo_routes_render(client):
     rfp_body = rfp_response.get_data(as_text=True)
     assert rfp_response.status_code == 200
     assert "URXION RFP demo" in rfp_body
-    assert "Find Matching RFPs" in rfp_body
-    assert "public demo is intentionally simple" in rfp_body
+    assert "Find Real Cached RFPs" in rfp_body
+    assert "No fake RFP opportunities" in rfp_body
     assert 'name="rfp_text"' not in rfp_body
-    assert "Use construction sample" in rfp_body
+    assert "Use construction example" in rfp_body
 
     compliance_response = client.get("/try-compliance")
     compliance_body = compliance_response.get_data(as_text=True)
@@ -225,9 +225,9 @@ def test_try_rfp_public_demo_can_run_and_download(client):
     opportunities_response = client.get(opportunities_path)
     opportunities_body = opportunities_response.get_data(as_text=True)
     assert opportunities_response.status_code == 200
-    assert "Choose a starting opportunity" in opportunities_body
+    assert "Choose a real cached public opportunity" in opportunities_body
     assert "Generate Package" in opportunities_body
-    assert "Sample fallback" in opportunities_body
+    assert "Test fixture public listing" in opportunities_body
     assert "Optional full RFP text for this package" in opportunities_body
     assert "Recommendation confidence" in opportunities_body
 
@@ -286,6 +286,55 @@ def test_try_rfp_public_demo_can_use_pasted_rfp_text(client):
     assert results_response.status_code == 200
     assert "Community Centre Renovation" in results_body
     assert "Construction compliance evidence" in results_body
+
+
+def test_try_rfp_public_demo_can_generate_from_pasted_rfp_when_no_cached_listings(
+    client, monkeypatch
+):
+    import flask_app
+
+    monkeypatch.setattr(
+        flask_app,
+        "ranked_opportunities",
+        lambda company_info, testing=False: (
+            [],
+            {
+                "fetched_at": None,
+                "count": 0,
+                "mode": "real_cached_public_listings",
+                "limited_context": False,
+                "guidance": "No real cached public RFP listings are available right now.",
+            },
+        ),
+    )
+    response = client.post(
+        "/try-rfp",
+        data={
+            "email": "demo@example.com",
+            "company_name": "Demo Contractor",
+            "company_info": "We are a construction contractor with WSIB and insurance.",
+        },
+        follow_redirects=False,
+    )
+    assert response.status_code == 302
+    opportunities_path = response.headers["Location"]
+    opportunities_body = client.get(opportunities_path).get_data(as_text=True)
+    assert "Real cache unavailable" in opportunities_body
+    assert "Paste a real RFP while the cache refreshes" in opportunities_body
+
+    run_id = opportunities_path.rstrip("/").split("/")[-1]
+    select_response = client.post(
+        f"/try-rfp/select/{run_id}/pasted-rfp",
+        data={
+            "rfp_text": "Project: Real Road Repair RFP\nThe bidder must provide WSIB clearance and insurance.\nSubmit pricing and construction schedule."
+        },
+        follow_redirects=False,
+    )
+    assert select_response.status_code == 302
+    results_body = client.get(select_response.headers["Location"]).get_data(
+        as_text=True
+    )
+    assert "Real Road Repair RFP" in results_body
 
 
 def test_rfp_matching_prioritizes_construction_for_construction_context():

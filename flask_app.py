@@ -36,6 +36,7 @@ CANONICAL_BASE_URL = os.environ.get(
 ).rstrip("/")
 BOOKING_URL = os.environ.get("BOOKING_URL", "https://calendly.com/urxion/30min")
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "sean.brennan@urxion.com")
+STATIC_ASSET_VERSION = os.environ.get("STATIC_ASSET_VERSION", "2026-05-29-form-refresh")
 CONTACT_SUBMISSIONS_PATH = Path(
     os.environ.get(
         "CONTACT_SUBMISSIONS_PATH",
@@ -295,6 +296,7 @@ def contact_email() -> str:
 
 app.jinja_env.globals["booking_url"] = booking_url  # type: ignore[assignment]
 app.jinja_env.globals["contact_email"] = contact_email  # type: ignore[assignment]
+app.jinja_env.globals["static_asset_version"] = STATIC_ASSET_VERSION
 
 
 def csrf_token() -> str:
@@ -1703,10 +1705,12 @@ def try_rfp_opportunities(run_id):
 @no_store
 def try_rfp_select(run_id, opportunity_id):
     state = _rfp_demo_read_state(run_id)
-    opportunity = _rfp_demo_find_opportunity(state or {}, opportunity_id)
-    if not state or not opportunity:
-        abort(404)
     pasted_rfp = request.form.get("rfp_text", "").strip()
+    opportunity = _rfp_demo_find_opportunity(state or {}, opportunity_id)
+    if not state:
+        abort(404)
+    if not opportunity and not (opportunity_id == "pasted-rfp" and pasted_rfp):
+        abort(404)
     if pasted_rfp:
         opportunity = _rfp_demo_opportunity_from_pasted_rfp(pasted_rfp)
         state["rfp_text"] = pasted_rfp

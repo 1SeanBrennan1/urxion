@@ -383,19 +383,19 @@
         </style>
         <link
             rel="preload"
-            href="{{ url_for('static', filename='css/site-foundation.css') }}"
+            href="{{ url_for('static', filename='css/site-foundation.css', v=static_asset_version) }}"
             as="style"
         />
         <link
             rel="stylesheet"
-            href="{{ url_for('static', filename='css/site-foundation.css') }}"
+            href="{{ url_for('static', filename='css/site-foundation.css', v=static_asset_version) }}"
             media="print"
             onload="this.media = 'all'"
         />
         <noscript
             ><link
                 rel="stylesheet"
-                href="{{ url_for('static', filename='css/site-foundation.css') }}"
+                href="{{ url_for('static', filename='css/site-foundation.css', v=static_asset_version) }}"
         /></noscript>
         <style>
             /* Must come after all shared CSS: final readable-light-theme override. */
@@ -554,20 +554,34 @@
     <body>
         <header class="site-header">
             <nav class="nav-wrap" aria-label="Main navigation">
-                <a class="brand" href="{{ url_for('index') }}" aria-label="URXION home">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
-                        <path d="M140 80 L260 80 L260 100 L240 100 L240 240 Q240 270, 200 270 Q160 270, 160 240 L160 100 L140 100 L140 250 Q140 300, 200 300 Q260 300, 260 250 L260 100 L240 100 L240 80 L280 80 L280 250 Q280 320, 200 320 Q120 320, 120 250 L120 80 Z M180 120 L220 120 L220 230 Q220 250, 200 250 Q180 250, 180 230 Z" fill="currentColor" />
-                        <polygon points="270,60 290,60 290,80" fill="currentColor" />
-                    </svg>
-                    <span>URXION</span>
-                </a>
+                <a
+                    class="brand"
+                    href="{{ url_for('index') }}"
+                    aria-label="URXION home"
+                    ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 400 400"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M140 80 L260 80 L260 100 L240 100 L240 240 Q240 270, 200 270 Q160 270, 160 240 L160 100 L140 100 L140 250 Q140 300, 200 300 Q260 300, 260 250 L260 100 L240 100 L240 80 L280 80 L280 250 Q280 320, 200 320 Q120 320, 120 250 L120 80 Z M180 120 L220 120 L220 230 Q220 250, 200 250 Q180 250, 180 230 Z"
+                            fill="currentColor"
+                        />
+                        <polygon
+                            points="270,60 290,60 290,80"
+                            fill="currentColor"
+                        /></svg
+                    ><span>URXION</span></a
+                >
                 <div class="nav-links">
-                    <a href="/rfp">Products</a>
-                    <a href="{{ url_for('why_urxion') }}">Why URXION</a>
-                    <a href="/demo">Demo</a>
-                    <a href="{{ url_for('data_security') }}">Data & Security</a>
-                    <a class="nav-call" href="{{ booking_url() }}">Book a call</a>
-                </div>
+                                    <a href="{{ url_for('index') }}">Home</a>
+                                    <a href="{{ url_for('why_urxion') }}">Why Urxion</a>
+                                    <a href="/rfp">URXION RFP</a>
+                                    <a href="/compliance">URXION Compliance</a>
+                                    <a href="/sdr">URXION SDR</a>
+                                    <a href="{{ url_for('custom_agents') }}">Custom Agents</a>
+                                    <a class="nav-call" href="{{ booking_url() }}">Book a discovery call</a></a>
+                                </div>
             </nav>
         </header>
         {% block hero %}{% endblock %}
@@ -578,30 +592,36 @@
             <div class="container footer-grid">
                 <div>
                     <div class="footer-title">URXION</div>
-                    <p class="muted">Purpose-built AI agents for RFP response, compliance review, SDR workflows, and custom business automation. Built for human-in-the-loop teams that need speed, evidence, and control.</p>
+                    <p class="muted">
+                        Purpose-built AI agents for RFP response, compliance
+                        review, SDR workflows, and custom business automation.
+                        Built for human-in-the-loop teams that need speed,
+                        evidence, and control.
+                    </p>
                     <div class="badge">Evidence-first agent checks</div>
-                    <p class="muted">Uploaded documents are used only to generate the workflow output you request. Demo workspaces are temporary and deleted after 48 hours.</p>
-                    <p class="muted">Your documents are not used to train URXION models. Production data handling is scoped before implementation.</p>
+                                        <p class="muted">
+                                            Uploaded documents are used only to generate the workflow output you request. Demo workspaces are temporary and deleted after 48 hours.
+                                        </p>
+                                        <p class="muted">
+                                            Your documents are not used to train URXION models. Production data handling is scoped before implementation.
+                                        </p>
                 </div>
                 <div>
                     <div class="footer-title">Products</div>
-                    <a href="/rfp">URXION RFP</a>
-                    <a href="/compliance">URXION Compliance</a>
-                    <a href="/sdr">URXION SDR</a>
-                    <a href="{{ url_for('custom_agents') }}">Custom Agents</a>
-                    <a href="{{ url_for('sample_outputs') }}">Sample Outputs</a>
-                </div>
-                <div>
-                    <div class="footer-title">Company</div>
-                    <a href="{{ url_for('why_urxion') }}">Why URXION</a>
-                    <a href="{{ url_for('data_security') }}">Data & Security</a>
-                    <a href="{{ booking_url() }}">Book a call</a>
-                    <a href="/demo">Try a demo</a>
-                    <a href="{{ url_for('contact') }}">Contact</a>
-                    <a href="{{ url_for('privacy') }}">Privacy</a>
-                    <a href="{{ url_for('terms') }}">Terms</a>
-                    <a href="https://www.linkedin.com/in/1seanbrennan1/">Sean Brennan on LinkedIn</a>
-                </div>
+                    <a href="/rfp">URXION RFP</a
+                    ><a href="/compliance">URXION Compliance</a
+                    ><a href="/sdr">URXION SDR</a
+                    ><a href="{{ url_for('custom_agents') }}">Custom Agents</a>
+                </di                <div>
+                                    <div class="footer-title">Company</div>
+                                    <a href="{{ url_for('why_urxion') }}">Why Urxion</a>
+                                    <a href="{{ booking_url() }}">Book a discovery call</a>
+                                    <a href="/demo">Try a demo</a>
+                                    <a href="{{ url_for('contact') }}">Contact</a>
+                                    <a href="{{ url_for('privacy') }}">Privacy</a>
+                                    <a href="{{ url_for('terms') }}">Terms</a>
+                                    <a href="https://www.linkedin.com/in/1seanbrennan1/">Sean Brennan on LinkedIn</a></a>
+                                </div>div>
             </div>
         </footer>
         {% block scripts %}{% endblock %}

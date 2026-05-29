@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block title %}Try URXION RFP | Public demo{% endblock %}
-{% block meta_description %}Run the URXION RFP public demo: describe your company, choose a sample or matched opportunity, then optionally paste the full RFP before generating the package.{% endblock %}
+{% block meta_description %}Run the URXION RFP public demo using real cached public opportunities or pasted RFP text when no public listing has enough detail.{% endblock %}
 {% block hero %}
 <section class="hero">
     <div class="container hero-grid">
         <div>
             <div class="eyebrow">URXION RFP demo</div>
-            <h1>Start with your company. Add the RFP when you generate.</h1>
-            <p class="lead">This public demo first finds likely-fit opportunities from your company context. On the next page, paste the full RFP or solicitation text before generating the package if the public listing does not include enough detail.</p>
+            <h1>Start with your company. Generate from real RFP source material.</h1>
+            <p class="lead">This public demo first looks for real cached public opportunities with source links. If the public cache does not have enough detail, paste the actual RFP or solicitation text on the next page before generating the package.</p>
         </div>
         <div class="hero-panel">
             <div class="flow">
-                <div class="flow-step"><div class="flow-num">1</div><div>Describe your company or use a sample profile</div></div>
-                <div class="flow-step"><div class="flow-num">2</div><div>Choose a matched/sample opportunity</div></div>
-                <div class="flow-step"><div class="flow-num">3</div><div>Optional: paste full RFP text before generating</div></div>
+                <div class="flow-step"><div class="flow-num">1</div><div>Describe your company or use an example profile</div></div>
+                <div class="flow-step"><div class="flow-num">2</div><div>Review real cached public listings</div></div>
+                <div class="flow-step"><div class="flow-num">3</div><div>Paste the full RFP before generating if needed</div></div>
             </div>
         </div>
     </div>
@@ -25,33 +25,34 @@
         <div class="card demo-form-card">
             <div class="eyebrow">Start demo</div>
             <h2>Tell URXION what your company does.</h2>
-            <p class="muted">If you only type one word like construction, the match will be weak. Use a sample profile below or add details like project type, certifications, insurance, location, team, and past work.</p>
+            <p class="muted">If you only type one word like construction, the match will be weak. Use an example profile below or add details like project type, certifications, insurance, location, team, and past work.</p>
             {% if error %}<p class="founder-note">{{ error }}</p>{% endif %}
             <form method="post" class="demo-form">
                 <div class="form-grid-2">
                     <div class="form-group"><label for="email">Email</label><input id="email" name="email" type="email" class="form-control" required placeholder="you@company.com"></div>
                     <div class="form-group"><label for="company_name">Company name</label><input id="company_name" name="company_name" class="form-control" required placeholder="Example Company"></div>
                 </div>
-                <div class="sample-buttons" aria-label="Sample company profiles">
-                    <button type="button" class="btn-secondary sample-fill" data-target="company_info" data-value="We are a general contractor serving Ontario municipalities. We complete occupied facility renovations, accessibility upgrades, concrete repairs, scheduling, subcontractor coordination, deficiency closeout, and site safety management. We maintain WSIB clearance, commercial liability insurance, bonding capacity, supervisor training, and municipal references.">Use construction sample</button>
-                    <button type="button" class="btn-secondary sample-fill" data-target="company_info" data-value="We provide IT consulting for public-sector teams, including cloud migration, data analytics, workflow automation, Python and Flask applications, security review support, documentation, training, and implementation governance. We have experience with evidence mapping, approval gates, privacy-aware workflows, and support handoff.">Use IT sample</button>
-                    <button type="button" class="btn-secondary sample-fill" data-target="company_info" data-value="We provide facilities cleaning and janitorial services for public buildings, including staffing plans, supervisor inspections, health and safety training, supply management, issue escalation, quality reporting, WSIB clearance, insurance, and continuity planning.">Use facility services sample</button>
+                <div class="sample-buttons" aria-label="Example company profiles">
+                    <button type="button" class="btn-secondary sample-fill" data-target="company_info" data-value="We are a general contractor serving Ontario municipalities. We complete occupied facility renovations, accessibility upgrades, concrete repairs, scheduling, subcontractor coordination, deficiency closeout, and site safety management. We maintain WSIB clearance, commercial liability insurance, bonding capacity, supervisor training, and municipal references.">Use construction example</button>
+                    <button type="button" class="btn-secondary sample-fill" data-target="company_info" data-value="We provide IT consulting for public-sector teams, including cloud migration, data analytics, workflow automation, Python and Flask applications, security review support, documentation, training, and implementation governance. We have experience with evidence mapping, approval gates, privacy-aware workflows, and support handoff.">Use IT example</button>
+                    <button type="button" class="btn-secondary sample-fill" data-target="company_info" data-value="We provide facilities cleaning and janitorial services for public buildings, including staffing plans, supervisor inspections, health and safety training, supply management, issue escalation, quality reporting, WSIB clearance, insurance, and continuity planning.">Use facility services example</button>
                 </div>
                 <div class="form-group"><label for="company_info">Company info, past work, certifications, or capabilities</label><textarea id="company_info" name="company_info" class="form-control" required rows="10" placeholder="Example: We are a general contractor in Ontario with WSIB, insurance, bonding, occupied facility renovation experience, accessibility upgrade work, safety procedures, and municipal references."></textarea></div>
-                <button class="btn-primary" type="submit">Find Matching RFPs</button>
+                <button class="btn-primary" type="submit">Find Real Cached RFPs</button>
             </form>
         </div>
         <div class="card">
             <div class="eyebrow">Important demo limits</div>
-            <h2>The public demo is intentionally simple.</h2>
+            <h2>No fake RFP opportunities.</h2>
             <ul>
-                <li>Public opportunity matching uses cached listing snippets and sample fallbacks.</li>
+                <li>Public opportunity matching uses cached real public listing snippets with source links.</li>
                 <li>Many official RFPs require login, attachments, or buyer portals to access full documents.</li>
-                <li>You paste the actual RFP on the next page, right before generating the package.</li>
+                <li>If no real cached listing is available, URXION asks you to paste a real RFP instead of showing fake opportunities.</li>
+                <li>You can paste the actual RFP on the next page, right before generating the package.</li>
                 <li>Production workflows use stronger models, full RFP packages, source files, evidence folders, and deeper review.</li>
                 <li>No demo output should be used as a final bid without human review.</li>
             </ul>
-            <div class="actions"><a class="btn-secondary" href="{{ url_for('sample_outputs') }}">View sample outputs</a><a class="btn-secondary" href="{{ url_for('data_security') }}">Data & Security</a></div>
+            <div class="actions"><a class="btn-secondary" href="{{ url_for('sample_outputs') }}">View output examples</a><a class="btn-secondary" href="{{ url_for('data_security') }}">Data & Security</a></div>
         </div>
     </div>
 </section>
