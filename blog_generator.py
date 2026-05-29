@@ -24,7 +24,7 @@ from datetime import datetime
 
 # Constants
 GROQ_TIMEOUT = 30
-GROQ_API_KEY = 
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 MAX_TOKENS = 6000
 MAX_PAGES = 10
 ARTICLES_FOLDER = "/home/seani/mysite/articles"
