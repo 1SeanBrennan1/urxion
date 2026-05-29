@@ -37,7 +37,7 @@ CANONICAL_BASE_URL = os.environ.get(
 ).rstrip("/")
 BOOKING_URL = os.environ.get("BOOKING_URL", "https://calendly.com/sean-brennan-urxion/30min")
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "sean.brennan@urxion.com")
-STATIC_ASSET_VERSION = os.environ.get("STATIC_ASSET_VERSION", "2026-05-29-form-refresh")
+STATIC_ASSET_VERSION = os.environ.get("STATIC_ASSET_VERSION", "2026-05-29")
 CONTACT_SUBMISSIONS_PATH = Path(
     os.environ.get(
         "CONTACT_SUBMISSIONS_PATH",
@@ -78,6 +78,9 @@ _load_local_env_files()
 def _llm_json_completion(
     system_prompt: str, user_prompt: str, *, temperature: float
 ) -> tuple[dict, str]:
+    cerebras_api_key = os.environ.get("CEREBRAS_API_KEY", "").strip()
+    cerebras_model = os.environ.get("CEREBRAS_MODEL", "llama-4-scout-17b-16e-instruct").strip()
+    cerebras_base_url = os.environ.get("CEREBRAS_BASE_URL", "https://api.cerebras.ai/v1").strip().rstrip("/")
     groq_api_key = os.environ.get("GROQ_API_KEY", "").strip()
     openai_api_key = os.environ.get("OPENAI_API_KEY", "").strip()
     azure_api_key = os.environ.get("AZURE_OPENAI_KEY", "").strip()
@@ -95,20 +98,42 @@ def _llm_json_completion(
         ],
     }
 
+    provider_errors: list[str] = []
+
+    if cerebras_api_key:
+        try:
+            response = requests.post(
+                f"{cerebras_base_url}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {cerebras_api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={**payload, "model": cerebras_model, "temperature": temperature},
+                timeout=90,
+            )
+            response.raise_for_status()
+            content = response.json()["choices"][0]["message"]["content"]
+            return json.loads(content), f"cerebras:{cerebras_model}"
+        except Exception as exc:
+            provider_errors.append(f"cerebras:{exc}")
+
     if groq_api_key:
-        model = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile").strip()
-        response = requests.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {groq_api_key}",
-                "Content-Type": "application/json",
-            },
-            json={**payload, "model": model, "temperature": temperature},
-            timeout=90,
-        )
-        response.raise_for_status()
-        content = response.json()["choices"][0]["message"]["content"]
-        return json.loads(content), f"groq:{model}"
+        try:
+            model = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b").strip()
+            response = requests.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {groq_api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={**payload, "model": model, "temperature": temperature},
+                timeout=90,
+            )
+            response.raise_for_status()
+            content = response.json()["choices"][0]["message"]["content"]
+            return json.loads(content), f"groq:{model}"
+        except Exception as exc:
+            provider_errors.append(f"groq:{exc}")
 
     if azure_api_key and azure_endpoint and azure_deployment:
         url = f"{azure_endpoint}/openai/deployments/{azure_deployment}/chat/completions?api-version={azure_api_version}"
@@ -137,8 +162,10 @@ def _llm_json_completion(
         content = response.json()["choices"][0]["message"]["content"]
         return json.loads(content), model
 
+    details = f" Provider errors: {' | '.join(provider_errors)}" if provider_errors else ""
     raise RuntimeError(
-        "No LLM API key is configured. Set GROQ_API_KEY, AZURE_OPENAI_KEY with AZURE_ENDPOINT and AZURE_OPENAI_DEPLOYMENT_NAME, or OPENAI_API_KEY."
+        "No working LLM API key is configured. Set CEREBRAS_API_KEY, GROQ_API_KEY, AZURE_OPENAI_KEY with AZURE_ENDPOINT and AZURE_OPENAI_DEPLOYMENT_NAME, or OPENAI_API_KEY."
+        + details
     )
 
 
@@ -1443,7 +1470,7 @@ def _rfp_demo_commentary(
         "structure_recommendations": structure_recommendations,
         "evaluator_lenses": evaluator_lenses,
         "demo_limits": [
-            "This public demo uses a lightweight workflow and simpler model configuration.",
+            "This public demo uses a demo-level model route (Cerebras first, then Groq) and a lightweight workflow, not URXION production configuration.",
             "A production URXION run uses the complete RFP package, attachments, addenda, Q&A, pricing instructions, mandatory forms, and your evidence library.",
             "URXION prepares review-ready work; it does not auto-submit, certify compliance, or replace qualified procurement, legal, or executive review.",
         ],

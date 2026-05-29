@@ -54,6 +54,64 @@ def visible_text(body):
     return " ".join(body.split())
 
 
+class FakeLLMResponse:
+    def __init__(self, content, status_error=None):
+        self.content = content
+        self.status_error = status_error
+
+    def raise_for_status(self):
+        if self.status_error:
+            raise self.status_error
+
+    def json(self):
+        return {"choices": [{"message": {"content": self.content}}]}
+
+
+def test_llm_json_completion_uses_cerebras_before_groq(monkeypatch):
+    import flask_app
+
+    calls = []
+    monkeypatch.setenv("CEREBRAS_API_KEY", "cerebras-key")
+    monkeypatch.setenv("CEREBRAS_MODEL", "llama-test")
+    monkeypatch.setenv("GROQ_API_KEY", "groq-key")
+    monkeypatch.setenv("GROQ_MODEL", "openai/gpt-oss-120b")
+
+    def fake_post(url, **kwargs):
+        calls.append((url, kwargs["json"]["model"]))
+        return FakeLLMResponse('{"ok": true}')
+
+    monkeypatch.setattr(flask_app.requests, "post", fake_post)
+    payload, model = flask_app._llm_json_completion("system", "user", temperature=0.1)
+    assert payload == {"ok": True}
+    assert model == "cerebras:llama-test"
+    assert calls == [("https://api.cerebras.ai/v1/chat/completions", "llama-test")]
+
+
+def test_llm_json_completion_falls_back_to_groq(monkeypatch):
+    import flask_app
+
+    calls = []
+    monkeypatch.setenv("CEREBRAS_API_KEY", "cerebras-key")
+    monkeypatch.setenv("GROQ_API_KEY", "groq-key")
+    monkeypatch.setenv("GROQ_MODEL", "openai/gpt-oss-120b")
+
+    def fake_post(url, **kwargs):
+        calls.append((url, kwargs["json"]["model"]))
+        if "cerebras" in url:
+            raise RuntimeError("cerebras unavailable")
+        return FakeLLMResponse('{"ok": true}')
+
+    monkeypatch.setattr(flask_app.requests, "post", fake_post)
+    payload, model = flask_app._llm_json_completion("system", "user", temperature=0.1)
+    assert payload == {"ok": True}
+    assert model == "groq:openai/gpt-oss-120b"
+    assert calls[0][0] == "https://api.cerebras.ai/v1/chat/completions"
+    assert calls[1] == (
+        "https://api.groq.com/openai/v1/chat/completions",
+        "openai/gpt-oss-120b",
+    )
+
+
 @pytest.mark.parametrize("path", PUBLIC_GET_ROUTES)
 def test_public_routes_render(client, path):
     response = client.get(path)
@@ -265,6 +323,8 @@ def test_try_demo_routes_render(client):
     assert "URXION RFP demo" in rfp_body
     assert "Find Real Cached RFPs" in rfp_body
     assert "No fake RFP opportunities" in rfp_body
+    assert "Cerebras first, then Groq" in rfp_body
+    assert "not the production URXION configuration" in rfp_body
     assert 'name="rfp_text"' not in rfp_body
     assert "Use construction example" in rfp_body
 
@@ -492,7 +552,9 @@ def test_clean_product_routes_render_and_legacy_athena_routes_redirect(client):
         assert response.headers["Location"].endswith(new_path)
 
 
-def test_public_top_and_footer_navigation_links_engineering_resources_not_legacy_sales(client):
+def test_public_top_and_footer_navigation_links_engineering_resources_not_legacy_sales(
+    client,
+):
     response = client.get("/")
     body = response.get_data(as_text=True)
     assert response.status_code == 200

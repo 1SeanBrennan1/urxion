@@ -7,7 +7,7 @@
         <div>
             <div class="eyebrow">URXION RFP demo</div>
             <h1>Start with your company. Generate from real RFP source material.</h1>
-            <p class="lead">This public demo first looks for real cached public opportunities with source links. If the public cache does not have enough detail, paste the actual RFP or solicitation text on the next page before generating the package.</p>
+            <p class="lead">This public demo uses a demo-level model route: Cerebras first, then Groq. It is designed for a fast preview, not the full production URXION configuration with complete RFP packages, evidence libraries, stronger review controls, and tailored model routing.</p>
         </div>
         <div class="hero-panel">
             <div class="flow">
@@ -46,10 +46,10 @@
             <h2>No fake RFP opportunities.</h2>
             <ul>
                 <li>Public opportunity matching uses cached real public listing snippets with source links.</li>
-                <li>Many official RFPs require login, attachments, or buyer portals to access full documents.</li>
+                <li>The demo model route tries Cerebras first, then Groq, and is not the production URXION configuration.</li>
                 <li>If no real cached listing is available, URXION asks you to paste a real RFP instead of showing fake opportunities.</li>
                 <li>You can paste the actual RFP on the next page, right before generating the package.</li>
-                <li>Production workflows use stronger models, full RFP packages, source files, evidence folders, and deeper review.</li>
+                <li>Production workflows use full RFP packages, source files, evidence folders, deeper review, and tailored model routing.</li>
                 <li>No demo output should be used as a final bid without human review.</li>
             </ul>
             <div class="actions"><a class="btn-secondary" href="{{ url_for('sample_outputs') }}">View output examples</a><a class="btn-secondary" href="{{ url_for('data_security') }}">Data & Security</a></div>
