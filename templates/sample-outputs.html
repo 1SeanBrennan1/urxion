@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}URXION Sample Outputs | RFP, compliance, and SDR artifacts{% endblock %}
+{% block meta_description %}Review sample URXION outputs for RFP proposal packages, subcontractor compliance reviews, and SDR outbound review queues.{% endblock %}
+{% block hero %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <div class="eyebrow">Sample outputs</div>
+            <h1>Inspect the kind of work URXION prepares.</h1>
+            <p class="lead">These sample artifacts show the structure URXION aims to produce: requirements, evidence, gaps, risks, drafts, and next actions ready for human review.</p>
+            <div class="hero-actions"><a class="btn-primary" href="/demo">Try a public demo</a><a class="btn-secondary" href="{{ booking_url() }}">Book a discovery call</a></div>
+        </div>
+        <div class="hero-panel">
+            <div class="flow">
+                <div class="flow-step"><div class="flow-num">RFP</div><div>Compliance matrix, gap memo, proposal draft</div></div>
+                <div class="flow-step"><div class="flow-num">CO</div><div>Evidence review, blockers, remediation plan</div></div>
+                <div class="flow-step"><div class="flow-num">SDR</div><div>Account briefs, source notes, review queue</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container grid-3">
+        <article class="card">
+            <div class="eyebrow">URXION RFP sample</div>
+            <h2>Proposal package preview</h2>
+            <ul>
+                <li>Requirement: provide three comparable public-sector automation projects.</li>
+                <li>Evidence status: partially supported.</li>
+                <li>Gap: one reference lacks measurable outcome data.</li>
+                <li>Draft action: request project metric or mark as unsupported before submission.</li>
+            </ul>
+            <div class="actions"><a class="btn-secondary" href="/try-rfp">Run RFP demo</a></div>
+        </article>
+        <article class="card">
+            <div class="eyebrow">URXION Compliance sample</div>
+            <h2>Subcontractor review preview</h2>
+            <ul>
+                <li>Rule: active WSIB clearance required before mobilization.</li>
+                <li>Evidence status: expired.</li>
+                <li>Risk: start-work blocker.</li>
+                <li>Remediation: request renewed clearance and confirm legal-name match.</li>
+            </ul>
+            <div class="actions"><a class="btn-secondary" href="/try-compliance">Run Compliance demo</a></div>
+        </article>
+        <article class="card">
+            <div class="eyebrow">URXION SDR sample</div>
+            <h2>Outbound queue preview</h2>
+            <ul>
+                <li>Account signal: hiring operations roles and expanding public-sector delivery.</li>
+                <li>Source note: company careers page and recent announcement.</li>
+                <li>Draft slot: operational bottleneck tied to document review.</li>
+                <li>Review status: human approval required before send.</li>
+            </ul>
+            <div class="actions"><a class="btn-secondary" href="/sdr">Explore SDR workflow</a></div>
+        </article>
+    </div>
+</section>
+<section class="section">
+    <div class="container grid-2">
+        <div class="card">
+            <div class="eyebrow">What samples prove</div>
+            <h2>Structure, not magic.</h2>
+            <p>URXION is designed to turn messy input into reviewable artifacts. The important trust signal is not that every draft is final. It is that requirements, sources, gaps, and next actions are visible before a human decides.</p>
+        </div>
+        <div class="card">
+            <div class="eyebrow">What samples do not prove</div>
+            <h2>Not a guarantee.</h2>
+            <p>Actual output quality depends on your documents, source quality, workflow rules, and review process. Production workflows are scoped and tested before use on business-critical work.</p>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container cta-band">
+        <h2>Want a sample based on your real workflow?</h2>
+        <p class="muted">Run a public demo or book a discovery call. If there is no fit, you will still leave with a clearer process map.</p>
+        <div class="actions"><a class="btn-primary" href="/demo">Try a public demo</a><a class="btn-secondary" href="{{ booking_url() }}">Book a discovery call</a></div>
+    </div>
+</section>
+{% endblock %}

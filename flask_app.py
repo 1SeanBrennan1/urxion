@@ -5,6 +5,7 @@ import math
 import os
 import re
 import secrets
+import time
 import zipfile
 from datetime import UTC, datetime, timedelta
 from functools import wraps
@@ -33,6 +34,20 @@ CANONICAL_HOST = os.environ.get("CANONICAL_HOST", "www.urxion.com")
 CANONICAL_BASE_URL = os.environ.get(
     "CANONICAL_BASE_URL", f"https://{CANONICAL_HOST}"
 ).rstrip("/")
+BOOKING_URL = os.environ.get("BOOKING_URL", "https://calendly.com/urxion/30min")
+CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "sean.brennan@urxion.com")
+CONTACT_SUBMISSIONS_PATH = Path(
+    os.environ.get(
+        "CONTACT_SUBMISSIONS_PATH",
+        str(
+            Path(__file__).resolve().parent / "demo_runs" / "contact_submissions.jsonl"
+        ),
+    )
+)
+REQUEST_TIMEOUT_SECONDS = float(os.environ.get("REQUEST_TIMEOUT_SECONDS", "15"))
+RATE_LIMIT_WINDOW_SECONDS = int(os.environ.get("RATE_LIMIT_WINDOW_SECONDS", "900"))
+RATE_LIMIT_MAX_REQUESTS = int(os.environ.get("RATE_LIMIT_MAX_REQUESTS", "20"))
+_rate_limit_hits: dict[str, list[float]] = {}
 
 
 def _load_local_env_files() -> None:
@@ -252,6 +267,8 @@ app.config.update(
     JSONIFY_PRETTYPRINT_REGULAR=False,
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE="Lax",
+    SESSION_COOKIE_SECURE=CANONICAL_BASE_URL.startswith("https://"),
+    PREFERRED_URL_SCHEME="https",
 )
 
 # Set up logging
@@ -266,6 +283,60 @@ def no_store(view):
         return response
 
     return wrapped
+
+
+def booking_url() -> str:
+    return BOOKING_URL
+
+
+def contact_email() -> str:
+    return CONTACT_EMAIL
+
+
+app.jinja_env.globals["booking_url"] = booking_url  # type: ignore[assignment]
+app.jinja_env.globals["contact_email"] = contact_email  # type: ignore[assignment]
+
+
+def csrf_token() -> str:
+    token = session.get("csrf_token")
+    if not token:
+        token = secrets.token_urlsafe(32)
+        session["csrf_token"] = token
+    return token
+
+
+app.jinja_env.globals["csrf_token"] = csrf_token  # type: ignore[assignment]
+
+
+def _rate_limit_key() -> str:
+    return (
+        request.headers.get("X-Forwarded-For", request.remote_addr or "unknown")
+        .split(",", 1)[0]
+        .strip()
+    )
+
+
+def rate_limited(key: str | None = None) -> bool:
+    now = time.time()
+    bucket_key = key or _rate_limit_key()
+    hits = [
+        hit
+        for hit in _rate_limit_hits.get(bucket_key, [])
+        if now - hit < RATE_LIMIT_WINDOW_SECONDS
+    ]
+    if len(hits) >= RATE_LIMIT_MAX_REQUESTS:
+        _rate_limit_hits[bucket_key] = hits
+        return True
+    hits.append(now)
+    _rate_limit_hits[bucket_key] = hits
+    return False
+
+
+def validate_csrf() -> bool:
+    return bool(
+        session.get("csrf_token")
+        and request.form.get("csrf_token") == session.get("csrf_token")
+    )
 
 
 def should_compress(response):
@@ -369,7 +440,9 @@ def fetch_available_slots():
         return
 
     try:
-        response = requests.get(GOOGLE_APPS_SCRIPT_URL + "?action=getSlots")
+        response = requests.get(
+            GOOGLE_APPS_SCRIPT_URL + "?action=getSlots", timeout=REQUEST_TIMEOUT_SECONDS
+        )
         available_slots = response.json()
         session["available_slots"] = available_slots
         session["slots_last_update"] = datetime.now().isoformat()
@@ -1076,6 +1149,16 @@ def custom_agents():
     return render_template("custom-agents.html")
 
 
+@app.route("/data-security")
+def data_security():
+    return render_template("data-security.html")
+
+
+@app.route("/sample-outputs")
+def sample_outputs():
+    return render_template("sample-outputs.html")
+
+
 # Services Page
 @app.route("/services")
 def services():
@@ -1152,6 +1235,188 @@ def _rfp_demo_find_opportunity(state: dict, opportunity_id: str):
         (opp for opp in state.get("opportunities", []) if opp["id"] == opportunity_id),
         None,
     )
+
+
+def _rfp_demo_commentary(
+    company_name: str, company_info: str, opportunity: dict
+) -> dict:
+    requirements = opportunity.get("requirements", [])
+    requirement_text = " ".join(requirements).lower()
+    opportunity_text = " ".join(
+        str(opportunity.get(key, "")) for key in ("title", "agency", "summary")
+    ).lower()
+    combined_text = f"{requirement_text} {opportunity_text}"
+
+    mandatory_watch = [
+        {
+            "item": "Submission instructions and deadline",
+            "why_it_matters": "Missing portal, file, naming, signature, addenda, or timing rules can make a bid non-compliant before value is evaluated.",
+            "demo_status": "Needs full RFP package",
+            "risk": "High",
+        },
+        {
+            "item": "Mandatory forms, declarations, and pricing format",
+            "why_it_matters": "Required forms and pricing schedules are often pass/fail items and should be separated from scored narrative content.",
+            "demo_status": "Needs full RFP package",
+            "risk": "High",
+        },
+    ]
+    if any(
+        term in combined_text for term in ("insurance", "wsib", "bonding", "safety")
+    ):
+        mandatory_watch.append(
+            {
+                "item": "Insurance, WSIB, bonding, and safety evidence",
+                "why_it_matters": "Construction and facility bids often require current certificates or proof before award or mobilization.",
+                "demo_status": "Evidence required from your team",
+                "risk": "High",
+            }
+        )
+    if any(term in combined_text for term in ("security", "privacy", "data", "cyber")):
+        mandatory_watch.append(
+            {
+                "item": "Security, privacy, and data handling requirements",
+                "why_it_matters": "Technology and data bids often require policies, controls, attestations, or security review before award.",
+                "demo_status": "Evidence required from your team",
+                "risk": "High",
+            }
+        )
+
+    evaluation_map = [
+        {
+            "evaluation_area": "Mandatory compliance",
+            "what_urxion_checks": "Forms, deadlines, portal rules, submission format, declarations, insurance/security requirements, addenda, and pass/fail instructions.",
+            "demo_status": "Needs full RFP package",
+        },
+        {
+            "evaluation_area": "Technical approach",
+            "what_urxion_checks": "Whether methodology, work plan, staffing, governance, quality control, and risk controls directly answer the buyer requirements.",
+            "demo_status": "Drafted from supplied context",
+        },
+        {
+            "evaluation_area": "Experience and proof",
+            "what_urxion_checks": "Whether relevant projects, references, outcomes, resumes, certifications, and policies support the proposal claims.",
+            "demo_status": "Evidence needed",
+        },
+        {
+            "evaluation_area": "Pricing and commercial instructions",
+            "what_urxion_checks": "Pricing schedule, assumptions, exclusions, options, taxes, signatures, and buyer-required cost breakdowns.",
+            "demo_status": "Needs full RFP package",
+        },
+    ]
+
+    evidence_gaps = [
+        {
+            "claim_or_requirement": "Relevant public-sector experience",
+            "evidence_needed": "Comparable project examples, buyer names where allowed, scope, dates, outcomes, and references.",
+            "current_status": "Partial until source evidence is attached",
+            "risk": "Medium",
+        },
+        {
+            "claim_or_requirement": "Delivery approach is realistic",
+            "evidence_needed": "Work plan, timeline, staffing assumptions, roles, dependencies, and escalation process.",
+            "current_status": "Needs review",
+            "risk": "Medium",
+        },
+    ]
+    if any(
+        term in combined_text for term in ("insurance", "wsib", "bonding", "safety")
+    ):
+        evidence_gaps.append(
+            {
+                "claim_or_requirement": "Construction compliance evidence",
+                "evidence_needed": "Current WSIB clearance, insurance certificate, bonding letter if required, safety policy, training records, and subcontractor controls.",
+                "current_status": "Missing until uploaded",
+                "risk": "High",
+            }
+        )
+    if any(term in combined_text for term in ("security", "privacy", "data", "cloud")):
+        evidence_gaps.append(
+            {
+                "claim_or_requirement": "Security and privacy controls",
+                "evidence_needed": "Security policies, data handling approach, privacy controls, incident process, architecture notes, and relevant attestations if required.",
+                "current_status": "Missing until uploaded",
+                "risk": "High",
+            }
+        )
+
+    clarification_questions = [
+        "Are all amendments, addenda, forms, schedules, and Q&A responses included in the package being reviewed?",
+        "Are mandatory requirements evaluated pass/fail separately from scored criteria?",
+        "Does the buyer require pricing in a separate file, locked template, or portal field?",
+        "Are page limits, font rules, file naming rules, and attachment rules applied to resumes, appendices, or pricing?",
+        "Can the buyer clarify ambiguous terms such as recent, similar, equivalent, certified, or local where they appear in the RFP?",
+    ]
+
+    structure_recommendations = [
+        "Mirror the RFP headings and sequence instead of reorganizing around sales messaging.",
+        "Put a one-page evaluation map near the front that links each scored criterion to the proposal section and evidence source.",
+        "Separate mandatory compliance, technical narrative, pricing, forms, and appendices so reviewers can find pass/fail items quickly.",
+        "Use an evidence-backed claim audit to soften or remove claims that cannot be supported before submission.",
+    ]
+
+    evaluator_lenses = [
+        {
+            "reviewer": "Procurement reviewer",
+            "concern": "Complete, compliant, fair, easy to evaluate, and submitted exactly as instructed.",
+        },
+        {
+            "reviewer": "Technical reviewer",
+            "concern": "Methodology, staffing, relevant experience, feasibility, quality control, and delivery risk.",
+        },
+        {
+            "reviewer": "Executive reviewer",
+            "concern": "Value, risk reduction, strategic fit, accountability, and confidence that the vendor can deliver.",
+        },
+    ]
+
+    return {
+        "title": "URXION Bid De-Risking Commentary",
+        "summary": "This commentary shows what URXION checks beyond drafting: mandatory compliance, evaluation alignment, evidence gaps, buyer questions, and human approval risks.",
+        "mandatory_watch": mandatory_watch,
+        "evaluation_map": evaluation_map,
+        "evidence_gaps": evidence_gaps,
+        "clarification_questions": clarification_questions,
+        "structure_recommendations": structure_recommendations,
+        "evaluator_lenses": evaluator_lenses,
+        "demo_limits": [
+            "This public demo uses a lightweight workflow and simpler model configuration.",
+            "A production URXION run uses the complete RFP package, attachments, addenda, Q&A, pricing instructions, mandatory forms, and your evidence library.",
+            "URXION prepares review-ready work; it does not auto-submit, certify compliance, or replace qualified procurement, legal, or executive review.",
+        ],
+    }
+
+
+def _rfp_demo_commentary_text(commentary: dict) -> str:
+    lines = [commentary["title"], "", commentary["summary"], ""]
+    lines.append("1. Mandatory compliance watch")
+    for item in commentary["mandatory_watch"]:
+        lines.append(
+            f"- {item['item']} ({item['risk']} risk): {item['why_it_matters']} Status: {item['demo_status']}."
+        )
+    lines.append("\n2. Evaluation map")
+    for item in commentary["evaluation_map"]:
+        lines.append(
+            f"- {item['evaluation_area']}: {item['what_urxion_checks']} Status: {item['demo_status']}."
+        )
+    lines.append("\n3. Evidence gaps")
+    for item in commentary["evidence_gaps"]:
+        lines.append(
+            f"- {item['claim_or_requirement']} ({item['risk']} risk): needs {item['evidence_needed']} Current status: {item['current_status']}."
+        )
+    lines.append("\n4. Clarification questions")
+    for question in commentary["clarification_questions"]:
+        lines.append(f"- {question}")
+    lines.append("\n5. Proposal structure recommendations")
+    for recommendation in commentary["structure_recommendations"]:
+        lines.append(f"- {recommendation}")
+    lines.append("\n6. Evaluator lenses")
+    for lens in commentary["evaluator_lenses"]:
+        lines.append(f"- {lens['reviewer']}: {lens['concern']}")
+    lines.append("\n7. Demo limitations")
+    for limitation in commentary["demo_limits"]:
+        lines.append(f"- {limitation}")
+    return "\n".join(lines)
 
 
 def _rfp_demo_program_bullets(
@@ -1232,11 +1497,14 @@ Before this language could be used in a real proposal, every capability, certifi
         "Confirm pricing, delivery timeline, exceptions, and approval owners",
         "Obtain human approval before submission",
     ]
+    commentary = _rfp_demo_commentary(company_name, company_info, opportunity)
     return {
         "proposal": proposal,
         "compliance_matrix": compliance_matrix,
         "checklist": checklist,
         "claim_audit": [],
+        "commentary": commentary,
+        "commentary_text": _rfp_demo_commentary_text(commentary),
         "generated_by": "test_fallback",
     }
 
@@ -1280,6 +1548,69 @@ Company context supplied by user:
 """.strip()
 
 
+def _rfp_demo_opportunity_from_pasted_rfp(rfp_text: str) -> dict:
+    title_match = re.search(
+        r"(?im)^(?:title|project|solicitation|rfp)[:\s-]+(.{8,140})$", rfp_text
+    )
+    title = title_match.group(1).strip() if title_match else "Pasted RFP / Solicitation"
+    deadline_match = re.search(
+        r"(?im)(?:closing date|deadline|submission deadline|due date)[:\s-]+(.{6,80})$",
+        rfp_text,
+    )
+    requirements = []
+    for line in rfp_text.splitlines():
+        cleaned = line.strip(" \t-•0123456789.)")
+        if len(cleaned) < 24 or len(cleaned) > 220:
+            continue
+        lower = cleaned.lower()
+        if any(
+            term in lower
+            for term in (
+                "must",
+                "shall",
+                "required",
+                "provide",
+                "submit",
+                "describe",
+                "include",
+                "experience",
+                "insurance",
+                "wsib",
+                "security",
+                "pricing",
+            )
+        ):
+            requirements.append(cleaned)
+        if len(requirements) >= 8:
+            break
+    if not requirements:
+        requirements = [
+            "Extract requirements from the pasted solicitation text.",
+            "Map supplied company evidence to each requirement.",
+            "Flag missing or unsupported claims for human review.",
+            "Prepare submission checklist and buyer-facing draft language.",
+        ]
+    return {
+        "id": "pasted-rfp-001",
+        "title": title[:180],
+        "agency": "Pasted by user",
+        "deadline": deadline_match.group(1).strip()[:80]
+        if deadline_match
+        else "See pasted RFP",
+        "estimated_value": "See pasted RFP",
+        "summary": rfp_text[:1200],
+        "requirements": requirements,
+        "source_name": "User-pasted RFP",
+        "source_url": "",
+        "source_status": "pasted_full_text",
+        "fetched_at": datetime.now(UTC).isoformat(),
+        "fit_score": 999,
+        "match_reasons": [
+            "User pasted RFP text, so this demo uses the supplied solicitation instead of public listing snippets."
+        ],
+    }
+
+
 def _rfp_demo_build_package(
     company_name: str, company_info: str, opportunity: dict
 ) -> dict:
@@ -1297,6 +1628,9 @@ def _rfp_demo_build_package(
         opportunity,
         first_section or "No generated first section was returned.",
     )
+    commentary = _rfp_demo_commentary(company_name, company_info, opportunity)
+    package["commentary"] = commentary
+    package["commentary_text"] = _rfp_demo_commentary_text(commentary)
     package.setdefault("generated_by", model)
     if (
         not isinstance(package.get("compliance_matrix"), list)
@@ -1313,8 +1647,13 @@ def try_rfp():
     _rfp_demo_cleanup()
     if request.method == "GET":
         return render_template("try_rfp.html")
+    if rate_limited():
+        return render_template(
+            "try_rfp.html", error="Too many demo requests. Please try again later."
+        ), 429
     company_name = request.form.get("company_name", "").strip() or "Demo Company"
     company_info = request.form.get("company_info", "").strip()
+    pasted_rfp = request.form.get("rfp_text", "").strip()
     email = request.form.get("email", "").strip().lower()
     if not email or "@" not in email:
         return render_template(
@@ -1327,19 +1666,29 @@ def try_rfp():
     run_id = secrets.token_hex(8)
     run_dir = _rfp_demo_run_dir(run_id)
     run_dir.mkdir(parents=True, exist_ok=True)
-    opportunities, cache_meta = ranked_opportunities(
-        company_info, testing=app.config.get("TESTING", False)
-    )
+    if pasted_rfp:
+        opportunities = [_rfp_demo_opportunity_from_pasted_rfp(pasted_rfp)]
+        cache_meta = {
+            "fetched_at": None,
+            "count": 1,
+            "mode": "pasted_rfp",
+        }
+    else:
+        opportunities, cache_meta = ranked_opportunities(
+            company_info, testing=app.config.get("TESTING", False)
+        )
     state = {
         "run_id": run_id,
         "company_name": company_name,
         "email_domain": email.split("@")[-1],
         "company_info": company_info,
+        "rfp_text": pasted_rfp,
         "created_at": datetime.now(UTC).isoformat(),
         "opportunities": opportunities,
         "cache_meta": {
             "fetched_at": cache_meta.get("fetched_at"),
             "count": cache_meta.get("count"),
+            "mode": cache_meta.get("mode", "public_listing_match"),
         },
     }
     _rfp_demo_state_path(run_id).write_text(
@@ -1404,6 +1753,7 @@ def try_rfp_download(run_id):
             for row in package["compliance_matrix"]
         )
         zf.writestr("compliance_matrix.csv", matrix_csv)
+        zf.writestr("bid_derisking_commentary.txt", package.get("commentary_text", ""))
         zf.writestr(
             "submission_checklist.txt",
             "\n".join(f"- {item}" for item in package["checklist"]),
@@ -1708,6 +2058,11 @@ def try_compliance():
     _compliance_demo_cleanup()
     if request.method == "GET":
         return render_template("try_compliance.html")
+    if rate_limited():
+        return render_template(
+            "try_compliance.html",
+            error="Too many demo requests. Please try again later.",
+        ), 429
     email = request.form.get("email", "").strip().lower()
     if not email or "@" not in email:
         return render_template(
@@ -1999,9 +2354,49 @@ def blog_break_even():
 
 
 # Contact Page
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
-    return render_template("contact.html")
+    if request.method == "GET":
+        return render_template("contact.html")
+
+    if rate_limited():
+        return render_template(
+            "contact.html",
+            error="Too many submissions. Please wait a few minutes and try again.",
+        ), 429
+
+    if not validate_csrf():
+        return render_template(
+            "contact.html", error="Your form session expired. Please try again."
+        ), 400
+
+    fields = {
+        "name": request.form.get("name", "").strip(),
+        "email": request.form.get("email", "").strip(),
+        "phone": request.form.get("phone", "").strip(),
+        "inquiry": request.form.get("inquiry", "").strip(),
+        "message": request.form.get("message", "").strip(),
+    }
+    if not fields["name"] or "@" not in fields["email"] or not fields["message"]:
+        return render_template(
+            "contact.html",
+            error="Please include your name, a valid email, and a short message.",
+            form=fields,
+        ), 400
+
+    CONTACT_SUBMISSIONS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    submission = {
+        **fields,
+        "created_at": datetime.now(UTC).isoformat(),
+        "source": "website_contact_form",
+    }
+    with CONTACT_SUBMISSIONS_PATH.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(submission, ensure_ascii=False) + "\n")
+
+    return render_template(
+        "contact.html",
+        success="Thanks. Your message was received, and we will follow up shortly.",
+    )
 
 
 # Privacy Page
@@ -2021,7 +2416,9 @@ def slots():
     try:
         # Add debug logging
         app.logger.debug("Fetching slots from Google Apps Script")
-        response = requests.get(GOOGLE_APPS_SCRIPT_URL + "?action=getSlots")
+        response = requests.get(
+            GOOGLE_APPS_SCRIPT_URL + "?action=getSlots", timeout=REQUEST_TIMEOUT_SECONDS
+        )
         app.logger.debug(f"Response from Google Apps Script: {response.text}")
         return response.json()
     except Exception as e:
@@ -2031,11 +2428,15 @@ def slots():
 
 @app.route("/book-meeting", methods=["POST"])
 def book_meeting():
+    if rate_limited():
+        return jsonify({"success": False, "error": "Too many requests"}), 429
     try:
         data = request.json
         # Forward the booking request to Google Apps Script
         response = requests.post(
-            GOOGLE_APPS_SCRIPT_URL, json={"action": "bookMeeting", "data": data}
+            GOOGLE_APPS_SCRIPT_URL,
+            json={"action": "bookMeeting", "data": data},
+            timeout=REQUEST_TIMEOUT_SECONDS,
         )
         return response.json()
     except Exception as e:

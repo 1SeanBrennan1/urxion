@@ -1,3 +1,4 @@
+import zipfile
 from io import BytesIO
 
 import pytest
@@ -15,6 +16,8 @@ PUBLIC_GET_ROUTES = [
     "/athena-compliance",
     "/athena-sdr",
     "/custom-agents",
+    "/data-security",
+    "/sample-outputs",
     "/cold-calling-that-converts",
     "/business-assessment",
     "/cold-calling-assessment",
@@ -78,6 +81,8 @@ def test_sitemap_uses_canonical_https_domain(client):
     assert "https://www.urxion.com/compliance" in body
     assert "https://www.urxion.com/sdr" in body
     assert "https://www.urxion.com/custom-agents" in body
+    assert "https://www.urxion.com/data-security" in body
+    assert "https://www.urxion.com/sample-outputs" in body
     assert "yourdomain.com" not in body
     assert "pythonanywhere" not in body
 
@@ -104,7 +109,7 @@ def test_new_product_pages_render_conversion_copy(client, path, expected):
     text = visible_text(body)
     assert response.status_code == 200
     assert expected in text
-    assert "https://www.urxion.com/demo" in body
+    assert "https://calendly.com/urxion/30min" in body
     assert "URXION" in body
     assert "Athena" not in body
 
@@ -113,8 +118,12 @@ def test_homepage_has_diagnostic_headline_and_first_person_founder_copy(client):
     response = client.get("/")
     body = response.get_data(as_text=True)
     assert response.status_code == 200
-    assert "Turn Your RFP, Compliance, and SDR Workflows into Review-Ready Work" in body
-    assert "I built URXION because I spent 20 years" in body
+    assert (
+        "Review-ready RFP, compliance, and SDR work - without the back-office drag"
+        in body
+    )
+    assert "I built URXION after 20 years across sales, operations" in body
+    assert "View sample outputs" in body
 
 
 def test_homepage_product_cards_do_not_show_placeholder_letters(client):
@@ -153,6 +162,8 @@ def test_try_demo_routes_render(client):
     assert rfp_response.status_code == 200
     assert "URXION RFP demo" in rfp_body
     assert "Find Matching RFPs" in rfp_body
+    assert "public demo is intentionally simple" in rfp_body
+    assert "paste full RFP or solicitation text" in rfp_body
 
     compliance_response = client.get("/try-compliance")
     compliance_body = compliance_response.get_data(as_text=True)
@@ -229,10 +240,63 @@ def test_try_rfp_public_demo_can_run_and_download(client):
     assert results_response.status_code == 200
     assert "Your Review-Ready Proposal Package Is Ready" in results_body
     assert "Download Proposal Package" in results_body
+    assert "URXION Bid De-Risking Commentary" in results_body
+    assert "Mandatory compliance watch" in results_body
+    assert "Evaluation map" in results_body
+    assert "Evidence gaps" in results_body
+    assert "Clarification questions" in results_body
 
     download_response = client.get(f"/try-rfp/download/{run_id}")
     assert download_response.status_code == 200
     assert download_response.content_type == "application/zip"
+    with zipfile.ZipFile(BytesIO(download_response.data)) as archive:
+        assert "bid_derisking_commentary.txt" in archive.namelist()
+        commentary = archive.read("bid_derisking_commentary.txt").decode()
+        assert "URXION Bid De-Risking Commentary" in commentary
+        assert "Mandatory compliance watch" in commentary
+
+
+def test_try_rfp_public_demo_can_use_pasted_rfp_text(client):
+    response = client.post(
+        "/try-rfp",
+        data={
+            "email": "demo@example.com",
+            "company_name": "Demo Construction Co.",
+            "company_info": "We are a general contractor with WSIB, insurance, bonding, safety procedures, and municipal renovation experience.",
+            "rfp_text": """Project: Community Centre Renovation\nDeadline: 2026-03-31\nThe bidder must provide WSIB clearance and insurance.\nThe bidder shall describe occupied facility renovation experience.\nSubmit construction schedule, safety plan, subcontractor management process, pricing, and references.""",
+        },
+        follow_redirects=False,
+    )
+    assert response.status_code == 302
+    opportunities_path = response.headers["Location"]
+    opportunities_response = client.get(opportunities_path)
+    opportunities_body = opportunities_response.get_data(as_text=True)
+    assert opportunities_response.status_code == 200
+    assert "Use Your Pasted RFP" in opportunities_body
+    assert "Community Centre Renovation" in opportunities_body
+    assert "Better demo mode" in opportunities_body
+
+
+def test_rfp_matching_prioritizes_construction_for_construction_context():
+    from rfp_opportunity_cache import ranked_opportunities
+
+    opportunities, _ = ranked_opportunities(
+        "construction contractor renovation WSIB insurance bonding safety concrete road drainage",
+        testing=True,
+    )
+    titles = [item["title"] for item in opportunities[:2]]
+    assert any("Renovation" in title or "Road" in title for title in titles)
+
+
+def test_rfp_matching_prioritizes_it_for_it_context():
+    from rfp_opportunity_cache import ranked_opportunities
+
+    opportunities, _ = ranked_opportunities(
+        "IT software cloud migration data analytics cybersecurity automation platform",
+        testing=True,
+    )
+    titles = [item["title"] for item in opportunities[:2]]
+    assert any("Cloud" in title or "Data" in title for title in titles)
 
 
 @pytest.mark.parametrize(
@@ -296,8 +360,61 @@ def test_footer_has_data_security_and_ownership(client):
     response = client.get("/")
     body = response.get_data(as_text=True)
     assert response.status_code == 200
-    assert "Your documents stay in your workspace" in body
-    assert "You own your data. Export everything at any time." in body
+    assert (
+        "Uploaded documents are used only to generate the workflow output you request"
+        in body
+    )
+    assert "Your documents are not used to train URXION models" in body
+
+
+def test_data_security_page_explains_retention_and_provider_scope(client):
+    response = client.get("/data-security")
+    body = response.get_data(as_text=True)
+    text = visible_text(body)
+    assert response.status_code == 200
+    assert "Clear data handling before automation" in text
+    assert "deleted after 48 hours" in text
+    assert "third-party AI or infrastructure providers" in text
+    assert "Provider usage is disclosed before production" in text
+
+
+def test_sample_outputs_page_shows_artifact_examples(client):
+    response = client.get("/sample-outputs")
+    body = response.get_data(as_text=True)
+    text = visible_text(body)
+    assert response.status_code == 200
+    assert "Inspect the kind of work URXION prepares" in text
+    assert "URXION RFP sample" in text
+    assert "URXION Compliance sample" in text
+    assert "URXION SDR sample" in text
+
+
+def test_contact_form_accepts_valid_submission(client, tmp_path, monkeypatch):
+    import flask_app
+
+    monkeypatch.setattr(
+        flask_app, "CONTACT_SUBMISSIONS_PATH", tmp_path / "contact.jsonl"
+    )
+    get_response = client.get("/contact")
+    body = get_response.get_data(as_text=True)
+    token_marker = 'name="csrf_token" value="'
+    token = body.split(token_marker, 1)[1].split('"', 1)[0]
+
+    response = client.post(
+        "/contact",
+        data={
+            "csrf_token": token,
+            "name": "Demo Buyer",
+            "email": "buyer@example.com",
+            "phone": "",
+            "inquiry": "RFP response",
+            "message": "We need help with RFP review.",
+        },
+    )
+    response_body = response.get_data(as_text=True)
+    assert response.status_code == 200
+    assert "Thanks. Your message was received" in response_body
+    assert "buyer@example.com" in (tmp_path / "contact.jsonl").read_text()
 
 
 def test_demo_page_embeds_calendar(client):

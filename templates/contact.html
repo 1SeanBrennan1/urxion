@@ -1,105 +1,79 @@
 {% extends "base.html" %}
-{% block title %}Contact Us | Urxion{% endblock %}
-{% block content %}
-<section class="section legacy-page">
-    <div class="container legacy-content">
-<nav class="nav-shell" aria-label="Main navigation">
-            <a class="brand" href="{{ url_for('index') }}">Urxion</a>
-            <div class="nav-links">
-                <a href="{{ url_for('index') }}">Home</a>
-                <a href="{{ url_for('demo') }}">Demo</a>
-                <a href="{{ url_for('privacy') }}">Privacy</a>
-                <a href="{{ url_for('terms') }}">Terms</a>
+{% block title %}Contact URXION | Talk through your workflow{% endblock %}
+{% block meta_description %}Contact URXION to discuss RFP response, compliance review, SDR outreach, or custom AI workflow automation.{% endblock %}
+{% block hero %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <div class="eyebrow">Contact</div>
+            <h1>Bring one real workflow.</h1>
+            <p class="lead">Tell us what you are working on. We will follow up with a focused next step, whether that is a demo, a discovery call, or a quick note that URXION is not the right fit.</p>
+            <div class="hero-actions">
+                <a class="btn-primary" href="{{ booking_url() }}">Book a discovery call</a>
+                <a class="btn-secondary" href="mailto:{{ contact_email() }}">Email {{ contact_email() }}</a>
             </div>
-        </nav>
-        <main>
-            <section>
-                <div class="eyebrow">Contact</div>
-                <h1>Let’s build the next version together.</h1>
-                <p class="lead">
-                    Tell us what you are working on and the best way to reach
-                    you. We’ll follow up with a focused, useful next step.
-                </p>
-            </section>
-            <section class="contact-card" aria-label="Contact form">
-                <form id="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name</label
-                        ><input
-                            id="name"
-                            type="text"
-                            name="name"
-                            class="form-control"
-                            autocomplete="name"
-                            required
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label
-                        ><input
-                            id="email"
-                            type="email"
-                            name="email"
-                            class="form-control"
-                            autocomplete="email"
-                            required
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone</label
-                        ><input
-                            id="phone"
-                            type="tel"
-                            name="phone"
-                            class="form-control"
-                            autocomplete="tel"
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label for="inquiry">What can we help with?</label
-                        ><select
-                            id="inquiry"
-                            class="form-control"
-                            name="inquiry"
-                            required
-                        >
-                            <option value="">Choose a topic</option>
-                            <option value="New offering inquiry">
-                                New offering inquiry
-                            </option>
-                            <option value="Partnership">Partnership</option>
-                            <option value="Support">Support</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label
-                        ><textarea
-                            id="message"
-                            name="message"
-                            class="form-control"
-                            required
-                        ></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">
-                        Send Message
-                    </button>
-                    <div
-                        id="form-status"
-                        class="status"
-                        role="status"
-                        aria-live="polite"
-                    ></div>
-                </form>
-            </section>
-        </main>
-        <footer>
-            <span>© 2026 Urxion. All rights reserved.</span
-            ><span
-                ><a href="{{ url_for('privacy') }}">Privacy</a> ·
-                <a href="{{ url_for('terms') }}">Terms</a></span
-            >
-        </footer>
+        </div>
+        <div class="hero-panel">
+            <div class="flow">
+                <div class="flow-step"><div class="flow-num">1</div><div>Describe the bottleneck</div></div>
+                <div class="flow-step"><div class="flow-num">2</div><div>Share the workflow type and urgency</div></div>
+                <div class="flow-step"><div class="flow-num">3</div><div>Get a practical next step</div></div>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container grid-2">
+        <section class="card" aria-label="Contact form">
+            <div class="eyebrow">Message URXION</div>
+            <h2>What can we help with?</h2>
+            {% if success %}<p class="status success" role="status">{{ success }}</p>{% endif %}
+            {% if error %}<p class="status error" role="alert">{{ error }}</p>{% endif %}
+            <form method="post" action="{{ url_for('contact') }}" id="contact-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" name="name" class="form-control" autocomplete="name" value="{{ form.name if form else '' }}" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" class="form-control" autocomplete="email" value="{{ form.email if form else '' }}" required />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone <span class="muted">optional</span></label>
+                    <input id="phone" type="tel" name="phone" class="form-control" autocomplete="tel" value="{{ form.phone if form else '' }}" />
+                </div>
+                <div class="form-group">
+                    <label for="inquiry">Workflow type</label>
+                    <select id="inquiry" class="form-control" name="inquiry">
+                        <option value="">Choose a topic</option>
+                        <option value="RFP response">RFP response</option>
+                        <option value="Compliance review">Compliance review</option>
+                        <option value="SDR workflow">SDR workflow</option>
+                        <option value="Custom agent">Custom agent</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" class="form-control" rows="7" required>{{ form.message if form else '' }}</textarea>
+                </div>
+                <button type="submit" class="btn-primary">Send message</button>
+            </form>
+        </section>
+        <aside class="card">
+            <div class="eyebrow">Prefer scheduling?</div>
+            <h2>Book directly.</h2>
+            <p>Use the calendar link if you already know you want a discovery call. Use the form if you want to give context first.</p>
+            <div class="actions">
+                <a class="btn-primary" href="{{ booking_url() }}">Book a discovery call</a>
+                <a class="btn-secondary" href="/demo">Try a public demo</a>
+            </div>
+            <p class="muted">For demo uploads, data is stored in a temporary workspace and deleted after 48 hours.</p>
+        </aside>
+    </div>
+</section>
+{% endblock %}
+</div></h1></div></div></div></h2></h2>

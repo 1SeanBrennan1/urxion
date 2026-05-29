@@ -70,6 +70,42 @@ SAMPLE_OPPORTUNITIES: list[dict[str, Any]] = [
         "source_status": "sample_fallback",
         "fetched_at": None,
     },
+    {
+        "id": "sample-on-construction-004",
+        "title": "Municipal Facility Renovation and Accessibility Upgrades",
+        "agency": "Ontario municipal buyer",
+        "deadline": "2026-08-20",
+        "estimated_value": "$1M - $3M",
+        "summary": "General contractor services for interior renovation, accessibility improvements, site safety, scheduling, subcontractor coordination, bonding, insurance, WSIB clearance, and closeout documentation.",
+        "requirements": [
+            "Provide construction project experience for occupied public facilities.",
+            "Submit health and safety plan, WSIB clearance, insurance, and bonding evidence.",
+            "Describe subcontractor management, schedule control, and deficiency closeout process.",
+            "Provide references, pricing breakdown, and project delivery schedule.",
+        ],
+        "source_name": "Sample fallback",
+        "source_url": "https://www.ontario.ca/page/tenders-and-procurement",
+        "source_status": "sample_fallback",
+        "fetched_at": None,
+    },
+    {
+        "id": "sample-on-roadworks-005",
+        "title": "Road Reconstruction, Drainage, and Concrete Works",
+        "agency": "Ontario regional municipality",
+        "deadline": "2026-07-18",
+        "estimated_value": "$2M - $6M",
+        "summary": "Civil construction for road resurfacing, stormwater drainage, concrete sidewalks, traffic control, environmental controls, equipment planning, and construction schedule management.",
+        "requirements": [
+            "Describe roadworks, drainage, asphalt, concrete, and traffic-control experience.",
+            "Provide equipment list, staffing plan, safety procedures, and quality-control approach.",
+            "Submit insurance, WSIB, bonding, environmental controls, and references.",
+            "Explain schedule, phasing, public communication, and deficiency resolution.",
+        ],
+        "source_name": "Sample fallback",
+        "source_url": "https://www.ontario.ca/page/tenders-and-procurement",
+        "source_status": "sample_fallback",
+        "fetched_at": None,
+    },
 ]
 
 STOPWORDS = {
@@ -339,15 +375,90 @@ def _score(opportunity: dict[str, Any], company_info: str) -> tuple[int, list[st
         "python",
         "flask",
         "compliance",
+        "construction",
+        "contractor",
+        "renovation",
+        "building",
+        "facility",
+        "facilities",
+        "road",
+        "roads",
+        "asphalt",
+        "concrete",
+        "drainage",
+        "civil",
+        "wsib",
+        "insurance",
+        "bonding",
+        "safety",
+        "janitorial",
+        "cleaning",
+    }
+    domain_groups = {
+        "construction": {
+            "construction",
+            "contractor",
+            "renovation",
+            "building",
+            "facility",
+            "facilities",
+            "subcontractor",
+            "site",
+            "safety",
+            "wsib",
+            "insurance",
+            "bonding",
+        },
+        "civil roadworks": {
+            "road",
+            "roads",
+            "roadworks",
+            "asphalt",
+            "concrete",
+            "drainage",
+            "stormwater",
+            "traffic",
+            "civil",
+        },
+        "technology": {
+            "ai",
+            "automation",
+            "workflow",
+            "document",
+            "data",
+            "cloud",
+            "software",
+            "platform",
+            "python",
+            "flask",
+            "cyber",
+        },
+        "facility services": {
+            "janitorial",
+            "cleaning",
+            "custodial",
+            "facility",
+            "facilities",
+        },
     }
     priority_overlap = sorted((company_terms & priority_terms) & opp_terms)
     score += len(priority_overlap) * 12
+    domain_reasons = []
+    for label, terms in domain_groups.items():
+        domain_overlap = sorted((company_terms & terms) & opp_terms)
+        if domain_overlap:
+            score += len(domain_overlap) * 18
+            domain_reasons.append(
+                f"Domain fit ({label}): {', '.join(domain_overlap[:3])}"
+            )
     if opportunity.get("source_status") == "source_linked":
         score += 10
-    reasons = [f"Keyword match: {term}" for term in (priority_overlap or overlap)[:4]]
+    reasons = domain_reasons + [
+        f"Keyword match: {term}" for term in (priority_overlap or overlap)[:4]
+    ]
     if not reasons:
-        reasons = ["General public-sector technology fit"]
-    return score, reasons
+        reasons = ["General public-sector fit based on limited public listing text"]
+    return score, reasons[:5]
 
 
 def ranked_opportunities(

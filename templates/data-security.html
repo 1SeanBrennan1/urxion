@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}URXION Data & Security | Human-approved AI workflows{% endblock %}
+{% block meta_description %}How URXION handles demo uploads, production data, third-party AI providers, retention, deletion, and human review for RFP, compliance, SDR, and custom workflows.{% endblock %}
+{% block hero %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <div class="eyebrow">Data & Security</div>
+            <h1>Clear data handling before automation.</h1>
+            <p class="lead">URXION is built for teams that need evidence, control, and human approval. This page explains how demo and production data are handled at a practical level.</p>
+            <div class="hero-actions">
+                <a class="btn-primary" href="{{ booking_url() }}">Ask about your workflow</a>
+                <a class="btn-secondary" href="{{ url_for('sample_outputs') }}">View sample outputs</a>
+            </div>
+        </div>
+        <div class="hero-panel">
+            <div class="flow">
+                <div class="flow-step"><div class="flow-num">1</div><div>Use data only for the requested output</div></div>
+                <div class="flow-step"><div class="flow-num">2</div><div>Keep humans responsible for final decisions</div></div>
+                <div class="flow-step"><div class="flow-num">3</div><div>Scope production retention and provider usage before launch</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container grid-3">
+        <div class="card"><h3>Demo uploads</h3><p>Public demo workspaces are temporary and designed to be deleted after 48 hours. Demo output is for evaluation only.</p></div>
+        <div class="card"><h3>No URXION model training</h3><p>Uploaded documents are not used to train URXION-owned models. They are used to generate the workflow output you request.</p></div>
+        <div class="card"><h3>Human approval</h3><p>URXION prepares review-ready artifacts. It does not auto-submit proposals, certify compliance, or send outbound messages on its own.</p></div>
+    </div>
+</section>
+<section class="section">
+    <div class="container grid-2">
+        <div class="card">
+            <div class="eyebrow">Third-party providers</div>
+            <h2>Provider usage is disclosed before production.</h2>
+            <p>Some workflows may use third-party AI or infrastructure providers to process your request. For production engagements, provider usage, data residency needs, retention, access controls, and deletion/export requirements are scoped before implementation.</p>
+        </div>
+        <div class="card">
+            <div class="eyebrow">Human access</div>
+            <h2>Access should match the work.</h2>
+            <p>URXION is founder-led today, so production access expectations are discussed directly. The goal is limited, purpose-bound access for setup, support, review, and troubleshooting.</p>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="section-header"><div class="eyebrow">Operating controls</div><h2>Designed around cautious workflows.</h2></div>
+        <div class="grid-4">
+            <div class="card"><h3>Evidence first</h3><p>Outputs should show requirements, sources, excerpts, gaps, or assumptions where possible.</p></div>
+            <div class="card"><h3>Fail closed</h3><p>Missing or unsupported information is flagged instead of guessed through.</p></div>
+            <div class="card"><h3>Scoped retention</h3><p>Production retention is agreed before implementation based on workflow, risk, and operational needs.</p></div>
+            <div class="card"><h3>Deletion and export</h3><p>Deletion/export expectations should be part of the production scope, not an afterthought.</p></div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container cta-band">
+        <h2>Have a security or data-handling question?</h2>
+        <p class="muted">Bring the workflow, documents, and constraints. We will tell you what URXION can support before asking you to upload sensitive data.</p>
+        <div class="actions"><a class="btn-primary" href="{{ booking_url() }}">Book a discovery call</a><a class="btn-secondary" href="mailto:{{ contact_email() }}">Email {{ contact_email() }}</a></div>
+    </div>
+</section>
+{% endblock %}

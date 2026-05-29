@@ -1,14 +1,276 @@
-{% extends "base.html" %}
-{% block title %}URXION | Focus on Closing Deals, Not Chasing Leads{% endblock %}
-{% block meta_description %}URXION helps Ontario government contractors and mid-market teams respond to RFPs, review compliance evidence, and prepare SDR outreach with human-approved AI workflows.{% endblock %}
-{% block hero %}
-<section class="hero"><div class="container hero-grid"><div><div class="eyebrow">URXION AI workflow agents</div><h1>Turn Your RFP, Compliance, and SDR Workflows into Review-Ready Work - Without a Back-Office Team.</h1><p class="lead">URXION helps lean teams turn RFPs, compliance packets, and prospect lists into review-ready work - without handing control to a black-box AI tool.</p><div class="hero-actions"><a class="btn-primary" href="https://www.urxion.com/demo">See a live walkthrough</a><a class="btn-secondary" href="/rfp">Start with RFPs</a></div><p class="muted">URXION is new. We're looking for founding customers who want to shape the future of RFP response, compliance review, and SDR workflows.</p></div><div class="hero-panel" aria-label="URXION workflow diagram"><div class="flow"><div class="flow-step"><div class="flow-num">1</div><div><strong>Bring the messy workflow</strong><br><span class="muted">RFPs, subcontractor packages, prospect lists, policies, evidence, or SOPs.</span></div></div><div class="flow-step"><div class="flow-num">2</div><div><strong>URXION structures the work</strong><br><span class="muted">Requirements, evidence, blockers, follow-ups, and review items become visible.</span></div></div><div class="flow-step"><div class="flow-num">3</div><div><strong>Your team reviews the output</strong><br><span class="muted">No auto-submission, no auto-certification, no automated spam.</span></div></div><div class="flow-step"><div class="flow-num">4</div><div><strong>You move faster with proof</strong><br><span class="muted">Proposal packages, approval packets, or outbound queues ready for human judgment.</span></div></div></div></div></div></section>
-<div class="trust-strip"><div class="container trust-items"><span class="badge">Founder-led</span><span class="badge">Ontario-built</span><span class="badge">Human approval required</span><span class="badge">GOLD-certified agent foundation</span></div></div>
-{% endblock %}
-{% block content %}
-<section class="section"><div class="container grid-3"><div class="card"><div class="metric">4 hrs</div><h3>Review-ready first pass</h3><p>For the right RFP, the goal is to compress a multi-day first draft into a focused review block. Final numbers depend on your documents and process.</p></div><div class="card"><div class="metric">0</div><h3>Autonomous sends or submissions</h3><p>URXION prepares work for review. Humans approve pricing, claims, legal language, compliance decisions, and outbound messages.</p></div><div class="card"><div class="metric">40+</div><h3>Factory checks</h3><p>The agent foundation is designed around safety, structure, traceability, and predictable outputs before it reaches a client workflow.</p></div></div></section>
-<section class="section"><div class="container"><div class="section-header"><div class="eyebrow">Where URXION fits</div><h2>Built for teams that need trust before speed.</h2><p>Ontario government contractors, mid-market vendors, construction compliance teams, and founder-led sales teams do not need a chatbot. They need structured work products they can inspect, edit, and approve.</p></div><div class="grid-4"><article class="card"><h3>URXION RFP</h3><p>Turn solicitations and evidence into compliance matrices, go/no-go memos, proposal drafts, and exportable packages.</p><div class="actions"><a class="btn-secondary" href="/rfp">Explore RFP</a></div></article><article class="card"><h3>URXION Compliance</h3><p>Review Ontario subcontractor packages for WSIB, insurance, training, safety, and contract evidence before work starts.</p><div class="actions"><a class="btn-secondary" href="/compliance">Explore Compliance</a></div></article><article class="card"><h3>URXION SDR</h3><p>Convert prospect lists into researched account briefs, slot-filled drafts, follow-ups, and a human approval queue.</p><div class="actions"><a class="btn-secondary" href="/sdr">Explore SDR</a></div></article><article class="card"><h3>Custom Agents</h3><p>Build a specialized workflow around your documents, rules, approval gates, and operating requirements.</p><div class="actions"><a class="btn-secondary" href="{{ url_for('custom_agents') }}">Explore Custom</a></div></article></div></div></section>
-<section class="section"><div class="container grid-2"><div class="founder-card"><img src="{{ url_for('static', filename='img/sean pic.png') }}" width="132" height="132" alt="Sean Brennan, Founder of URXION"><div><div class="eyebrow">Founder-led</div><h2>Work directly with Sean Brennan.</h2><p>I built URXION because I spent 20 years watching small teams lose deals over missing evidence and slow proposal cycles. This is the system I wanted for myself.</p><p class="muted">For founding customers, the promise is simple: practical workflows, direct feedback loops, and no pretending the product is more mature than it is.</p><div class="actions"><a class="btn-secondary" href="https://www.linkedin.com/in/1seanbrennan1/">View LinkedIn</a></div></div></div><div class="card"><div class="eyebrow">Product visual</div><h2>From document chaos to review-ready output.</h2><div class="flow"><div class="flow-step"><div class="flow-num">Input</div><div>RFP, compliance package, or prospect list</div></div><div class="flow-step"><div class="flow-num">Map</div><div>Requirements, evidence, gaps, risks, or hooks</div></div><div class="flow-step"><div class="flow-num">Draft</div><div>Proposal package, approval packet, or outreach queue</div></div><div class="flow-step"><div class="flow-num">OK</div><div>Human review, edit, and approval</div></div></div></div></div></section>
-<section class="section"><div class="container grid-2"><div class="card"><div class="eyebrow">Honest status</div><h2>New product. Serious foundation.</h2><p>URXION is looking for founding customers who want hands-on implementation, direct input into the roadmap, and practical AI workflows that solve painful document and sales bottlenecks.</p></div><div class="card"><div class="eyebrow">Resources & legacy content</div><h2>Sales roots, AI workflow future.</h2><p>Older sales assessments and book summaries remain available as resources while URXION evolves into an AI workflow company.</p><div class="actions"><a class="btn-secondary" href="{{ url_for('knowledge_is_power') }}">Browse resources</a><a class="btn-secondary" href="{{ url_for('contact') }}">Contact</a></div></div></div></section>
-<section class="section"><div class="container cta-band"><div class="eyebrow">No-pressure next step</div><h2>Bring one real workflow. We’ll tell you if URXION can help.</h2><p class="muted">Book a free discovery call. If there is no fit, you will still leave with a clearer view of the process, risks, and automation path.</p><div class="actions"><a class="btn-primary" href="https://www.urxion.com/demo">Book a free discovery call</a><a class="btn-secondary" href="/rfp">See URXION RFP</a></div></div></section>
+{% extends "base.html" %} {% block title %}URXION | Focus on Closing Deals, Not
+Chasing Leads{% endblock %} {% block meta_description %}URXION helps Ontario
+government contractors and mid-market teams respond to RFPs, review compliance
+evidence, and prepare SDR outreach with human-approved AI workflows.{% endblock
+%} {% block hero %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <div class="eyebrow">URXION AI workflow agents</div>
+            <h1>
+                Review-ready RFP, compliance, and SDR work - without the back-office drag.
+            </h1>
+            <p class="lead">
+                URXION helps lean teams turn RFPs, compliance packets, and
+                prospect lists into review-ready work - without handing control
+                to a black-box AI tool.
+            </p>
+            <div class="hero-actions">
+                <a class="btn-primary" href="/demo"
+                    >Try a public demo</a
+                ><a class="btn-secondary" href="{{ booking_url() }}">Book a discovery call</a>
+            </div>
+            <p class="muted">
+                URXION is new. We're looking for founding customers who want to
+                shape the future of RFP response, compliance review, and SDR
+                workflows.
+            </p>
+        </div>
+        <div class="hero-panel" aria-label="URXION workflow diagram">
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="flow-num">1</div>
+                    <div>
+                        <strong>Bring the messy workflow</strong><br /><span
+                            class="muted"
+                            >RFPs, subcontractor packages, prospect lists,
+                            policies, evidence, or SOPs.</span
+                        >
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-num">2</div>
+                    <div>
+                        <strong>URXION structures the work</strong><br /><span
+                            class="muted"
+                            >Requirements, evidence, blockers, follow-ups, and
+                            review items become visible.</span
+                        >
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-num">3</div>
+                    <div>
+                        <strong>Your team reviews the output</strong><br /><span
+                            class="muted"
+                            >No auto-submission, no auto-certification, no
+                            automated spam.</span
+                        >
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-num">4</div>
+                    <div>
+                        <strong>You move faster with proof</strong><br /><span
+                            class="muted"
+                            >Proposal packages, approval packets, or outbound
+                            queues ready for human judgment.</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="trust-strip">
+    <div class="container trust-items">
+        <span class="badge">Founder-led</span
+        ><span class="badge">Ontario-built</span
+        ><span class="badge">Human approval required</span
+        ><span class="badge">Evidence-first checks</span>
+    </div>
+</div>
+{% endblock %} {% block content %}
+<section class="section">
+    <div class="container grid-3">
+        <div class="card">
+            <div class="metric">4 hrs</div>
+            <h3>Review-ready first pass</h3>
+            <p>
+                For the right RFP, the goal is to compress a multi-day first
+                draft into a focused review block. Final numbers depend on your
+                documents and process.
+            </p>
+        </div>
+        <div class="card">
+            <div class="metric">0</div>
+            <h3>Autonomous sends or submissions</h3>
+            <p>
+                URXION prepares work for review. Humans approve pricing, claims,
+                legal language, compliance decisions, and outbound messages.
+            </p>
+        </div>
+        <div class="card">
+            <div class="metric">40+</div>
+            <h3>Factory checks</h3>
+            <p>
+                The agent foundation is designed around safety, structure,
+                traceability, and predictable outputs before it reaches a client
+                workflow.
+            </p>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div class="eyebrow">Where URXION fits</div>
+            <h2>Built for teams that need trust before speed.</h2>
+            <p>
+                Ontario government contractors, mid-market vendors, construction
+                compliance teams, and founder-led sales teams do not need a
+                chatbot. They need structured work products they can inspect,
+                edit, and approve.
+            </p>
+        </div>
+        <div class="grid-4">
+            <article class="card">
+                <h3>URXION RFP</h3>
+                <p>
+                    Turn solicitations and evidence into compliance matrices,
+                    go/no-go memos, proposal drafts, and exportable packages.
+                </p>
+                <div class="actions">
+                    <a class="btn-secondary" href="/rfp">Explore RFP</a>
+                </div>
+            </article>
+            <article class="card">
+                <h3>URXION Compliance</h3>
+                <p>
+                    Review Ontario subcontractor packages for WSIB, insurance,
+                    training, safety, and contract evidence before work starts.
+                </p>
+                <div class="actions">
+                    <a class="btn-secondary" href="/compliance"
+                        >Explore Compliance</a
+                    >
+                </div>
+            </article>
+            <article class="card">
+                <h3>URXION SDR</h3>
+                <p>
+                    Convert prospect lists into researched account briefs,
+                    slot-filled drafts, follow-ups, and a human approval queue.
+                </p>
+                <div class="actions">
+                    <a class="btn-secondary" href="/sdr">Explore SDR</a>
+                </div>
+            </article>
+            <article class="card">
+                <h3>Custom Agents</h3>
+                <p>
+                    Build a specialized workflow around your documents, rules,
+                    approval gates, and operating requirements.
+                </p>
+                <div class="actions">
+                    <a
+                        class="btn-secondary"
+                        href="{{ url_for('custom_agents') }}"
+                        >Explore Custom</a
+                    >
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container grid-2">
+        <div class="founder-card">
+            <img
+                src="{{ url_for('static', filename='img/sean pic.png') }}"
+                width="132"
+                height="132"
+                alt="Sean Brennan, Founder of URXION"
+            />
+            <div>
+                <div class="eyebrow">Founder-led</div>
+                <h2>Work directly with Sean Brennan.</h2>
+                <p>
+                    I built URXION after 20 years across sales, operations, and proposal-heavy workflows. I kept seeing small expert teams lose winnable work because requirements, evidence, compliance checks, and follow-up lived in scattered documents.
+                </p>
+                <p class="muted">
+                    For founding customers, the promise is simple: work directly with me to map one real workflow, run the first outputs, and decide whether the system is worth scaling.
+                </p>
+                <div class="actions">
+                    <a
+                        class="btn-secondary"
+                        href="https://www.linkedin.com/in/1seanbrennan1/"
+                        >View LinkedIn</a
+                    ><a class="btn-secondary" href="{{ url_for('sample_outputs') }}">View sample outputs</a
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="eyebrow">Product visual</div>
+            <h2>From document chaos to review-ready output.</h2>
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="flow-num">Input</div>
+                    <div>RFP, compliance package, or prospect list</div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-num">Map</div>
+                    <div>Requirements, evidence, gaps, risks, or hooks</div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-num">Draft</div>
+                    <div>
+                        Proposal package, approval packet, or outreach queue
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-num">OK</div>
+                    <div>Human review, edit, and approval</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container grid-2">
+        <div class="card">
+            <div class="eyebrow">Honest status</div>
+            <h2>New product. Serious foundation.</h2>
+            <p>
+                URXION is looking for founding customers who want hands-on
+                implementation, direct input into the roadmap, and practical AI
+                workflows that solve painful document and sales bottlenecks.
+            </p>
+        </div>
+        <div class="card">
+            <div class="eyebrow">Resources & legacy content</div>
+            <h2>Sales roots, AI workflow future.</h2>
+            <p>
+                Older sales assessments and book summaries remain available as
+                resources while URXION evolves into an AI workflow company.
+            </p>
+            <div class="actions">
+                <a
+                    class="btn-secondary"
+                    href="{{ url_for('knowledge_is_power') }}"
+                    >Browse resources</a
+                ><a class="btn-secondary" href="{{ url_for('contact') }}"
+                    >Contact</a
+                >
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section"><div class="container grid-2"><div class="card"><div class="eyebrow">Proof you can inspect</div><h2>Sample outputs, not just promises.</h2><p>Review sample RFP, compliance, and SDR artifacts before you book a call. Each sample shows the kind of structured output URXION prepares for human review.</p><div class="actions"><a class="btn-secondary" href="{{ url_for('sample_outputs') }}">View sample outputs</a><a class="btn-secondary" href="{{ url_for('data_security') }}">Data & Security</a></div></div><div class="card"><div class="eyebrow">Data handling</div><h2>Built for cautious teams.</h2><p>Demo uploads are temporary, production data handling is scoped before implementation, and uploaded documents are not used to train URXION-owned models.</p></div></div></section>
+<section class="section">
+    <div class="container cta-band">
+        <div class="eyebrow">No-pressure next step</div>
+        <h2>Bring one real workflow. We’ll tell you if URXION can help.</h2>
+        <p class="muted">
+            Book a free discovery call. If there is no fit, you will still leave
+            with a clearer view of the process, risks, and automation path.
+        </p>
+        <div class="actions">
+            <a class="btn-primary" href="{{ booking_url() }}"
+                >Book a discovery call</a
+            ><a class="btn-secondary" href="/demo">Try a public demo</a>
+        </div>
+    </div>
+</section>
 {% endblock %}
