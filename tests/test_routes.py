@@ -109,7 +109,7 @@ def test_new_product_pages_render_conversion_copy(client, path, expected):
     text = visible_text(body)
     assert response.status_code == 200
     assert expected in text
-    assert "https://calendly.com/urxion/30min" in body
+    assert "https://calendly.com/sean-brennan-urxion/30min" in body
     assert "URXION" in body
     assert "Athena" not in body
 

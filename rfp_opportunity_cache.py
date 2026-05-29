@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote_plus, urljoin
@@ -135,7 +135,7 @@ STOPWORDS = {
 
 
 def _now_iso() -> str:
-    return datetime.now(UTC).isoformat()
+    return datetime.now(timezone.utc).isoformat()
 
 
 def _strip_html(value: str) -> str:
@@ -357,7 +357,7 @@ def load_opportunity_cache(*, refresh_if_stale: bool = True) -> dict[str, Any]:
             fetched_at = payload.get("fetched_at")
             if not refresh_if_stale or not fetched_at:
                 return payload
-            age = datetime.now(UTC) - datetime.fromisoformat(fetched_at)
+            age = datetime.now(timezone.utc) - datetime.fromisoformat(fetched_at)
             if age < CACHE_TTL:
                 return payload
         except Exception:
