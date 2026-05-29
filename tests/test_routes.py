@@ -1,5 +1,6 @@
 import zipfile
 from io import BytesIO
+from pathlib import Path
 
 import pytest
 
@@ -101,7 +102,13 @@ def test_agent_engineering_resource_hub_and_articles_render(client):
     assert "20 practical guides for production AI agents" in hub_body
     assert "Reliable AI agents are governed systems" in hub_body
 
+    content_dir = (
+        Path(__file__).resolve().parents[1] / "content" / "ai-agent-engineering"
+    )
+    markdown_files = sorted(content_dir.glob("*.md"))
     assert len(AGENT_RESOURCE_PAGES) == 20
+    assert len(markdown_files) == 20
+    assert (content_dir / "system-not-the-model.md").exists()
     for page in AGENT_RESOURCE_PAGES:
         response = client.get(f"/resources/ai-agent-engineering/{page['slug']}")
         body = response.get_data(as_text=True)
