@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sales Assessment - Basic Business Information</</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
+    <style>
+        /* Inline CSS for additional styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        .tm-blog-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+        .tm-blog-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .tm-blog-content {
+            display: flex;
+            align-items: flex-start;
+        }
+        .tm-blog-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .tm-blog-text {
+            flex-grow: 1;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h4 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .tm-strategy-text {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .tm-nav-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #333;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .tm-blog-content {
+                flex-direction: column;
+            }
+            .tm-blog-img {
+                width: 100%;
+                height: auto;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+        <div class="tm-logo" style="background-color: transparent;">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Urxion logo" class="tm-logo-img">
+        </div>
+    </div>
+    <div class="tm-nav-container-outer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg" id="tm-main-nav">
+                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
+                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Step 1: Basic Business Information</h2>
+        <p class="lead mb-4">Let's start with some fundamental information about your business. This will help us calculate your revenue and costs.</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('step_1') }}">
+                    <div class="mb-3">
+                        <label for="price_per_unit" class="form-label">Price per Unit ($)</label>
+                        <input type="number" step="0.01" class="form-control" id="price_per_unit" name="price_per_unit" value="500" required>
+                        <div class="form-text">The price you charge for one unit of your product/service.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="variable_cost_per_unit" class="form-label">Variable Cost per Unit (excluding commissions, $)</label>
+                        <input type="number" step="0.01" class="form-control" id="variable_cost_per_unit" name="variable_cost_per_unit" value="100" required>
+                        <div class="form-text">The direct cost to produce or deliver one unit of your product/service.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ae_commission_rate" class="form-label">AE Commission Rate (%)</label>
+                        <input type="number" step="0.01" class="form-control" id="ae_commission_rate" name="ae_commission_rate" value="20" required>
+                        <div class="form-text">The percentage of the sale price your Account Executives (AEs) receive as commission.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="commission_per_meeting" class="form-label">Commission per Meeting Booked by SDR ($)</label>
+                        <input type="number" step="0.01" class="form-control" id="commission_per_meeting" name="commission_per_meeting" value="50" required>
+                        <div class="form-text">The amount you pay SDRs for each qualified meeting they book.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="avg_units_per_order" class="form-label">Average Units Purchased per Order</label>
+                        <input type="number" step="1" class="form-control" id="avg_units_per_order" name="avg_units_per_order" value="10" required>
+                        <div class="form-text">The typical number of units a customer buys in a single order.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer class="container-fluid">
+        <div class="row">
+            <p class="col-lg-9 col-md-8 mb-5 mb-md-0">
+                Copyright © 2024 <span class="tm-text-primary">URXION</span>
+                - Contact Us At  <a href="mailto:Sean.Brennan@urxion.com" class="tm-link-primary">Sean.Brennan@urxion.com</a>
+            </p>
+            <div class="col-lg-3 col-md-4 text-right">
+                <a href="https://linkedin.com" class="tm-social-link">
+                    <i class="fab fa-linkedin fa-2x tm-social-icon"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tooplate-script.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#parallax-1').parallax({ imageSrc: "{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" });
+        });
+    </script>
+</body>
+</html>

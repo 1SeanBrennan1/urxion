@@ -1,0 +1,96 @@
+{
+  "run_id": "b55c5280f50e8b22",
+  "created_at": "2026-05-29T02:06:56.041801+00:00",
+  "email_domain": "example.com",
+  "filename": "package.txt",
+  "review": {
+    "subcontractor_name": "Demo Roofing Ltd.",
+    "project_name": "Main Street Renovation",
+    "overall_status": "blocked",
+    "evidence_matrix": [
+      {
+        "rule": "WSIB clearance must be current and match the subcontractor before start of work",
+        "required_evidence": "Current WSIB clearance certificate for Demo Roofing Ltd. valid for the planned start date of 2026-01-15",
+        "matched_document": "Package text statement",
+        "source_excerpt": "WSIB clearance expired.",
+        "status": "expired",
+        "risk": "high"
+      },
+      {
+        "rule": "Insurance certificate must be current and issued to the correct legal subcontractor name",
+        "required_evidence": "Certificate of insurance showing Demo Roofing Ltd. as the insured, with required coverage limits and valid policy dates covering the project/start date",
+        "matched_document": "Insurance certificate referenced in package text",
+        "source_excerpt": "Insurance certificate includes a different legal name.",
+        "status": "mismatch",
+        "risk": "high"
+      },
+      {
+        "rule": "Worker training records must be provided for roofing work before site access",
+        "required_evidence": "Applicable training records for assigned workers, such as Working at Heights and any site-required safety orientation or task-specific training",
+        "matched_document": "None attached",
+        "source_excerpt": "No training records attached.",
+        "status": "missing",
+        "risk": "high"
+      },
+      {
+        "rule": "Safety policy / health and safety program must be provided and suitable for the work",
+        "required_evidence": "Current company health and safety policy/program appropriate for roofing work, preferably with evidence of recent review or update",
+        "matched_document": "Safety policy referenced in package text",
+        "source_excerpt": "Safety policy dated 2022.",
+        "status": "review",
+        "risk": "medium"
+      },
+      {
+        "rule": "Contract or start-work authorization evidence should be present before mobilization",
+        "required_evidence": "Executed subcontract, purchase order, notice to proceed, or written start-work authorization for Main Street Renovation",
+        "matched_document": "None identified in supplied text",
+        "source_excerpt": "No contract, purchase order, notice to proceed, or start-work authorization was identified in the uploaded package text.",
+        "status": "missing",
+        "risk": "medium"
+      }
+    ],
+    "blockers": [
+      {
+        "rule": "WSIB clearance",
+        "description": "The package states the WSIB clearance is expired. A current clearance valid for the planned start date is required for human review."
+      },
+      {
+        "rule": "Insurance",
+        "description": "The insurance certificate reportedly uses a different legal name than Demo Roofing Ltd.; legal name mismatch must be resolved or explained with supporting evidence."
+      },
+      {
+        "rule": "Training",
+        "description": "No worker training records are attached for roofing work, including required safety training such as Working at Heights where applicable."
+      }
+    ],
+    "remediation_plan": [
+      {
+        "priority": "High",
+        "action": "Upload a current WSIB clearance certificate for Demo Roofing Ltd. that is valid through the planned start date or provide updated clearance before mobilization.",
+        "rule": "WSIB clearance"
+      },
+      {
+        "priority": "High",
+        "action": "Provide a corrected certificate of insurance naming Demo Roofing Ltd. as the insured, or provide corporate/legal documentation explaining the name difference for human review.",
+        "rule": "Insurance"
+      },
+      {
+        "priority": "High",
+        "action": "Submit training records for all workers expected on site, including applicable roofing and Ontario safety training requirements.",
+        "rule": "Training"
+      },
+      {
+        "priority": "Medium",
+        "action": "Provide a current safety policy or evidence the 2022 safety policy has been reviewed and remains active and suitable for roofing work.",
+        "rule": "Safety policy"
+      },
+      {
+        "priority": "Medium",
+        "action": "Upload executed subcontract, purchase order, notice to proceed, or other written authorization tying Demo Roofing Ltd. to Main Street Renovation.",
+        "rule": "Contract/start-work evidence"
+      }
+    ],
+    "disclaimer": "Not legal advice. Built for qualified human review. The system never auto-certifies compliance.",
+    "generated_by": "azure:gpt-5.5"
+  }
+}

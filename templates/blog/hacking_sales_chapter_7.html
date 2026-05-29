@@ -1,86 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hacking Sales Chapter 7: Outbound E-mailing/Messaging</title>
-    <meta name="description" content="{{ description }}">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
-
-    <style>
-        /* Inline CSS for additional styles */
-        body {
-            font-family: 'Open Sans', sans-serif;
-        }
-        .tm-blog-item {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            padding: 15px;
-            transition: transform 0.3s;
-        }
-        .tm-blog-item:hover {
-            transform: scale(1.01);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        /* Image and text side-by-side */
-        .tm-blog-content {
-            display: flex;
-            align-items: flex-start;
-        }
-        .tm-blog-img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            margin-right: 20px;
-            flex-shrink: 0;
-        }
-        .tm-blog-text {
-            flex-grow: 1;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        h4 {
-            color: #007bff;
-            margin-bottom: 10px;
-        }
-        .tm-strategy-text {
-            list-style-type: disc;
-            padding-left: 20px;
-            margin-bottom: 0;
-        }
-        .tm-nav-link {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            color: #333;
-            border: none;
-        }
-        @media (max-width: 768px) {
-            .tm-blog-content {
-                flex-direction: column;
-            }
-            .tm-blog-img {
-                width: 100%;
-                height: auto;
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+{% extends "base.html" %}
+{% block title %}Hacking Sales Chapter 7: Outbound E-mailing/Messaging{% endblock %}
+{% block content %}
+<section class="section legacy-page">
+    <div class="container legacy-content">
+<div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
         <div class="tm-logo" style="background-color: transparent;">
-            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Your Logo" class="tm-logo-img">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Urxion logo" class="tm-logo-img">
         </div>
     </div>
     <div class="tm-nav-container-outer">
@@ -115,7 +40,7 @@
     </div>
 <div class="chapter-content">
 <h1>Chapter 7: Outbound E-mailing/Messaging</h1>
-<p>This chapter focuses on maximizing the effectiveness of your outbound email campaigns. It outlines the importance of A/B testing subject lines, calls to action, and email body content to determine what resonates best with your target audience. The chapter provides a step-by-step guide for setting up A/B tests, analyzing results, and continuously optimizing your email templates for better open rates, click-through rates, and response rates. It also explores the concept of establishing a consistent outbound cadence – a predetermined sequence of touches designed to stay top-of-mind with your leads. The chapter recommends using email automation tools and CRM features to manage your cadence effectively and track your progress.</p>
+<p>This chapter focuses on maximizing the effectiveness of your outbound email campaigns. It outlines the importance of A/B testing subject lines, calls to action, and email body content to determine what resonates best with your target audience. The chapter provides a step-by-step guide for setting up A/B tests, analyzing results, and continuously optimizing your email templates for better open rates, click-through rates, and response rates. It also explores the concept of establishing a consistent outbound cadence - a predetermined sequence of touches designed to stay top-of-mind with your leads. The chapter recommends using email automation tools and CRM features to manage your cadence effectively and track your progress.</p>
 <h2>Main Concepts</h2>
 <ul>
 <li>Crafting compelling cold emails is crucial.</li>
@@ -159,7 +84,7 @@
 <p><strong>Resources:</strong> Your segmented lead lists, email marketing software (or your CRM's email capabilities), brainstorming sessions.</p>
 <p><strong>Obstacles and Solutions:</strong></p>
 <ul>
-<li><strong>Obstacle:</strong> Analysis paralysis – <strong>Solution:</strong> Start with testing just one element at a time. Focus on the element that you think will have the biggest impact.</li>
+<li><strong>Obstacle:</strong> Analysis paralysis - <strong>Solution:</strong> Start with testing just one element at a time. Focus on the element that you think will have the biggest impact.</li>
 <li><strong>Timeline:</strong> Ongoing (make A/B testing an ongoing part of your email strategy).</li>
 </ul>
 <h4>Actionable Task 1.2: Set Up Your A/B Tests</h4>
@@ -174,7 +99,7 @@
 <p><strong>Resources:</strong> Email marketing software (Mailchimp, Constant Contact, etc.), your CRM.</p>
 <p><strong>Obstacles and Solutions:</strong></p>
 <ul>
-<li><strong>Obstacle:</strong> Limited access to email marketing tools – <strong>Solution:</strong> Start with basic A/B testing using your CRM or a free email marketing plan. As your needs grow, invest in more advanced tools.</li>
+<li><strong>Obstacle:</strong> Limited access to email marketing tools - <strong>Solution:</strong> Start with basic A/B testing using your CRM or a free email marketing plan. As your needs grow, invest in more advanced tools.</li>
 <li><strong>Timeline:</strong> Ongoing (setup time for each test: 1-2 hours).</li>
 </ul>
 <h4>Actionable Task 1.3: Analyze Results and Optimize</h4>
@@ -188,7 +113,7 @@
 <p><strong>Resources:</strong> Your email marketing platform, data analysis skills.</p>
 <p><strong>Obstacles and Solutions:</strong></p>
 <ul>
-<li><strong>Obstacle:</strong> Difficulty interpreting results – <strong>Solution:</strong> Consult email marketing best practices online or seek advice from email marketing experts. Many email platforms also provide guidance and support.</li>
+<li><strong>Obstacle:</strong> Difficulty interpreting results - <strong>Solution:</strong> Consult email marketing best practices online or seek advice from email marketing experts. Many email platforms also provide guidance and support.</li>
 <li><strong>Timeline:</strong> Ongoing (analysis and optimization time: 1-2 hours per test).</li>
 </ul>
 <h3>Practical Application 2: Establish a Consistent Outbound Cadence</h3>
@@ -211,7 +136,7 @@
 <p><strong>Resources:</strong> Industry reports, sales expert advice, your own experience.</p>
 <p><strong>Obstacles and Solutions:</strong></p>
 <ul>
-<li><strong>Obstacle:</strong> Uncertainty about the best cadence – <strong>Solution:</strong> Start with a reasonable baseline and track your results. Be willing to experiment and adjust your cadence over time based on what works best for your audience.</li>
+<li><strong>Obstacle:</strong> Uncertainty about the best cadence - <strong>Solution:</strong> Start with a reasonable baseline and track your results. Be willing to experiment and adjust your cadence over time based on what works best for your audience.</li>
 <li><strong>Timeline:</strong> Ongoing (cadence planning and adjustments).</li>
 </ul>
 <h4>Actionable Task 2.2: Use Automation to Manage Your Cadence</h4>
@@ -224,7 +149,7 @@
 <p><strong>Resources:</strong> Email automation tools (Outreach.io, SalesLoft, etc.), your CRM.</p>
 <p><strong>Obstacles and Solutions:</strong></p>
 <ul>
-<li><strong>Obstacle:</strong> Technical challenges with automation – <strong>Solution:</strong> Most automation tools provide tutorials and support documentation. Consider hiring a freelancer or consultant if you need additional help.</li>
+<li><strong>Obstacle:</strong> Technical challenges with automation - <strong>Solution:</strong> Most automation tools provide tutorials and support documentation. Consider hiring a freelancer or consultant if you need additional help.</li>
 <li><strong>Timeline:</strong> Ongoing (initial setup time: 1-2 days per sequence).</li>
 </ul>
 <h2>Evaluation Criteria</h2>
@@ -263,14 +188,6 @@
 </div>
 </div>
 </footer>
-<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/tooplate-script.js') }}"></script>
-<script>
-        $(document).ready(function () {
-            $('#parallax-1').parallax({ imageSrc: "{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" });
-        });
-    </script>
-</body>
-</html>
+    </div>
+</section>
+{% endblock %}

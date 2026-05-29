@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+            {% block title %}URXION | AI agents for RFP, compliance, and SDR
+            workflows{% endblock %}
+        </title>
+        <meta
+            name="description"
+            content="{% block meta_description %}Book a free discovery call with URXION to see how purpose-built AI agents can help with RFP response, compliance review, SDR outreach, or custom workflow automation.{% endblock %}"
+        />
+        <link
+            rel="canonical"
+            href="{% block canonical_url %}{{ request.url if request else '' }}{% endblock %}"
+        />
+        <style>
+            :root {
+                color-scheme: light;
+                --bg: #ffffff;
+                --surface: #f8fafc;
+                --text: #1a1a2e;
+                --accent: #1e3a5f;
+                --cta: #2563eb;
+                --muted: #475569;
+                --line: rgba(30, 58, 95, 0.18);
+                --soft-blue: #eff6ff;
+                --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    sans-serif;
+                color: var(--text);
+                background: var(--bg);
+                line-height: 1.65;
+                text-rendering: optimizeLegibility;
+            }
+            a {
+                color: inherit;
+            }
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+            .site-header {
+                position: sticky;
+                top: 0;
+                z-index: 20;
+                background: rgba(255, 255, 255, 0.94);
+                border-bottom: 1px solid var(--line);
+                backdrop-filter: blur(14px);
+            }
+            .nav-wrap,
+            .container {
+                width: min(1180px, calc(100% - 32px));
+                margin: 0 auto;
+            }
+            .nav-wrap {
+                min-height: 76px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+            }
+            .brand {
+                display: inline-flex;
+                gap: 0.7rem;
+                align-items: center;
+                color: var(--accent);
+                font-weight: 950;
+                letter-spacing: -0.045em;
+                font-size: 1.45rem;
+                text-decoration: none;
+                white-space: nowrap;
+            }
+            .brand svg {
+                width: 42px;
+                height: 42px;
+                color: var(--accent);
+            }
+            .nav-links {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 0.35rem;
+                flex-wrap: wrap;
+            }
+            .nav-links a {
+                color: #334155;
+                text-decoration: none;
+                font-weight: 800;
+                font-size: 0.92rem;
+                padding: 0.55rem 0.72rem;
+                border-radius: 999px;
+            }
+            .nav-links a:hover {
+                color: var(--accent);
+                background: var(--soft-blue);
+            }
+            .nav-call,
+            .btn-primary {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 2.9rem;
+                padding: 0.8rem 1.2rem;
+                border-radius: 999px;
+                color: #fff !important;
+                background: var(--cta);
+                font-weight: 900;
+                text-decoration: none;
+                box-shadow: 0 12px 28px rgba(37, 99, 235, 0.22);
+            }
+            .btn-secondary {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 2.9rem;
+                padding: 0.8rem 1.2rem;
+                border-radius: 999px;
+                border: 1px solid var(--line);
+                color: var(--accent);
+                background: #fff;
+                font-weight: 900;
+                text-decoration: none;
+            }
+            .hero {
+                padding: clamp(4rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 5rem);
+                background: linear-gradient(180deg, #fff 0%, #f8fafc 100%);
+            }
+            .hero-grid {
+                display: grid;
+                grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+                gap: clamp(2rem, 5vw, 4rem);
+                align-items: center;
+            }
+            h1,
+            h2,
+            h3 {
+                color: var(--text);
+                letter-spacing: -0.045em;
+                line-height: 1.04;
+            }
+            h1 {
+                margin: 0;
+                font-size: clamp(2.75rem, 7vw, 5.9rem);
+                max-width: 12ch;
+            }
+            h2 {
+                margin: 0 0 1rem;
+                font-size: clamp(2rem, 4vw, 3.4rem);
+            }
+            h3 {
+                margin: 0 0 0.65rem;
+                font-size: clamp(1.2rem, 2vw, 1.55rem);
+            }
+            .lead {
+                color: var(--muted);
+                font-size: clamp(1.08rem, 2vw, 1.28rem);
+                max-width: 680px;
+                margin: 1.25rem 0 0;
+            }
+            .eyebrow {
+                display: inline-flex;
+                color: var(--cta);
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                font-size: 0.76rem;
+                font-weight: 950;
+                margin-bottom: 1rem;
+            }
+            .hero-actions,
+            .actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+                margin-top: 1.65rem;
+            }
+            .section {
+                padding: clamp(3rem, 7vw, 5rem) 0;
+            }
+            .section-header {
+                max-width: 780px;
+                margin-bottom: 1.7rem;
+            }
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                display: grid;
+                gap: 1rem;
+            }
+            .grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .grid-4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .card,
+            .hero-panel,
+            .founder-card {
+                border: 1px solid var(--line);
+                background: #fff;
+                border-radius: 24px;
+                padding: clamp(1.15rem, 2.5vw, 1.6rem);
+                box-shadow: var(--shadow);
+            }
+            .muted,
+            .card p,
+            .section-header p {
+                color: var(--muted);
+            }
+            .badge {
+                display: inline-flex;
+                border: 1px solid var(--line);
+                border-radius: 999px;
+                padding: 0.48rem 0.78rem;
+                color: var(--accent);
+                background: var(--soft-blue);
+                font-weight: 850;
+                font-size: 0.9rem;
+            }
+            .site-footer {
+                border-top: 1px solid var(--line);
+                margin-top: 3rem;
+                background: #f8fafc;
+            }
+            .footer-grid {
+                display: grid;
+                grid-template-columns: 1.4fr repeat(3, 1fr);
+                gap: 2rem;
+                padding: 3rem 0;
+            }
+            .footer-grid a {
+                display: block;
+                color: #334155;
+                text-decoration: none;
+                margin: 0.35rem 0;
+            }
+            .footer-title {
+                color: var(--accent);
+                font-weight: 950;
+                margin-bottom: 0.65rem;
+            }
+
+            /* Global light-theme contrast guardrail.
+               The redesigned site is light; normal text inside main content must never be white on white. */
+            main,
+            main .section,
+            main .container,
+            main .card,
+            main .hero-panel,
+            main .founder-card,
+            main .proof-card,
+            main .pricing-card,
+            main .resource-card,
+            main .feature-card,
+            main .cta-band,
+            main .legacy-content {
+                color: #111827 !important;
+            }
+            main .card,
+            main .hero-panel,
+            main .founder-card,
+            main .proof-card,
+            main .pricing-card,
+            main .resource-card,
+            main .feature-card,
+            main .legacy-content {
+                background: #ffffff !important;
+            }
+            main
+                :where(
+                    p,
+                    li,
+                    dd,
+                    dt,
+                    label,
+                    small,
+                    span,
+                    div,
+                    pre,
+                    code,
+                    .muted,
+                    .lead,
+                    .text-muted,
+                    .text-white,
+                    .text-light,
+                    .text-white-50,
+                    .principle-code
+                ) {
+                color: #334155 !important;
+                -webkit-text-fill-color: #334155 !important;
+                text-shadow: none !important;
+            }
+            main :where(h1, h2, h3, h4, h5, h6, strong, b, .metric) {
+                color: #0f172a !important;
+                -webkit-text-fill-color: #0f172a !important;
+                text-shadow: none !important;
+            }
+            main
+                :where(
+                    .eyebrow,
+                    a:not(.btn-primary):not(.btn-secondary):not(.nav-call)
+                ) {
+                color: #1d4ed8 !important;
+                -webkit-text-fill-color: #1d4ed8 !important;
+            }
+            main :where(.principle-code, pre, code) {
+                display: block;
+                background: #f8fafc !important;
+                color: #0f172a !important;
+                -webkit-text-fill-color: #0f172a !important;
+                border-color: rgba(30, 58, 95, 0.18) !important;
+            }
+            main :where(.btn-primary, .nav-call),
+            main :where(.btn-primary, .nav-call) * {
+                color: #ffffff !important;
+                -webkit-text-fill-color: #ffffff !important;
+            }
+            main :where(.btn-secondary),
+            main :where(.btn-secondary) * {
+                color: var(--accent) !important;
+                -webkit-text-fill-color: var(--accent) !important;
+            }
+            main
+                :where(
+                    .dark,
+                    .bg-dark,
+                    .tm-bg-black-transparent,
+                    [style*="background: var(--dark)"],
+                    [style*="background:#0f172a"],
+                    [style*="background: #0f172a"],
+                    [style*="background-color:#0f172a"],
+                    [style*="background-color: #0f172a"]
+                ),
+            main
+                :where(
+                    .dark,
+                    .bg-dark,
+                    .tm-bg-black-transparent,
+                    [style*="background: var(--dark)"],
+                    [style*="background:#0f172a"],
+                    [style*="background: #0f172a"],
+                    [style*="background-color:#0f172a"],
+                    [style*="background-color: #0f172a"]
+                )
+                * {
+                color: #ffffff !important;
+                -webkit-text-fill-color: #ffffff !important;
+            }
+            @media (max-width: 980px) {
+                .nav-wrap {
+                    align-items: flex-start;
+                    padding: 0.8rem 0;
+                    flex-direction: column;
+                }
+                .hero-grid,
+                .grid-2,
+                .grid-3,
+                .grid-4,
+                .footer-grid {
+                    grid-template-columns: 1fr;
+                }
+                h1 {
+                    max-width: 13ch;
+                }
+            }
+        </style>
+        <link
+            rel="preload"
+            href="{{ url_for('static', filename='css/site-foundation.css') }}"
+            as="style"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/site-foundation.css') }}"
+            media="print"
+            onload="this.media = 'all'"
+        />
+        <noscript
+            ><link
+                rel="stylesheet"
+                href="{{ url_for('static', filename='css/site-foundation.css') }}"
+        /></noscript>
+        <style>
+            /* Must come after all shared CSS: final readable-light-theme override. */
+            body main,
+            body main section,
+            body main .container,
+            body main .section-header,
+            body main .card,
+            body main .hero-panel,
+            body main .founder-card,
+            body main .cta-band,
+            body main .legacy-content {
+                color: #111827 !important;
+                text-shadow: none !important;
+            }
+            body main .section-header h1,
+            body main .section-header h2,
+            body main .section-header h3,
+            body main section h1,
+            body main section h2,
+            body main section h3,
+            body main section h4,
+            body main .card h1,
+            body main .card h2,
+            body main .card h3,
+            body main .card h4,
+            body main .hero-panel h1,
+            body main .hero-panel h2,
+            body main .hero-panel h3,
+            body main .founder-card h1,
+            body main .founder-card h2,
+            body main .founder-card h3,
+            body main .cta-band h1,
+            body main .cta-band h2,
+            body main .cta-band h3 {
+                color: #0f172a !important;
+                -webkit-text-fill-color: #0f172a !important;
+                background: transparent !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                text-shadow: none !important;
+            }
+            body main .section-header p,
+            body main .card p,
+            body main .hero-panel p,
+            body main .founder-card p,
+            body main .cta-band p,
+            body main .muted,
+            body main .lead,
+            body main li,
+            body main dd,
+            body main dt,
+            body main small,
+            body main label,
+            body main span:not(.badge):not(.flow-num),
+            body main div:not(.badge):not(.flow-num):not(.icon):not(.eyebrow) {
+                color: #334155 !important;
+                -webkit-text-fill-color: #334155 !important;
+                text-shadow: none !important;
+            }
+            body main .eyebrow,
+            body main .card .eyebrow,
+            body main .section-header .eyebrow {
+                color: #1d4ed8 !important;
+                -webkit-text-fill-color: #1d4ed8 !important;
+            }
+            body main pre,
+            body main code,
+            body main .principle-code {
+                color: #0f172a !important;
+                -webkit-text-fill-color: #0f172a !important;
+                background: #f8fafc !important;
+                text-shadow: none !important;
+            }
+            body main .btn-primary,
+            body main .btn-primary *,
+            body main .nav-call,
+            body main .nav-call * {
+                color: #ffffff !important;
+                -webkit-text-fill-color: #ffffff !important;
+            }
+            body main .btn-secondary,
+            body main .btn-secondary * {
+                color: #1e3a5f !important;
+                -webkit-text-fill-color: #1e3a5f !important;
+            }
+        </style>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@graph": [
+                    {
+                        "@type": "Organization",
+                        "name": "URXION",
+                        "url": "https://www.urxion.com",
+                        "description": "URXION builds purpose-built AI agents for RFP response, compliance review, SDR outreach, and custom business workflows.",
+                        "founder": {
+                            "@type": "Person",
+                            "name": "Sean Brennan"
+                        },
+                        "sameAs": ["https://www.linkedin.com/in/1seanbrennan1/"]
+                    },
+                    {
+                        "@type": "Product",
+                        "name": "URXION RFP",
+                        "description": "Source-backed RFP response software that produces compliance matrices, go/no-go memos, proposal drafts, and exportable proposal packages.",
+                        "brand": { "@type": "Brand", "name": "URXION" },
+                        "offers": {
+                            "@type": "Offer",
+                            "priceCurrency": "CAD",
+                            "price": "5000",
+                            "availability": "https://schema.org/PreOrder"
+                        }
+                    },
+                    {
+                        "@type": "Product",
+                        "name": "URXION Compliance",
+                        "description": "Ontario subcontractor compliance package review for WSIB, insurance, training, safety, and contract evidence.",
+                        "brand": { "@type": "Brand", "name": "URXION" },
+                        "offers": {
+                            "@type": "Offer",
+                            "priceCurrency": "CAD",
+                            "price": "3500",
+                            "availability": "https://schema.org/PreOrder"
+                        }
+                    },
+                    {
+                        "@type": "Product",
+                        "name": "URXION SDR",
+                        "description": "Human-approved AI outbound workflow for researched account briefs, slot-filled outreach drafts, follow-ups, and review queues.",
+                        "brand": { "@type": "Brand", "name": "URXION" },
+                        "offers": {
+                            "@type": "Offer",
+                            "priceCurrency": "CAD",
+                            "price": "2500",
+                            "availability": "https://schema.org/PreOrder"
+                        }
+                    },
+                    {
+                        "@type": "Product",
+                        "name": "URXION Custom Agents",
+                        "description": "Custom AI agents built around client documents, rules, tools, approval processes, and operating requirements.",
+                        "brand": { "@type": "Brand", "name": "URXION" },
+                        "offers": {
+                            "@type": "Offer",
+                            "priceCurrency": "CAD",
+                            "price": "7500",
+                            "availability": "https://schema.org/PreOrder"
+                        }
+                    }
+                ]
+            }
+        </script>
+        {% block head_extra %}{% endblock %}
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav-wrap" aria-label="Main navigation">
+                <a
+                    class="brand"
+                    href="{{ url_for('index') }}"
+                    aria-label="URXION home"
+                    ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 400 400"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M140 80 L260 80 L260 100 L240 100 L240 240 Q240 270, 200 270 Q160 270, 160 240 L160 100 L140 100 L140 250 Q140 300, 200 300 Q260 300, 260 250 L260 100 L240 100 L240 80 L280 80 L280 250 Q280 320, 200 320 Q120 320, 120 250 L120 80 Z M180 120 L220 120 L220 230 Q220 250, 200 250 Q180 250, 180 230 Z"
+                            fill="currentColor"
+                        />
+                        <polygon
+                            points="270,60 290,60 290,80"
+                            fill="currentColor"
+                        /></svg
+                    ><span>URXION</span></a
+                >
+                <div class="nav-links">
+                    <a href="{{ url_for('index') }}">Home</a
+                    ><a href="{{ url_for('why_urxion') }}">Why Urxion</a
+                    ><a href="/rfp">URXION RFP</a
+                    ><a href="/compliance">URXION Compliance</a
+                    ><a href="/sdr">URXION SDR</a
+                    ><a href="{{ url_for('custom_agents') }}">Custom Agents</a
+                    ><a class="nav-call" href="https://www.urxion.com/demo"
+                        >Free discovery call</a
+                    >
+                </div>
+            </nav>
+        </header>
+        {% block hero %}{% endblock %}
+        <main>
+            {% block content %}{% endblock %}{% block cta %}{% endblock %}
+        </main>
+        <footer class="site-footer">
+            <div class="container footer-grid">
+                <div>
+                    <div class="footer-title">URXION</div>
+                    <p class="muted">
+                        Purpose-built AI agents for RFP response, compliance
+                        review, SDR workflows, and custom business automation.
+                        Built for human-in-the-loop teams that need speed,
+                        evidence, and control.
+                    </p>
+                    <div class="badge">GOLD-certified agent foundation</div>
+                    <p class="muted">
+                        Your documents stay in your workspace. They are never
+                        used to train models or shared with third parties.
+                    </p>
+                    <p class="muted">
+                        You own your data. Export everything at any time.
+                    </p>
+                </div>
+                <div>
+                    <div class="footer-title">Products</div>
+                    <a href="/rfp">URXION RFP</a
+                    ><a href="/compliance">URXION Compliance</a
+                    ><a href="/sdr">URXION SDR</a
+                    ><a href="{{ url_for('custom_agents') }}">Custom Agents</a>
+                </div>
+
+                <div>
+                    <div class="footer-title">Company</div>
+                    <a href="{{ url_for('why_urxion') }}">Why Urxion</a
+                    ><a href="https://www.urxion.com/demo"
+                        >Free discovery call</a
+                    ><a href="{{ url_for('contact') }}">Contact</a
+                    ><a href="{{ url_for('privacy') }}">Privacy</a
+                    ><a href="{{ url_for('terms') }}">Terms</a
+                    ><a href="https://www.linkedin.com/in/1seanbrennan1/"
+                        >Sean Brennan on LinkedIn</a
+                    >
+                </div>
+            </div>
+        </footer>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

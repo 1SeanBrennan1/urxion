@@ -1,0 +1,145 @@
+{
+  "run_id": "2a4f5f0d36a70b9c",
+  "company_name": "Urxion",
+  "email_domain": "example.com",
+  "company_info": "We build AI agents, Python Flask software, data automation, compliance review, RFP proposal automation, document workflows, and public-sector approval systems.",
+  "created_at": "2026-05-29T02:14:21.385754+00:00",
+  "opportunities": [
+    {
+      "id": "src-38b3e9b6c2fb",
+      "title": "EF928-261749 - Corrective work for CSC petroleum storage systems\u2026",
+      "agency": "CanadaBuys tendering organization",
+      "deadline": "See source posting",
+      "estimated_value": "See source posting",
+      "summary": "CanadaBuys tender notice for EF928-261749 - Corrective work for CSC petroleum storage systems\u2026. Open the source posting for official scope, deadlines, amendments, and submission details.",
+      "requirements": [
+        "Summarize relevant experience and delivery approach.",
+        "Provide implementation plan, governance, timeline, and support model.",
+        "Map claims to supplied evidence and flag unsupported statements.",
+        "Confirm pricing, legal, and submission requirements before final approval."
+      ],
+      "source_name": "CanadaBuys",
+      "source_url": "https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/ws5679140598-doc5715325766",
+      "source_status": "source_linked",
+      "fetched_at": "2026-05-29T02:14:05.484077+00:00",
+      "fit_score": 18,
+      "match_reasons": [
+        "Keyword match: systems"
+      ]
+    },
+    {
+      "id": "src-20cfdd814f63",
+      "title": "Remote Piloted Aircraft Systems (RPAS) and Accessories",
+      "agency": "CanadaBuys tendering organization",
+      "deadline": "See source posting",
+      "estimated_value": "See source posting",
+      "summary": "CanadaBuys tender notice for Remote Piloted Aircraft Systems (RPAS) and Accessories. Open the source posting for official scope, deadlines, amendments, and submission details.",
+      "requirements": [
+        "Summarize relevant experience and delivery approach.",
+        "Provide implementation plan, governance, timeline, and support model.",
+        "Map claims to supplied evidence and flag unsupported statements.",
+        "Confirm pricing, legal, and submission requirements before final approval."
+      ],
+      "source_name": "CanadaBuys",
+      "source_url": "https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/cb-811-66155289",
+      "source_status": "source_linked",
+      "fetched_at": "2026-05-29T02:14:05.484212+00:00",
+      "fit_score": 18,
+      "match_reasons": [
+        "Keyword match: systems"
+      ]
+    },
+    {
+      "id": "src-c95ed2a23639",
+      "title": "W0123-24CM01B Digital Television Service",
+      "agency": "CanadaBuys tendering organization",
+      "deadline": "See source posting",
+      "estimated_value": "See source posting",
+      "summary": "CanadaBuys tender notice for W0123-24CM01B Digital Television Service. Open the source posting for official scope, deadlines, amendments, and submission details.",
+      "requirements": [
+        "Summarize relevant experience and delivery approach.",
+        "Provide implementation plan, governance, timeline, and support model.",
+        "Map claims to supplied evidence and flag unsupported statements.",
+        "Confirm pricing, legal, and submission requirements before final approval."
+      ],
+      "source_name": "CanadaBuys",
+      "source_url": "https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/ws5547843540-doc5681344773",
+      "source_status": "source_linked",
+      "fetched_at": "2026-05-29T02:14:05.483572+00:00",
+      "fit_score": 10,
+      "match_reasons": [
+        "General public-sector technology fit"
+      ]
+    },
+    {
+      "id": "src-33448c6ca971",
+      "title": "Vehicular Equipment Components - Mobile Kitchen Trailers",
+      "agency": "CanadaBuys tendering organization",
+      "deadline": "See source posting",
+      "estimated_value": "See source posting",
+      "summary": "CanadaBuys tender notice for Vehicular Equipment Components - Mobile Kitchen Trailers. Open the source posting for official scope, deadlines, amendments, and submission details.",
+      "requirements": [
+        "Summarize relevant experience and delivery approach.",
+        "Provide implementation plan, governance, timeline, and support model.",
+        "Map claims to supplied evidence and flag unsupported statements.",
+        "Confirm pricing, legal, and submission requirements before final approval."
+      ],
+      "source_name": "CanadaBuys",
+      "source_url": "https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/cb-709-75404492",
+      "source_status": "source_linked",
+      "fetched_at": "2026-05-29T02:14:05.483643+00:00",
+      "fit_score": 10,
+      "match_reasons": [
+        "General public-sector technology fit"
+      ]
+    },
+    {
+      "id": "src-1c909d7b9361",
+      "title": "EB281-261672 - Elevating Devices Maintenance - BIO",
+      "agency": "CanadaBuys tendering organization",
+      "deadline": "See source posting",
+      "estimated_value": "See source posting",
+      "summary": "CanadaBuys tender notice for EB281-261672 - Elevating Devices Maintenance - BIO. Open the source posting for official scope, deadlines, amendments, and submission details.",
+      "requirements": [
+        "Summarize relevant experience and delivery approach.",
+        "Provide implementation plan, governance, timeline, and support model.",
+        "Map claims to supplied evidence and flag unsupported statements.",
+        "Confirm pricing, legal, and submission requirements before final approval."
+      ],
+      "source_name": "CanadaBuys",
+      "source_url": "https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/ws5589560079-doc5589590148",
+      "source_status": "source_linked",
+      "fetched_at": "2026-05-29T02:14:05.483710+00:00",
+      "fit_score": 10,
+      "match_reasons": [
+        "General public-sector technology fit"
+      ]
+    },
+    {
+      "id": "src-56a96d9cead0",
+      "title": "W0102-26007T-B - RISO - Aircraft Lavatory Wash Services",
+      "agency": "CanadaBuys tendering organization",
+      "deadline": "See source posting",
+      "estimated_value": "See source posting",
+      "summary": "CanadaBuys tender notice for W0102-26007T-B - RISO - Aircraft Lavatory Wash Services. Open the source posting for official scope, deadlines, amendments, and submission details.",
+      "requirements": [
+        "Summarize relevant experience and delivery approach.",
+        "Provide implementation plan, governance, timeline, and support model.",
+        "Map claims to supplied evidence and flag unsupported statements.",
+        "Confirm pricing, legal, and submission requirements before final approval."
+      ],
+      "source_name": "CanadaBuys",
+      "source_url": "https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/ws5560307275-doc5716911001",
+      "source_status": "source_linked",
+      "fetched_at": "2026-05-29T02:14:05.483782+00:00",
+      "fit_score": 10,
+      "match_reasons": [
+        "General public-sector technology fit"
+      ]
+    }
+  ],
+  "cache_meta": {
+    "fetched_at": "2026-05-29T02:14:08.792835+00:00",
+    "count": 13
+  }
+}

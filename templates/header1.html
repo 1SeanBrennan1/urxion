@@ -1,6 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
+{% extends "base.html" %}
+{% block title %}Leads Change Lives, We Generate the Opportunities{% endblock %}
+{% block content %}
+<section class="section legacy-page">
+    <div class="container legacy-content">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,7 +83,7 @@
 <body>
     <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
         <div class="tm-logo" style="background-color: transparent;">
-            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Your Logo" class="tm-logo-img">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Urxion logo" class="tm-logo-img">
         </div>
     </div>
     <div class="tm-nav-container-outer">
@@ -114,3 +116,6 @@
             </div>
         </div>
     </div>
+    </div>
+</section>
+{% endblock %}

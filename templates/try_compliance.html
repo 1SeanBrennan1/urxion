@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Try URXION Compliance | Public demo{% endblock %}
+{% block meta_description %}Run the URXION Compliance public demo and download an evidence matrix, blockers, and remediation plan.{% endblock %}
+{% block hero %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <div class="eyebrow">URXION Compliance demo</div>
+            <h1>Upload a Subcontractor Package. Get Evidence, Blockers, and Remediation.</h1>
+            <p class="lead">This public demo reviews WSIB, insurance, training, safety, and contract evidence for human approval. Nothing is auto-certified.</p>
+        </div>
+        <div class="hero-panel">
+            <div class="flow">
+                <div class="flow-step"><div class="flow-num">1</div><div>Upload package</div></div>
+                <div class="flow-step"><div class="flow-num">2</div><div>Check evidence</div></div>
+                <div class="flow-step"><div class="flow-num">3</div><div>Flag blockers</div></div>
+                <div class="flow-step"><div class="flow-num">4</div><div>Download remediation plan</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container grid-2">
+        <div class="card">
+            <div class="eyebrow">Start demo</div>
+            <h2>Upload the subcontractor package.</h2>
+            {% if error %}<p class="founder-note">{{ error }}</p>{% endif %}
+            <form method="post" enctype="multipart/form-data">
+                <p><label>Email<br><input name="email" type="email" required placeholder="you@company.com"></label></p>
+                <p><label>Subcontractor name<br><input name="subcontractor_name" placeholder="Demo Roofing Ltd."></label></p>
+                <p><label>Project name<br><input name="project_name" placeholder="Main Street Renovation"></label></p>
+                <p><label>Project/location<br><input name="project_location" placeholder="Toronto, Ontario"></label></p>
+                <p><label>Planned start date<br><input name="planned_start_date" type="date"></label></p>
+                <p><label>Work type<br><input name="work_type" placeholder="roofing, electrical, concrete"></label></p>
+                <p><label>Subcontractor documents (PDF, DOCX, TXT, max 10 MB)<br><input name="documents" type="file" accept=".pdf,.docx,.txt" required></label></p>
+                <button class="btn-primary" type="submit">Run Compliance Demo</button>
+            </form>
+        </div>
+        <div class="card">
+            <div class="eyebrow">What you get</div>
+            <h2>Compliance outputs for review.</h2>
+            <ul>
+                <li>Evidence matrix</li>
+                <li>Missing or expired evidence findings</li>
+                <li>Start-work blockers</li>
+                <li>Remediation actions</li>
+                <li>Human approval note</li>
+            </ul>
+            <p class="muted">Not legal advice. Built for qualified human review. The system never auto-certifies compliance.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

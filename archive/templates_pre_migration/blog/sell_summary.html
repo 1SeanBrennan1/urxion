@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+        <div class="tm-logo" style="background-color: transparent;">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Urxion logo" class="tm-logo-img">
+        </div>
+    </div>
+    <div class="tm-nav-container-outer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg" id="tm-main-nav">
+                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
+                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('services') }}">Services</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">Cold Calling That Converts</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tm-nav-container-outer">
+        <div class="container-fluid">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+
+<h1>Sell - Summary</h1>
+<p>Sell Chapter Summaries
+"Sell" presents a comprehensive and contemporary approach to personal selling, emphasizing the importance of building trust-based relationships and delivering long-term customer value. The book guides readers through the evolution of selling, from a transactional focus to a more strategic, customer-centric approach that emphasizes collaboration and problem-solving. It delves into the key aspects of earning trust, including demonstrating expertise, dependability, candor, customer orientation, and compatibility. The authors provide a thorough understanding of the business buyer's journey, exploring their needs, motivations, and decision-making processes.
+
+The book equips readers with essential communication skills, highlighting the power of active listening, strategic questioning techniques, and effective use of verbal and nonverbal cues. It outlines a practical framework for planning sales dialogues and presentations, using a sales dialogue template to ensure a structured and customer-focused approach. "Sell" addresses the common challenge of handling objections and earning commitment, providing proven techniques for overcoming resistance and building buyer confidence. It emphasizes the importance of post-sale follow-up, collaborative involvement, and delivering exceptional customer service to cultivate long-term relationships and generate repeat business. Finally, the book champions self-leadership and teamwork, equipping salespeople with the tools and strategies for maximizing their productivity, effectiveness, and personal growth within the dynamic world of sales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid">
+        <div class="row">
+            <p class="col-lg-9 col-md-8 mb-5 mb-md-0">
+                Copyright © 2024 <span class="tm-text-primary">URXION</span>
+                - Contact Us At  <a href="mailto:Sean.Brennan@urxion.com" class="tm-link-primary">Sean.Brennan@urxion.com</a>
+            </p>
+            <div class="col-lg-3 col-md-4 text-right">
+                <a href="https://linkedin.com" class="tm-social-link">
+                    <i class="fab fa-linkedin fa-2x tm-social-icon"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tooplate-script.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#parallax-1').parallax({ imageSrc: "{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" });
+        });
+    </script>
+</body>
+</html>

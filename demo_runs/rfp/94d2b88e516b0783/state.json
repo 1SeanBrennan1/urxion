@@ -1,0 +1,107 @@
+{
+  "run_id": "94d2b88e516b0783",
+  "company_name": "Demo Automation Co.",
+  "email_domain": "example.com",
+  "company_info": "We build Flask and Python workflow automation for public-sector document review, evidence mapping, and approval gates.",
+  "created_at": "2026-05-29T00:16:06.492227+00:00",
+  "opportunities": [
+    {
+      "id": "on-cloud-001",
+      "title": "Cloud Migration and Modernization Services",
+      "agency": "Ontario Ministry of Public and Business Service Delivery",
+      "deadline": "2026-09-30",
+      "estimated_value": "$5M - $10M",
+      "summary": "Migration planning, application assessment, phased modernization, governance, reporting, and secure cloud transition support.",
+      "requirements": [
+        "Describe cloud migration methodology and delivery governance.",
+        "Provide relevant public-sector project experience.",
+        "Explain security, privacy, and risk controls.",
+        "Submit project plan, pricing assumptions, and transition approach."
+      ]
+    },
+    {
+      "id": "on-data-002",
+      "title": "Healthcare Data Analytics Platform",
+      "agency": "Ontario Health / Ministry of Health",
+      "deadline": "2026-10-15",
+      "estimated_value": "$10M - $25M",
+      "summary": "Analytics platform support for data ingestion, reporting, population health monitoring, and evidence-based decision workflows.",
+      "requirements": [
+        "Summarize data platform and analytics experience.",
+        "Address privacy, security, and auditability.",
+        "Provide implementation plan and support model.",
+        "Identify evidence gaps before final submission."
+      ]
+    },
+    {
+      "id": "on-learning-003",
+      "title": "Digital Learning Platform Modernization",
+      "agency": "Ontario Ministry of Education",
+      "deadline": "2026-12-01",
+      "estimated_value": "$8M - $15M",
+      "summary": "Modernization of digital learning workflows with accessibility, bilingual support, integrations, training, and reporting.",
+      "requirements": [
+        "Describe platform modernization approach.",
+        "Explain accessibility and user-support controls.",
+        "Provide delivery timeline and stakeholder plan.",
+        "Map claims to evidence and flag unsupported statements."
+      ]
+    }
+  ],
+  "selected_opportunity": {
+    "id": "on-cloud-001",
+    "title": "Cloud Migration and Modernization Services",
+    "agency": "Ontario Ministry of Public and Business Service Delivery",
+    "deadline": "2026-09-30",
+    "estimated_value": "$5M - $10M",
+    "summary": "Migration planning, application assessment, phased modernization, governance, reporting, and secure cloud transition support.",
+    "requirements": [
+      "Describe cloud migration methodology and delivery governance.",
+      "Provide relevant public-sector project experience.",
+      "Explain security, privacy, and risk controls.",
+      "Submit project plan, pricing assumptions, and transition approach."
+    ]
+  },
+  "package": {
+    "proposal": "URXION RFP DEMO PROPOSAL PACKAGE\n\nOpportunity: Cloud Migration and Modernization Services\nBuyer: Ontario Ministry of Public and Business Service Delivery\nRespondent: Demo Automation Co.\n\n1. Executive Summary\nDemo Automation Co. is responding to Cloud Migration and Modernization Services. This draft uses the company information supplied in the public demo and maps it against the opportunity requirements. It is review-ready, not submission-ready.\n\n2. Source-Backed Company Context\nWe build Flask and Python workflow automation for public-sector document review, evidence mapping, and approval gates.\n\n3. Requirement Response Draft\n- Describe cloud migration methodology and delivery governance.\n  Draft response: Demo Automation Co. should describe its delivery method, governance cadence, risk tracking, and evidence-backed implementation approach.\n- Provide relevant public-sector project experience.\n  Draft response: Use supplied project examples and references. If evidence is thin, add a comparable public-sector or regulated-workflow case study before submission.\n- Explain security, privacy, and risk controls.\n  Draft response: Security and privacy claims require source evidence before final approval.\n- Submit project plan, pricing assumptions, and transition approach.\n  Draft response: Pricing, legal, and schedule assumptions require human review.\n\n4. Evidence Gaps\n- Add current security/privacy evidence if the proposal will claim formal controls.\n- Add delivery team names, resumes, and references before submission.\n- Confirm pricing and legal terms with a qualified reviewer.\n\nHuman final approval required. URXION does not auto-submit proposals.\n",
+    "compliance_matrix": [
+      [
+        "Requirement",
+        "Status",
+        "Evidence",
+        "Risk"
+      ],
+      [
+        "Describe cloud migration methodology and delivery governance.",
+        "supported",
+        "Company info supplied in demo",
+        "review"
+      ],
+      [
+        "Provide relevant public-sector project experience.",
+        "partially supported",
+        "Company info supplied in demo",
+        "medium"
+      ],
+      [
+        "Explain security, privacy, and risk controls.",
+        "gap",
+        "No explicit security/privacy evidence supplied",
+        "high"
+      ],
+      [
+        "Submit project plan, pricing assumptions, and transition approach.",
+        "gap",
+        "Pricing and legal assumptions not supplied",
+        "high"
+      ]
+    ],
+    "checklist": [
+      "Review all generated claims",
+      "Attach source evidence for security, privacy, and past performance",
+      "Confirm pricing and delivery timeline",
+      "Complete buyer forms and submission portal requirements",
+      "Obtain human approval before submission"
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "run_id": "d5c1274513182117",
+  "company_name": "Northstar Digital Services Inc.",
+  "email_domain": "urxion.com",
+  "company_info": "Northstar Digital Services Inc. is an Ontario-based technology consulting firm that helps public-sector and regulated organizations modernize document-heavy workflows. The company specializes in AI-assisted workflow automation, secure web applications, data integration, evidence mapping, and human-reviewed decision support systems.\r\n\r\nCore capabilities:\r\n- Python and Flask web application development\r\n- AI agent workflow design with human approval gates\r\n- Document intake, classification, extraction, and evidence mapping\r\n- Compliance matrix and audit trail generation\r\n- Secure file upload, workspace management, and role-based access controls\r\n- API integration with public-sector data sources and internal systems\r\n- Reporting dashboards, CSV/XLSX exports, and DOCX generation\r\n- User training, implementation support, and operational documentation\r\n\r\nRelevant project experience:\r\n1. Public-sector RFP response workflow platform\r\nNorthstar built a secure workflow system that ingests RFP documents, extracts requirements, maps requirements to company evidence, identifies missing support, and generates review-ready proposal artifacts. Outputs included compliance matrices, proposal outlines, gap reports, submission checklists, and source-backed draft sections. The system required human approval before any claim could be used in a final proposal.\r\n\r\n2. Construction compliance review workflow\r\nNorthstar developed a subcontractor onboarding review workflow for Ontario construction teams. The system reviewed WSIB clearance, insurance certificates, training records, safety documentation, and contract evidence. It flagged expired documents, name mismatches, missing safety records, and start-work blockers. The output was an evidence matrix, remediation checklist, and approval packet for qualified human review.\r\n\r\n3. Sales research and outreach review queue\r\nNorthstar implemented a human-approved outbound workflow that researches companies, summarizes account context, drafts slot-based outreach emails, and stages follow-ups for review. The system does not send emails automatically. Every message requires human approval before use.\r\n\r\nSecurity and governance:\r\n- Human approval required for final decisions and external submissions\r\n- No autonomous proposal submission, compliance certification, or email sending\r\n- Audit logs retained for generated outputs and source references\r\n- Role-based access control for internal users\r\n- Temporary demo workspaces deleted after configured retention periods\r\n- Prompt-injection checks on uploaded documents\r\n- Evidence-backed claims separated from unsupported or inferred claims\r\n\r\nTeam:\r\nNorthstar is founder-led by a senior technical operator with experience building AI workflow systems, Flask applications, document automation tools, sales operations systems, and public-sector proposal workflows. The company works directly with clients during discovery, implementation, review, and iteration.\r\n\r\nDelivery approach:\r\nNorthstar typically starts with a scoped pilot. The pilot confirms input documents, output artifacts, review gates, user roles, integrations, and acceptance criteria. After the pilot, the workflow is refined into a repeatable operating process with documentation, training, and support.\r\n\r\nDifferentiators:\r\n- Practical workflow automation instead of chatbot-style interfaces\r\n- Evidence-first output that reviewers can inspect\r\n- Clear distinction between supported claims, unsupported claims, and review-needed items\r\n- Human approval before final use\r\n- Experience with RFP, compliance, and sales workflow automation\r\n- Ability to produce structured exports such as DOCX, CSV, XLSX, and review workbooks\r\n\r\nCertifications and insurance:\r\nNorthstar maintains commercial general liability insurance and professional liability coverage. Current certificates can be supplied during procurement review. Security policy, privacy policy, and project-specific implementation controls can be provided during contracting.\r\n\r\nReferences:\r\nReferences are available upon request for workflow automation, proposal support, and document review projects.",
+  "created_at": "2026-05-29T01:54:01.379130+00:00",
+  "opportunities": [
+    {
+      "id": "on-cloud-001",
+      "title": "Cloud Migration and Modernization Services",
+      "agency": "Ontario Ministry of Public and Business Service Delivery",
+      "deadline": "2026-09-30",
+      "estimated_value": "$5M - $10M",
+      "summary": "Migration planning, application assessment, phased modernization, governance, reporting, and secure cloud transition support.",
+      "requirements": [
+        "Describe cloud migration methodology and delivery governance.",
+        "Provide relevant public-sector project experience.",
+        "Explain security, privacy, and risk controls.",
+        "Submit project plan, pricing assumptions, and transition approach."
+      ]
+    },
+    {
+      "id": "on-data-002",
+      "title": "Healthcare Data Analytics Platform",
+      "agency": "Ontario Health / Ministry of Health",
+      "deadline": "2026-10-15",
+      "estimated_value": "$10M - $25M",
+      "summary": "Analytics platform support for data ingestion, reporting, population health monitoring, and evidence-based decision workflows.",
+      "requirements": [
+        "Summarize data platform and analytics experience.",
+        "Address privacy, security, and auditability.",
+        "Provide implementation plan and support model.",
+        "Identify evidence gaps before final submission."
+      ]
+    },
+    {
+      "id": "on-learning-003",
+      "title": "Digital Learning Platform Modernization",
+      "agency": "Ontario Ministry of Education",
+      "deadline": "2026-12-01",
+      "estimated_value": "$8M - $15M",
+      "summary": "Modernization of digital learning workflows with accessibility, bilingual support, integrations, training, and reporting.",
+      "requirements": [
+        "Describe platform modernization approach.",
+        "Explain accessibility and user-support controls.",
+        "Provide delivery timeline and stakeholder plan.",
+        "Map claims to evidence and flag unsupported statements."
+      ]
+    }
+  ]
+}

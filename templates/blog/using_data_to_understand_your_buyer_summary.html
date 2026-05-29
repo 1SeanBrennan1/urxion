@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ title }}</title>
-    <meta name="description" content="{{ description }}">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
-</head>
-
-<body>
-    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<section class="section legacy-page">
+    <div class="container legacy-content">
+<div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
         <div class="tm-logo" style="background-color: transparent;">
-            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Your Logo" class="tm-logo-img">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Urxion logo" class="tm-logo-img">
         </div>
     </div>
     <div class="tm-nav-container-outer">
@@ -437,15 +426,6 @@ By embracing the Challenger Sales methodology and adapting it to your specific b
             </div>
         </div>
     </footer>
-
-    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/tooplate-script.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('#parallax-1').parallax({ imageSrc: "{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" });
-        });
-    </script>
-</body>
-</html>
+    </div>
+</section>
+{% endblock %}

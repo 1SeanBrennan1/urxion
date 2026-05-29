@@ -1,0 +1,141 @@
+{% extends "base.html" %} {% block title %}URXION | Book a Free Discovery Call{%
+endblock %} {% block meta_description %}Book a free URXION discovery call to
+review your RFP, compliance, SDR, or custom workflow bottleneck.{% endblock %}
+{% block head_extra %}
+<style>
+    body .demo-booking-section,
+    body .demo-booking-section .container,
+    body .demo-booking-copy,
+    body .demo-booking-card {
+        background: #ffffff !important;
+        color: #0f172a !important;
+    }
+    body .demo-booking-title {
+        display: block !important;
+        position: relative !important;
+        z-index: 5 !important;
+        color: #0f172a !important;
+        -webkit-text-fill-color: #0f172a !important;
+        background: #ffffff !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        text-shadow: none !important;
+    }
+    body .demo-booking-description {
+        position: relative !important;
+        z-index: 5 !important;
+        color: #334155 !important;
+        -webkit-text-fill-color: #334155 !important;
+        background: #ffffff !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        text-shadow: none !important;
+    }
+</style>
+{% endblock %} {% block hero %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <div class="eyebrow">Free discovery call · URXION demo page v2</div>
+            <h1>Bring one real workflow. We’ll see if URXION can help.</h1>
+            <p class="lead">
+                Use this page to book time with Sean Brennan. Bring an RFP,
+                compliance packet, prospecting workflow, or messy business
+                process you want to make review-ready.
+            </p>
+            <p class="founder-note">
+                No pressure. If there is no fit, you will still leave with a
+                clearer view of the process, risks, and automation path.
+            </p>
+        </div>
+        <div class="hero-panel">
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="flow-num">1</div>
+                    <div>Tell me what workflow is slowing you down</div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-num">2</div>
+                    <div>
+                        We identify the inputs, outputs, evidence, and approval
+                        points
+                    </div>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-num">3</div>
+                    <div>
+                        You get a practical recommendation: use URXION, scope a
+                        pilot, or do nothing
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block content %}
+<section
+    class="section demo-booking-section"
+    style="background: #ffffff !important; color: #0f172a !important"
+>
+    <div
+        class="container"
+        style="background: #ffffff !important; color: #0f172a !important"
+    >
+        <div
+            class="section-header demo-booking-copy"
+            style="background: #ffffff !important; color: #0f172a !important"
+        >
+            <div
+                class="eyebrow"
+                style="
+                    color: #1d4ed8 !important;
+                    background: #ffffff !important;
+                "
+            >
+                Schedule
+            </div>
+            <h2
+                class="demo-booking-title"
+                style="
+                    position: relative !important;
+                    z-index: 5 !important;
+                    color: #0f172a !important;
+                    -webkit-text-fill-color: #0f172a !important;
+                    background: #ffffff !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                "
+            >
+                Book your discovery call.
+            </h2>
+            <p
+                class="demo-booking-description"
+                style="
+                    position: relative !important;
+                    z-index: 5 !important;
+                    color: #334155 !important;
+                    -webkit-text-fill-color: #334155 !important;
+                    background: #ffffff !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                "
+            >
+                Pick a time below. The calendar is embedded here so all product
+                CTAs can point to the same working URXION demo page.
+            </p>
+        </div>
+        <div
+            class="card calendar-card demo-booking-card"
+            style="background: #ffffff !important; color: #0f172a !important"
+        >
+            <iframe
+                src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2j73kXbjNNRnFLL65x53XWKMnlSM8elrVsM2mIogFi8d2R8ycXr9M34Pp38jPpmPmnndF_jzru?gv=true"
+                style="border: 0; width: 100%; min-height: 680px"
+                width="100%"
+                height="680"
+                frameborder="0"
+            ></iframe>
+        </div>
+    </div>
+</section>
+{% endblock %}

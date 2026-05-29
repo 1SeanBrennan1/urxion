@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: http://seani.pythonanywhere.com/sitemap.xml
+Sitemap: https://www.urxion.com/sitemap.xml

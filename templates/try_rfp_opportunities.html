@@ -1,0 +1,84 @@
+{% extends "base.html" %} {% block title %}Choose an RFP | URXION RFP Demo{%
+endblock %} {% block hero %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <div class="eyebrow">URXION RFP demo</div>
+            <h1>Choose One Matched Public Opportunity.</h1>
+            <p class="lead">
+                URXION ranked cached public tender listings against your company
+                context. Choose one to generate the package.
+            </p>
+            {% if state.cache_meta.fetched_at %}
+            <p class="muted">
+                Opportunity cache last refreshed: {{ state.cache_meta.fetched_at
+                }}
+            </p>
+            {% endif %}
+        </div>
+        <div class="hero-panel">
+            <div class="metric">{{ state.opportunities|length }}</div>
+            <p class="muted">RFP options shown</p>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block content %} {% if error %}
+<section class="section">
+    <div class="container">
+        <div class="card proof-card">
+            <h2>RFP demo could not generate yet.</h2>
+            <p>{{ error }}</p>
+            <p class="muted">
+                Set Groq, Azure OpenAI, or OpenAI credentials on the server to
+                enable real proposal generation.
+            </p>
+        </div>
+    </div>
+</section>
+{% endif %}
+<section class="section">
+    <div class="container grid-3">
+        {% for opp in state.opportunities %}
+        <div class="card">
+            <div class="eyebrow">
+                {{ opp.source_name }} · {{ opp.source_status }}
+            </div>
+            <h2>{{ opp.title }}</h2>
+            <p class="muted">Agency: {{ opp.agency }}</p>
+            <p class="muted">
+                Deadline: {{ opp.deadline }} · Value: {{ opp.estimated_value }}
+            </p>
+            <p>{{ opp.summary }}</p>
+            <p class="muted">Fit score: {{ opp.fit_score }}</p>
+            {% if opp.match_reasons %}
+            <ul>
+                {% for reason in opp.match_reasons %}
+                <li>{{ reason }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% if opp.source_status == 'sample_fallback' %}
+            <p class="founder-note">
+                Sample fallback only. No live/source-linked opportunity was
+                available.
+            </p>
+            {% endif %}
+            <div class="actions">
+                {% if opp.source_url %}<a
+                    class="btn-secondary"
+                    href="{{ opp.source_url }}"
+                    >Open source posting</a
+                >{% endif %}
+            </div>
+            <form
+                method="post"
+                action="{{ url_for('try_rfp_select', run_id=state.run_id, opportunity_id=opp.id) }}"
+            >
+                <button class="btn-primary" type="submit">
+                    Generate Package
+                </button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

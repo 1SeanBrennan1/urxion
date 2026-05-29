@@ -1,0 +1,79 @@
+{
+  "run_id": "2cd38da4d0ca0841",
+  "created_at": "2026-05-29T02:07:07.366481+00:00",
+  "email_domain": "example.com",
+  "filename": "package.txt",
+  "review": {
+    "subcontractor_name": "Demo Roofing Ltd.",
+    "project_name": "Main Street Renovation",
+    "overall_status": "blocked",
+    "evidence_matrix": [
+      {
+        "rule": "WSIB clearance",
+        "required_evidence": "Current WSIB clearance certificate",
+        "matched_document": "package.txt",
+        "source_excerpt": "WSIB clearance appears with expired language in the uploaded package.",
+        "status": "expired",
+        "risk": "high"
+      },
+      {
+        "rule": "Insurance certificate",
+        "required_evidence": "Valid certificate with matching legal name and coverage",
+        "matched_document": "package.txt",
+        "source_excerpt": "Insurance certificate appears to include a name mismatch.",
+        "status": "mismatch",
+        "risk": "high"
+      },
+      {
+        "rule": "Training records",
+        "required_evidence": "Required safety/trade training evidence",
+        "matched_document": "package.txt",
+        "source_excerpt": "Training evidence referenced in uploaded package.",
+        "status": "review",
+        "risk": "review"
+      },
+      {
+        "rule": "Safety program",
+        "required_evidence": "Safety policy, hazard controls, or site safety plan",
+        "matched_document": "Missing / not detected",
+        "source_excerpt": "No matching source excerpt detected in the uploaded package.",
+        "status": "missing",
+        "risk": "medium"
+      }
+    ],
+    "blockers": [
+      {
+        "rule": "WSIB clearance",
+        "description": "Request a current WSIB clearance certificate before mobilization."
+      },
+      {
+        "rule": "Insurance certificate",
+        "description": "Request corrected insurance certificate with matching legal name and required coverage."
+      }
+    ],
+    "remediation_plan": [
+      {
+        "priority": "High",
+        "action": "Request a current WSIB clearance certificate before mobilization.",
+        "rule": "WSIB clearance"
+      },
+      {
+        "priority": "High",
+        "action": "Request corrected insurance certificate with matching legal name and required coverage.",
+        "rule": "Insurance certificate"
+      },
+      {
+        "priority": "Review",
+        "action": "Verify training dates, worker names, and role relevance.",
+        "rule": "Training records"
+      },
+      {
+        "priority": "Review",
+        "action": "Request safety policy or project-specific safety plan.",
+        "rule": "Safety program"
+      }
+    ],
+    "disclaimer": "Not legal advice. Built for qualified human review. The system never auto-certifies compliance.",
+    "generated_by": "test_fallback"
+  }
+}

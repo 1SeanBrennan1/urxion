@@ -1,0 +1,109 @@
+{
+  "run_id": "30a19e1759118c30",
+  "company_name": "Demo Automation Co.",
+  "email_domain": "example.com",
+  "company_info": "We build Flask and Python workflow automation for public-sector document review, evidence mapping, and approval gates.",
+  "created_at": "2026-05-29T02:07:07.372089+00:00",
+  "opportunities": [
+    {
+      "id": "on-cloud-001",
+      "title": "Cloud Migration and Modernization Services",
+      "agency": "Ontario Ministry of Public and Business Service Delivery",
+      "deadline": "2026-09-30",
+      "estimated_value": "$5M - $10M",
+      "summary": "Migration planning, application assessment, phased modernization, governance, reporting, and secure cloud transition support.",
+      "requirements": [
+        "Describe cloud migration methodology and delivery governance.",
+        "Provide relevant public-sector project experience.",
+        "Explain security, privacy, and risk controls.",
+        "Submit project plan, pricing assumptions, and transition approach."
+      ]
+    },
+    {
+      "id": "on-data-002",
+      "title": "Healthcare Data Analytics Platform",
+      "agency": "Ontario Health / Ministry of Health",
+      "deadline": "2026-10-15",
+      "estimated_value": "$10M - $25M",
+      "summary": "Analytics platform support for data ingestion, reporting, population health monitoring, and evidence-based decision workflows.",
+      "requirements": [
+        "Summarize data platform and analytics experience.",
+        "Address privacy, security, and auditability.",
+        "Provide implementation plan and support model.",
+        "Identify evidence gaps before final submission."
+      ]
+    },
+    {
+      "id": "on-learning-003",
+      "title": "Digital Learning Platform Modernization",
+      "agency": "Ontario Ministry of Education",
+      "deadline": "2026-12-01",
+      "estimated_value": "$8M - $15M",
+      "summary": "Modernization of digital learning workflows with accessibility, bilingual support, integrations, training, and reporting.",
+      "requirements": [
+        "Describe platform modernization approach.",
+        "Explain accessibility and user-support controls.",
+        "Provide delivery timeline and stakeholder plan.",
+        "Map claims to evidence and flag unsupported statements."
+      ]
+    }
+  ],
+  "selected_opportunity": {
+    "id": "on-cloud-001",
+    "title": "Cloud Migration and Modernization Services",
+    "agency": "Ontario Ministry of Public and Business Service Delivery",
+    "deadline": "2026-09-30",
+    "estimated_value": "$5M - $10M",
+    "summary": "Migration planning, application assessment, phased modernization, governance, reporting, and secure cloud transition support.",
+    "requirements": [
+      "Describe cloud migration methodology and delivery governance.",
+      "Provide relevant public-sector project experience.",
+      "Explain security, privacy, and risk controls.",
+      "Submit project plan, pricing assumptions, and transition approach."
+    ]
+  },
+  "package": {
+    "proposal": "URXION RFP DEMO PACKAGE - TEST FALLBACK\n\nOpportunity: Cloud Migration and Modernization Services\nBuyer: Ontario Ministry of Public and Business Service Delivery\nRespondent: Demo Automation Co.\n\nThis fallback is used only in automated tests when no LLM call should be made.\n\nCompany context:\nWe build Flask and Python workflow automation for public-sector document review, evidence mapping, and approval gates.\n\nRequirement responses:\n- Describe cloud migration methodology and delivery governance.: review and expand with source-backed evidence.\n- Provide relevant public-sector project experience.: review and expand with source-backed evidence.\n- Explain security, privacy, and risk controls.: review and expand with source-backed evidence.\n- Submit project plan, pricing assumptions, and transition approach.: review and expand with source-backed evidence.\n\nHuman final approval required. URXION does not auto-submit proposals.\n",
+    "compliance_matrix": [
+      [
+        "Requirement",
+        "Status",
+        "Evidence",
+        "Risk"
+      ],
+      [
+        "Describe cloud migration methodology and delivery governance.",
+        "review_needed",
+        "Company info supplied in demo",
+        "review"
+      ],
+      [
+        "Provide relevant public-sector project experience.",
+        "review_needed",
+        "Company info supplied in demo",
+        "review"
+      ],
+      [
+        "Explain security, privacy, and risk controls.",
+        "review_needed",
+        "Company info supplied in demo",
+        "review"
+      ],
+      [
+        "Submit project plan, pricing assumptions, and transition approach.",
+        "review_needed",
+        "Company info supplied in demo",
+        "review"
+      ]
+    ],
+    "checklist": [
+      "Review all generated claims",
+      "Attach source evidence for security, privacy, and past performance",
+      "Confirm pricing and delivery timeline",
+      "Complete buyer forms and submission portal requirements",
+      "Obtain human approval before submission"
+    ],
+    "claim_audit": [],
+    "generated_by": "test_fallback"
+  }
+}

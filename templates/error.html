@@ -1,52 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        .container {
-            max-width: 600px;
-            background-color: #fff;
-            border: 1px solid #f5c6cb;
-            border-radius: 5px;
-            padding: 20px;
-            margin: 0 auto;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 16px;
-        }
-        .button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #0056b3;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .button:hover {
-            background-color: #004085;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Error</h1>
-        <p>{{ error_message }}</p>
-        <a href="{{ url_for('step_1') }}" class="button">Go Back to Step 1</a>
+{% extends "base.html" %}
+{% block title %}Something went wrong | Urxion{% endblock %}
+{% block content %}
+<section class="section legacy-page">
+    <div class="container legacy-content">
+<main class="card">
+            <div class="eyebrow">Urxion</div>
+            <h1>We hit a snag.</h1>
+            <p>{{ error_message|default("Please try again.", true) }}</p>
+            <div class="actions">
+                <a class="primary" href="{{ url_for('index') }}">Back Home</a>
+                <a class="secondary" href="{{ url_for('contact') }}"
+                    >Contact Us</a
+                >
+            </div>
+        </main>
     </div>
-</body>
-</html>
+</section>
+{% endblock %}

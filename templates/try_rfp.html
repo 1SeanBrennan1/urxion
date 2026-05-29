@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Try URXION RFP | Public demo{% endblock %}
+{% block meta_description %}Run the URXION RFP public demo: generate a detailed opening section, then see what the full URXION program would deliver with the complete RFP and evidence package.{% endblock %}
+{% block hero %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <div class="eyebrow">URXION RFP demo</div>
+            <h1>Upload Company Info. Match to RFPs. Generate the Opening Section.</h1>
+            <p class="lead">This public demo uses the configured demo model to draft a detailed first RFP section from your company context. The rest of the package explains, in fixed buyer-safe bullets, what the full URXION program would deliver once the complete solicitation and evidence package are provided.</p>
+        </div>
+        <div class="hero-panel">
+            <div class="flow">
+                <div class="flow-step"><div class="flow-num">1</div><div>Upload company info</div></div>
+                <div class="flow-step"><div class="flow-num">2</div><div>Match to Ontario RFPs</div></div>
+                <div class="flow-step"><div class="flow-num">3</div><div>Choose one opportunity</div></div>
+                <div class="flow-step"><div class="flow-num">4</div><div>Download demo package</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container grid-2">
+        <div class="card">
+            <div class="eyebrow">Start demo</div>
+            <h2>Tell URXION what your company does.</h2>
+            {% if error %}<p class="founder-note">{{ error }}</p>{% endif %}
+            <form method="post">
+                <p><label>Email<br><input name="email" type="email" required placeholder="you@company.com"></label></p>
+                <p><label>Company name<br><input name="company_name" required placeholder="Example Company"></label></p>
+                <p><label>Company info, past work, certifications, or capabilities<br><textarea name="company_info" required rows="10" placeholder="Paste a short capability statement, project summary, certifications, service description, or evidence list."></textarea></label></p>
+                <button class="btn-primary" type="submit">Find Matching RFPs</button>
+            </form>
+        </div>
+        <div class="card">
+            <div class="eyebrow">What you get</div>
+            <h2>A bounded, buyer-safe demo package.</h2>
+            <ul>
+</ul>                <li></li>Matched Ontario RFP options</li>
+                <li>One</li> detailed generated opening section for the selected opportunity</li>
+                <li>Fixed</li> full-program bullets describing the complete proposal package URXION would build with enough source material</li>
+                <li></li>Compliance matrix CSV</li>
+                <li></li>Submission checklist</li>
+                <li>Audit</li> note for human review</li>
+            </ul>
+            <p class="muted">No auto-submit. Do not use demo output as a final bid without human review.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

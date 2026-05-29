@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contact Us | Urxion</title>
+        <meta
+            name="description"
+            content="Contact Urxion to start a conversation about how we can help your business grow."
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --dark: #0f172a;
+                --muted: #64748b;
+                --line: rgba(15, 23, 42, 0.1);
+            }
+            body {
+                margin: 0;
+                min-height: 100vh;
+                font-family:
+                    Inter,
+                    system-ui,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    sans-serif;
+                background:
+                    radial-gradient(
+                        circle at top left,
+                        rgba(37, 99, 235, 0.18),
+                        transparent 36rem
+                    ),
+                    linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+                color: var(--dark);
+            }
+            .nav-shell {
+                max-width: 1120px;
+                margin: 0 auto;
+                padding: 1.25rem 1rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+            }
+            .brand {
+                color: var(--dark);
+                font-weight: 900;
+                letter-spacing: -0.04em;
+                text-decoration: none;
+                font-size: 1.5rem;
+            }
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .nav-links a {
+                color: var(--muted);
+                font-weight: 700;
+                text-decoration: none;
+            }
+            .nav-links a:hover {
+                color: #2563eb;
+            }
+            main {
+                max-width: 1120px;
+                margin: 0 auto;
+                padding: 4rem 1rem;
+                display: grid;
+                grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1fr);
+                gap: 3rem;
+                align-items: center;
+            }
+            .eyebrow {
+                color: #2563eb;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 0.16em;
+                font-size: 0.78rem;
+            }
+            h1 {
+                font-size: clamp(2.75rem, 7vw, 5.8rem);
+                line-height: 0.92;
+                letter-spacing: -0.07em;
+                margin: 1rem 0;
+            }
+            .lead {
+                color: var(--muted);
+                font-size: 1.18rem;
+                line-height: 1.7;
+                max-width: 38rem;
+            }
+            .contact-card {
+                background: rgba(255, 255, 255, 0.88);
+                border: 1px solid var(--line);
+                border-radius: 28px;
+                box-shadow: 0 30px 80px rgba(15, 23, 42, 0.12);
+                padding: clamp(1.25rem, 4vw, 2.25rem);
+                backdrop-filter: blur(18px);
+            }
+            .form-control {
+                min-height: 3.25rem;
+                border-radius: 16px;
+                border-color: var(--line);
+            }
+            textarea.form-control {
+                min-height: 11rem;
+            }
+            .btn-submit {
+                width: 100%;
+                min-height: 3.25rem;
+                border: 0;
+                border-radius: 999px;
+                background: linear-gradient(135deg, #2563eb, #1d4ed8);
+                color: #fff;
+                font-weight: 900;
+            }
+            .status {
+                display: none;
+                margin-top: 1rem;
+                border-radius: 16px;
+                padding: 0.9rem 1rem;
+                font-weight: 700;
+            }
+            .status.success {
+                display: block;
+                color: #166534;
+                background: #dcfce7;
+            }
+            .status.error {
+                display: block;
+                color: #991b1b;
+                background: #fee2e2;
+            }
+            footer {
+                max-width: 1120px;
+                margin: 0 auto;
+                padding: 2rem 1rem 3rem;
+                color: var(--muted);
+                display: flex;
+                justify-content: space-between;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+            footer a {
+                color: var(--muted);
+                font-weight: 700;
+            }
+            @media (max-width: 860px) {
+                main {
+                    grid-template-columns: 1fr;
+                    padding-top: 2rem;
+                }
+                .nav-shell {
+                    align-items: flex-start;
+                    flex-direction: column;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="nav-shell" aria-label="Main navigation">
+            <a class="brand" href="{{ url_for('index') }}">Urxion</a>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('demo') }}">Demo</a>
+                <a href="{{ url_for('privacy') }}">Privacy</a>
+                <a href="{{ url_for('terms') }}">Terms</a>
+            </div>
+        </nav>
+        <main>
+            <section>
+                <div class="eyebrow">Contact</div>
+                <h1>Let’s build the next version together.</h1>
+                <p class="lead">
+                    Tell us what you are working on and the best way to reach
+                    you. We’ll follow up with a focused, useful next step.
+                </p>
+            </section>
+            <section class="contact-card" aria-label="Contact form">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label
+                        ><input
+                            id="name"
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            autocomplete="name"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label
+                        ><input
+                            id="email"
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            autocomplete="email"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label
+                        ><input
+                            id="phone"
+                            type="tel"
+                            name="phone"
+                            class="form-control"
+                            autocomplete="tel"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiry">What can we help with?</label
+                        ><select
+                            id="inquiry"
+                            class="form-control"
+                            name="inquiry"
+                            required
+                        >
+                            <option value="">Choose a topic</option>
+                            <option value="New offering inquiry">
+                                New offering inquiry
+                            </option>
+                            <option value="Partnership">Partnership</option>
+                            <option value="Support">Support</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label
+                        ><textarea
+                            id="message"
+                            name="message"
+                            class="form-control"
+                            required
+                        ></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        Send Message
+                    </button>
+                    <div
+                        id="form-status"
+                        class="status"
+                        role="status"
+                        aria-live="polite"
+                    ></div>
+                </form>
+            </section>
+        </main>
+        <footer>
+            <span>© 2026 Urxion. All rights reserved.</span
+            ><span
+                ><a href="{{ url_for('privacy') }}">Privacy</a> ·
+                <a href="{{ url_for('terms') }}">Terms</a></span
+            >
+        </footer>
+        <script>
+            document
+                .getElementById("contact-form")
+                .addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    const form = e.currentTarget;
+                    const button = form.querySelector('button[type="submit"]');
+                    const status = document.getElementById("form-status");
+                    button.disabled = true;
+                    button.textContent = "Sending...";
+                    status.className = "status";
+                    status.textContent = "";
+                    fetch(
+                        "https://script.google.com/macros/s/AKfycbxOoSGdn_ZrJdniWhlO5a1H52VmHwLN3S386bIvQyjPCUNLfYzH3r2FxbwTTdcd8xtMuw/exec",
+                        { method: "POST", body: new FormData(form) },
+                    )
+                        .then(function (response) {
+                            if (!response.ok)
+                                throw new Error("Submission failed");
+                            status.className = "status success";
+                            status.textContent =
+                                "Thanks — your message was sent successfully.";
+                            form.reset();
+                        })
+                        .catch(function () {
+                            status.className = "status error";
+                            status.textContent =
+                                "Something went wrong. Please try again or email us directly.";
+                        })
+                        .finally(function () {
+                            button.disabled = false;
+                            button.textContent = "Send Message";
+                        });
+                });
+        </script>
+    </body>
+</html>

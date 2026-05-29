@@ -1,0 +1,145 @@
+{
+  "run_id": "238455d02b1d73cf",
+  "company_name": "Demo Automation Co.",
+  "email_domain": "example.com",
+  "company_info": "We build Flask and Python workflow automation for public-sector document review, evidence mapping, and approval gates.",
+  "created_at": "2026-05-29T14:41:33.020141+00:00",
+  "opportunities": [
+    {
+      "id": "sample-on-cloud-001",
+      "title": "Cloud Migration and Modernization Services",
+      "agency": "Ontario Ministry of Public and Business Service Delivery",
+      "deadline": "2026-09-30",
+      "estimated_value": "$5M - $10M",
+      "summary": "Migration planning, application assessment, phased modernization, governance, reporting, and secure cloud transition support.",
+      "requirements": [
+        "Describe cloud migration methodology and delivery governance.",
+        "Provide relevant public-sector project experience.",
+        "Explain security, privacy, and risk controls.",
+        "Submit project plan, pricing assumptions, and transition approach."
+      ],
+      "source_name": "Sample fallback",
+      "source_url": "https://www.ontario.ca/page/tenders-and-procurement",
+      "source_status": "sample_fallback",
+      "fetched_at": null,
+      "fit_score": 8,
+      "match_reasons": [
+        "Keyword match: public-sector"
+      ]
+    },
+    {
+      "id": "sample-on-data-002",
+      "title": "Healthcare Data Analytics Platform",
+      "agency": "Ontario Health / Ministry of Health",
+      "deadline": "2026-10-15",
+      "estimated_value": "$10M - $25M",
+      "summary": "Analytics platform support for data ingestion, reporting, population health monitoring, and evidence-based decision workflows.",
+      "requirements": [
+        "Summarize data platform and analytics experience.",
+        "Address privacy, security, and auditability.",
+        "Provide implementation plan and support model.",
+        "Identify evidence gaps before final submission."
+      ],
+      "source_name": "Sample fallback",
+      "source_url": "https://www.ontario.ca/page/tenders-and-procurement",
+      "source_status": "sample_fallback",
+      "fetched_at": null,
+      "fit_score": 8,
+      "match_reasons": [
+        "Keyword match: evidence"
+      ]
+    },
+    {
+      "id": "sample-on-learning-003",
+      "title": "Digital Learning Platform Modernization",
+      "agency": "Ontario Ministry of Education",
+      "deadline": "2026-12-01",
+      "estimated_value": "$8M - $15M",
+      "summary": "Modernization of digital learning workflows with accessibility, bilingual support, integrations, training, and reporting.",
+      "requirements": [
+        "Describe platform modernization approach.",
+        "Explain accessibility and user-support controls.",
+        "Provide delivery timeline and stakeholder plan.",
+        "Map claims to evidence and flag unsupported statements."
+      ],
+      "source_name": "Sample fallback",
+      "source_url": "https://www.ontario.ca/page/tenders-and-procurement",
+      "source_status": "sample_fallback",
+      "fetched_at": null,
+      "fit_score": 8,
+      "match_reasons": [
+        "Keyword match: evidence"
+      ]
+    }
+  ],
+  "cache_meta": {
+    "fetched_at": null,
+    "count": 3
+  },
+  "selected_opportunity": {
+    "id": "sample-on-cloud-001",
+    "title": "Cloud Migration and Modernization Services",
+    "agency": "Ontario Ministry of Public and Business Service Delivery",
+    "deadline": "2026-09-30",
+    "estimated_value": "$5M - $10M",
+    "summary": "Migration planning, application assessment, phased modernization, governance, reporting, and secure cloud transition support.",
+    "requirements": [
+      "Describe cloud migration methodology and delivery governance.",
+      "Provide relevant public-sector project experience.",
+      "Explain security, privacy, and risk controls.",
+      "Submit project plan, pricing assumptions, and transition approach."
+    ],
+    "source_name": "Sample fallback",
+    "source_url": "https://www.ontario.ca/page/tenders-and-procurement",
+    "source_status": "sample_fallback",
+    "fetched_at": null,
+    "fit_score": 8,
+    "match_reasons": [
+      "Keyword match: public-sector"
+    ]
+  },
+  "package": {
+    "proposal": "URXION RFP DEMO PACKAGE\n\nOpportunity: Cloud Migration and Modernization Services\nBuyer: Ontario Ministry of Public and Business Service Delivery\nRespondent: Demo Automation Co.\n\n1. Detailed first section generated from your supplied context\n\nDemo Automation Co. is responding to Ontario Ministry of Public and Business Service Delivery with capabilities aligned to Cloud Migration and Modernization Services.\n\nThis automated-test fallback summarizes the company context supplied in the demo: We build Flask and Python workflow automation for public-sector document review, evidence mapping, and approval gates.\n\nBefore this language could be used in a real proposal, every capability, certification, timeline, and delivery claim would need to be confirmed against source evidence by a human reviewer.\n\n2. What the full URXION RFP program would deliver\n\nThis public demo shows the opening section only. In the full program, URXION works from the complete solicitation package plus your source material so the final package can be built with enough detail for a real buyer review. With the RFP documents, forms, pricing inputs, resumes, project examples, certifications, policies, and approval rules, the full workflow would deliver:\n\n- A complete proposal draft, not just the opening section, covering the executive summary, understanding of need, technical approach, delivery plan, team structure, relevant experience, risk controls, transition plan, pricing narrative, and closing.\n- A requirement-by-requirement compliance matrix that shows where each buyer instruction is answered, what evidence supports it, and what still needs confirmation before submission.\n- A source-backed claim audit so the team can see which statements are supported by company evidence, which require a document owner, and which should be removed or softened.\n- A gap and risk list that separates missing attachments, unclear requirements, policy issues, insurance or security questions, pricing dependencies, and mandatory forms.\n- A human approval packet for executives, sales, operations, legal, finance, and delivery leads so no proposal is submitted without review.\n- A submission checklist organized around the buyer portal, file naming, mandatory forms, signatures, deadlines, addenda, and final quality control.\n\n3. Requirement handling in the full program\n\n- Describe cloud migration methodology and delivery governance.: mapped to supplied evidence, assigned a support level, and routed for human confirmation.\n- Provide relevant public-sector project experience.: mapped to supplied evidence, assigned a support level, and routed for human confirmation.\n- Explain security, privacy, and risk controls.: mapped to supplied evidence, assigned a support level, and routed for human confirmation.\n- Submit project plan, pricing assumptions, and transition approach.: mapped to supplied evidence, assigned a support level, and routed for human confirmation.\n\n4. What URXION would need from your team\n\n- The full RFP package, including addenda, schedules, appendices, evaluation criteria, mandatory forms, and portal instructions.\n- Company evidence such as case studies, past performance summaries, resumes, insurance certificates, certifications, security/privacy policies, implementation plans, and references.\n- Commercial inputs such as pricing assumptions, service boundaries, delivery timelines, partner/subcontractor roles, and exceptions that require business approval.\n- Named reviewers for technical accuracy, legal/compliance review, pricing approval, and final executive sign-off.\n\n5. Demo boundary\n\n- This demo does not auto-submit anything and should not be used as a final bid.\n- The opening section is generated from limited information supplied in the demo form.\n- The remaining bullets describe the full URXION program that becomes available when the complete solicitation and company evidence are provided.\n- Human review remains required before any buyer-facing submission.\n",
+    "compliance_matrix": [
+      [
+        "Requirement",
+        "Status",
+        "Evidence",
+        "Risk"
+      ],
+      [
+        "Describe cloud migration methodology and delivery governance.",
+        "review_needed",
+        "Company info supplied in demo",
+        "review"
+      ],
+      [
+        "Provide relevant public-sector project experience.",
+        "review_needed",
+        "Company info supplied in demo",
+        "review"
+      ],
+      [
+        "Explain security, privacy, and risk controls.",
+        "review_needed",
+        "Company info supplied in demo",
+        "review"
+      ],
+      [
+        "Submit project plan, pricing assumptions, and transition approach.",
+        "review_needed",
+        "Company info supplied in demo",
+        "review"
+      ]
+    ],
+    "checklist": [
+      "Review the generated first section for accuracy and tone",
+      "Provide the full RFP package and all buyer forms",
+      "Attach source evidence for security, privacy, insurance, certifications, and past performance",
+      "Confirm pricing, delivery timeline, exceptions, and approval owners",
+      "Obtain human approval before submission"
+    ],
+    "claim_audit": [],
+    "generated_by": "test_fallback"
+  }
+}

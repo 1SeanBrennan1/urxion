@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ title }}</title>
-    <meta name="description" content="{{ description }}">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='css/templatemo-business-oriented.css') }}" rel="stylesheet" />
-</head>
-
-<body>
-    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<section class="section legacy-page">
+    <div class="container legacy-content">
+<div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
         <div class="tm-logo" style="background-color: transparent;">
-            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Your Logo" class="tm-logo-img">
+            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Urxion logo" class="tm-logo-img">
         </div>
     </div>
     <div class="tm-nav-container-outer">
@@ -316,7 +305,7 @@ Would it be ok if I took a moment to explain the reason for the call and then yo
 The reason I’m calling is we are a meeting generator for startups int he (x stage) where they are still proving revenue. We find most founders have a great product but struggle finding early clients and worse have a difficult time hiring someone to do it for them. Does this resonate with you at all? if so qualify. if not thank for their time. "
 Introduction:
 "Hi [First Name], it's [Your Name] from [Your Company]. How are you today?" (Keep it simple and friendly)
-"[First Name], I'm reaching out to you specifically because [mention something relevant from their LinkedIn profile or company news – e.g., I saw you recently spoke at the [Industry event] on [topic] - sounds like your company is making big moves!]" (Personalize and grab attention).
+"[First Name], I'm reaching out to you specifically because [mention something relevant from their LinkedIn profile or company news - e.g., I saw you recently spoke at the [Industry event] on [topic] - sounds like your company is making big moves!]" (Personalize and grab attention).
 "I'm not sure if we can help each other, but I thought it was worth a quick call. Do you mind if I ask a few questions and let you decide if we should chat?" (Request permission to continue, frame it as their decision).
 The Path:
 "Great! We work with growth-stage startups in [mention their industry] to help them accelerate their sales process. One of the biggest challenges we see is founders like yourself juggling a million things, building a great product, but struggling to find the time to connect with those crucial early customers. Does that resonate with you at all?" (Highlight the problem, relate it to their experience, ask for confirmation).
@@ -456,7 +445,7 @@ Would it be ok if I took a moment to explain the reason for the call and then yo
 The reason I’m calling is we are a meeting generator for startups int he (x stage) where they are still proving revenue. We find most founders have a great product but struggle finding early clients and worse have a difficult time hiring someone to do it for them. Does this resonate with you at all? if so qualify. if not thank for their time. "
 Introduction:
 "Hi [First Name], it's [Your Name] from [Your Company]. How are you today?" (Keep it simple and friendly)
-"[First Name], I'm reaching out to you specifically because [mention something relevant from their LinkedIn profile or company news – e.g., I saw you recently spoke at the [Industry event] on [topic] - sounds like your company is making big moves!]" (Personalize and grab attention).
+"[First Name], I'm reaching out to you specifically because [mention something relevant from their LinkedIn profile or company news - e.g., I saw you recently spoke at the [Industry event] on [topic] - sounds like your company is making big moves!]" (Personalize and grab attention).
 "I'm not sure if we can help each other, but I thought it was worth a quick call. Do you mind if I ask a few questions and let you decide if we should chat?" (Request permission to continue, frame it as their decision).
 The Path:
 "Great! We work with growth-stage startups in [mention their industry] to help them accelerate their sales process. One of the biggest challenges we see is founders like yourself juggling a million things, building a great product, but struggling to find the time to connect with those crucial early customers. Does that resonate with you at all?" (Highlight the problem, relate it to their experience, ask for confirmation).
@@ -593,7 +582,7 @@ Would it be ok if I took a moment to explain the reason for the call and then yo
 The reason I’m calling is we are a meeting generator for startups int he (x stage) where they are still proving revenue. We find most founders have a great product but struggle finding early clients and worse have a difficult time hiring someone to do it for them. Does this resonate with you at all? if so qualify. if not thank for their time. "
 Introduction:
 "Hi [First Name], it's [Your Name] from [Your Company]. How are you today?" (Keep it simple and friendly)
-"[First Name], I'm reaching out to you specifically because [mention something relevant from their LinkedIn profile or company news – e.g., I saw you recently spoke at the [Industry event] on [topic] - sounds like your company is making big moves!]" (Personalize and grab attention).
+"[First Name], I'm reaching out to you specifically because [mention something relevant from their LinkedIn profile or company news - e.g., I saw you recently spoke at the [Industry event] on [topic] - sounds like your company is making big moves!]" (Personalize and grab attention).
 "I'm not sure if we can help each other, but I thought it was worth a quick call. Do you mind if I ask a few questions and let you decide if we should chat?" (Request permission to continue, frame it as their decision).
 The Path:
 "Great! We work with growth-stage startups in [mention their industry] to help them accelerate their sales process. One of the biggest challenges we see is founders like yourself juggling a million things, building a great product, but struggling to find the time to connect with those crucial early customers. Does that resonate with you at all?" (Highlight the problem, relate it to their experience, ask for confirmation).
@@ -729,7 +718,7 @@ Would it be ok if I took a moment to explain the reason for the call and then yo
 The reason I’m calling is we are a meeting generator for startups int he (x stage) where they are still proving revenue. We find most founders have a great product but struggle finding early clients and worse have a difficult time hiring someone to do it for them. Does this resonate with you at all? if so qualify. if not thank for their time. "
 Introduction:
 "Hi [First Name], it's [Your Name] from [Your Company]. How are you today?" (Keep it simple and friendly)
-"[First Name], I'm reaching out to you specifically because [mention something relevant from their LinkedIn profile or company news – e.g., I saw you recently spoke at the [Industry event] on [topic] - sounds like your company is making big moves!]" (Personalize and grab attention).
+"[First Name], I'm reaching out to you specifically because [mention something relevant from their LinkedIn profile or company news - e.g., I saw you recently spoke at the [Industry event] on [topic] - sounds like your company is making big moves!]" (Personalize and grab attention).
 "I'm not sure if we can help each other, but I thought it was worth a quick call. Do you mind if I ask a few questions and let you decide if we should chat?" (Request permission to continue, frame it as their decision).
 The Path:
 "Great! We work with growth-stage startups in [mention their industry] to help them accelerate their sales process. One of the biggest challenges we see is founders like yourself juggling a million things, building a great product, but struggling to find the time to connect with those crucial early customers. Does that resonate with you at all?" (Highlight the problem, relate it to their experience, ask for confirmation).
@@ -841,15 +830,6 @@ Remember, while ScoreApp is a powerful tool, its success depends on your ability
             </div>
         </div>
     </footer>
-
-    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/tooplate-script.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('#parallax-1').parallax({ imageSrc: "{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" });
-        });
-    </script>
-</body>
-</html>
+    </div>
+</section>
+{% endblock %}

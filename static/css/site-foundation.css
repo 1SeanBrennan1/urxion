@@ -1,0 +1,475 @@
+:root {
+    --ux-bg: #ffffff;
+    --ux-surface: #ffffff;
+    --ux-surface-soft: #f8fafc;
+    --ux-text: #1a1a2e;
+    --ux-muted: #64748b;
+    --ux-accent: #1e3a5f;
+    --ux-cta: #2563eb;
+    --ux-border: rgba(30, 58, 95, 0.14);
+    --ux-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    --ux-radius: 24px;
+}
+html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+body {
+    background: var(--ux-bg);
+    color: var(--ux-text);
+}
+a {
+    text-underline-offset: 0.18em;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.28);
+    outline-offset: 3px;
+}
+.card,
+.hero-panel,
+.founder-card,
+.proof-card,
+.pricing-card,
+.legacy-content,
+.resource-card,
+.feature-card,
+.tm-blog-item,
+.tm-contact-form-box,
+.tos-container,
+.results-container {
+    border-radius: var(--ux-radius);
+    box-shadow: var(--ux-shadow);
+}
+.card,
+.hero-panel,
+.founder-card,
+.legacy-content {
+    border: 1px solid var(--ux-border);
+}
+.card {
+    transition:
+        transform 160ms ease,
+        border-color 160ms ease;
+}
+.card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(37, 99, 235, 0.32);
+}
+.icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 0.85rem;
+    background: #eff6ff;
+    color: var(--ux-cta);
+    font-weight: 950;
+}
+.flow {
+    display: grid;
+    gap: 0.75rem;
+}
+.flow-step {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0.9rem;
+    align-items: start;
+    padding: 0.95rem;
+    border-radius: 18px;
+    border: 1px solid var(--ux-border);
+    background: #fff;
+}
+.flow-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: #eff6ff;
+    color: var(--ux-cta);
+    font-weight: 950;
+    font-size: 0.86rem;
+}
+.trust-strip {
+    border-block: 1px solid var(--ux-border);
+    background: #f8fafc;
+}
+.trust-items {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem 0;
+}
+.cta-band {
+    margin: 2rem 0;
+    padding: clamp(1.5rem, 5vw, 3rem);
+    border-radius: 30px;
+    border: 1px solid rgba(37, 99, 235, 0.18);
+    background: linear-gradient(135deg, #eff6ff, #ffffff);
+    box-shadow: var(--ux-shadow);
+}
+.founder-card {
+    display: grid;
+    grid-template-columns: 132px 1fr;
+    gap: 1.25rem;
+    align-items: center;
+    background: #fff;
+}
+.founder-card img {
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #eff6ff;
+}
+.metric {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+    color: var(--ux-accent);
+    font-weight: 950;
+    letter-spacing: -0.05em;
+}
+.legacy-content {
+    background: #fff;
+    padding: clamp(1rem, 3vw, 2rem);
+    overflow: hidden;
+}
+.legacy-content * {
+    max-width: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+@media (max-width: 768px) {
+    .founder-card {
+        grid-template-columns: 1fr;
+    }
+    .nav-links {
+        justify-content: flex-start;
+    }
+}
+
+/* Trust and philosophy page refinements */
+.muted,
+.card p,
+.section-header p,
+.lead,
+li {
+    color: #475569;
+}
+.founder-note {
+    color: #1e3a5f;
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+    border-radius: 14px;
+    padding: 0.85rem 1rem;
+    margin: 1rem 0 0;
+    font-weight: 800;
+}
+.principle-code {
+    white-space: pre-wrap;
+    color: #0f172a;
+    background: #f8fafc;
+    border: 1px solid rgba(30, 58, 95, 0.16);
+    border-radius: 18px;
+    padding: 1rem;
+    font:
+        800 1rem/1.7 ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        monospace;
+}
+.grid-5 {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.card ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+.card li + li {
+    margin-top: 0.45rem;
+}
+@media (max-width: 1180px) {
+    .grid-5 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (max-width: 768px) {
+    .grid-5 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Contrast safety pass: keep all readable text dark on light URXION surfaces. */
+:root {
+    --ux-muted: #475569;
+    --ux-border: rgba(30, 58, 95, 0.18);
+}
+body,
+main,
+section,
+.container,
+.card,
+.hero-panel,
+.founder-card,
+.legacy-content,
+.resource-card,
+.feature-card,
+.tm-blog-item,
+.tm-contact-form-box,
+.tos-container,
+.results-container,
+.tm-bg-gray,
+.tm-bg-gray-dark,
+.tm-bg-white,
+.tm-box,
+.tm-box-2,
+.tm-box-3 {
+    color: #1a1a2e;
+}
+p,
+li,
+dd,
+dt,
+label,
+small,
+span,
+.card p,
+.section-header p,
+.lead,
+.muted,
+.text-muted,
+.tm-text-gray,
+.image-caption,
+.form-text {
+    color: #334155 !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b,
+.footer-title,
+.tm-text-primary,
+.tm-h3 {
+    color: #1e3a5f !important;
+}
+.hero,
+.hero *,
+.cta-band,
+.cta-band *,
+.trust-strip,
+.trust-strip *,
+.card,
+.card *,
+.hero-panel,
+.hero-panel *,
+.founder-card,
+.founder-card *,
+.legacy-content,
+.legacy-content * {
+    text-shadow: none !important;
+}
+.card,
+.hero-panel,
+.founder-card,
+.legacy-content,
+.tm-bg-gray,
+.tm-bg-gray-dark,
+.tm-bg-white,
+.tm-box,
+.tm-box-2,
+.tm-box-3 {
+    background-color: #ffffff !important;
+}
+/* Old templates include inline white footer/link styles. Keep white only when the element itself declares a dark background. */
+.legacy-content [style*="color: white"],
+.legacy-content [style*="color:white"],
+.legacy-content .text-white,
+.legacy-content .text-light,
+.legacy-content .text-white-50 {
+    color: #1a1a2e !important;
+}
+.legacy-content [style*="background: var(--dark)"],
+.legacy-content [style*="background:#0f172a"],
+.legacy-content [style*="background: #0f172a"],
+.legacy-content [style*="background-color:#0f172a"],
+.legacy-content [style*="background-color: #0f172a"],
+.legacy-content [style*="background: #0f172a"] *,
+.legacy-content [style*="background: var(--dark)"] * {
+    color: #ffffff !important;
+}
+.legacy-content a:not(.btn),
+.card a:not(.btn-primary):not(.btn-secondary),
+.hero-panel a:not(.btn-primary):not(.btn-secondary) {
+    color: #1d4ed8 !important;
+    font-weight: 800;
+}
+.btn-primary,
+.nav-call,
+.legacy-content .btn-primary,
+.legacy-content .btn.btn-primary {
+    color: #ffffff !important;
+    background: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
+}
+.btn-secondary,
+.legacy-content .btn-secondary {
+    color: #1e3a5f !important;
+    background: #ffffff !important;
+    border-color: rgba(30, 58, 95, 0.28) !important;
+}
+.badge,
+.flow-num,
+.icon,
+.founder-note,
+.principle-code {
+    color: #1e3a5f !important;
+}
+input,
+select,
+textarea,
+.form-control {
+    color: #111827 !important;
+    background-color: #ffffff !important;
+}
+::placeholder {
+    color: #64748b !important;
+    opacity: 1;
+}
+
+/* Final contrast guardrails for the light URXION redesign.
+   Several legacy templates and Bootstrap utility classes set text to white/light;
+   these rules keep light sections readable without breaking intentionally dark blocks. */
+.hero,
+.section,
+.trust-strip,
+.cta-band,
+.card,
+.hero-panel,
+.founder-card,
+.proof-card,
+.pricing-card,
+.resource-card,
+.feature-card,
+.calendar-card,
+.tm-bg-white,
+.tm-bg-gray,
+.tm-bg-gray-dark,
+.tm-box,
+.tm-box-2,
+.tm-box-3,
+.legacy-content {
+    background-color: #ffffff;
+    color: #111827 !important;
+}
+.hero,
+.section,
+.trust-strip,
+.site-footer {
+    background-color: transparent;
+}
+.hero {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+.trust-strip,
+.site-footer,
+.section:nth-of-type(even) {
+    background-color: #f8fafc;
+}
+.card,
+.hero-panel,
+.founder-card,
+.proof-card,
+.pricing-card,
+.resource-card,
+.feature-card,
+.calendar-card,
+.legacy-content {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+.card :where(p, li, div, span, small, label),
+.hero-panel :where(p, li, div, span, small, label),
+.founder-card :where(p, li, div, span, small, label),
+.proof-card :where(p, li, div, span, small, label),
+.pricing-card :where(p, li, div, span, small, label),
+.resource-card :where(p, li, div, span, small, label),
+.feature-card :where(p, li, div, span, small, label),
+.calendar-card :where(p, li, div, span, small, label),
+.section-header :where(p, div, span),
+.legacy-content :where(p, li, div, span, small, label) {
+    color: #334155 !important;
+}
+.card :where(h1, h2, h3, h4, h5, h6, strong, b),
+.hero-panel :where(h1, h2, h3, h4, h5, h6, strong, b),
+.founder-card :where(h1, h2, h3, h4, h5, h6, strong, b),
+.proof-card :where(h1, h2, h3, h4, h5, h6, strong, b),
+.pricing-card :where(h1, h2, h3, h4, h5, h6, strong, b),
+.resource-card :where(h1, h2, h3, h4, h5, h6, strong, b),
+.feature-card :where(h1, h2, h3, h4, h5, h6, strong, b),
+.calendar-card :where(h1, h2, h3, h4, h5, h6, strong, b),
+.section-header :where(h1, h2, h3, h4, h5, h6),
+.legacy-content :where(h1, h2, h3, h4, h5, h6, strong, b) {
+    color: #0f172a !important;
+}
+.hero :where(.text-white, .text-light, .text-white-50),
+.section :where(.text-white, .text-light, .text-white-50),
+.card :where(.text-white, .text-light, .text-white-50),
+.hero-panel :where(.text-white, .text-light, .text-white-50),
+.calendar-card :where(.text-white, .text-light, .text-white-50),
+.legacy-content :where(.text-white, .text-light, .text-white-50) {
+    color: #334155 !important;
+}
+.eyebrow,
+.section-header .eyebrow,
+.card .eyebrow,
+.calendar-card .eyebrow {
+    color: #1d4ed8 !important;
+}
+.calendar-card {
+    padding: clamp(0.75rem, 2vw, 1rem);
+    overflow: hidden;
+}
+.calendar-card iframe {
+    display: block;
+    background: #ffffff;
+    border-radius: 18px;
+}
+[style*="background: var(--dark)"],
+[style*="background:#0f172a"],
+[style*="background: #0f172a"],
+[style*="background-color:#0f172a"],
+[style*="background-color: #0f172a"] {
+    background: #0f172a !important;
+    color: #ffffff !important;
+}
+[style*="background: var(--dark)"] *,
+[style*="background:#0f172a"] *,
+[style*="background: #0f172a"] *,
+[style*="background-color:#0f172a"] *,
+[style*="background-color: #0f172a"] * {
+    color: #ffffff !important;
+}

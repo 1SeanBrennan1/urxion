@@ -1,25 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Business Oriented - Services</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" /> <!-- https://fonts.google.com/ -->    
-    <link href="css/bootstrap.min.css" rel="stylesheet" /> <!-- https://getbootstrap.com/ -->
-    <link href="fontawesome/css/all.min.css" rel="stylesheet" /> <!-- https://fontawesome.com/ -->
-    <link href="css/templatemo-business-oriented.css" rel="stylesheet" />
-</head>
-<!--
-
-
-
--->
-<body>
-    <div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="img/biz-oriented-header.jpg">
+{% extends "base.html" %}
+{% block title %}Business Oriented - Services{% endblock %}
+{% block content %}
+<section class="section legacy-page">
+    <div class="container legacy-content">
+<div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="img/biz-oriented-header.jpg">
         <div class="tm-logo" style="background-color: transparent;">
-            <img src="img/Meeting-Gen.png" alt="Your Logo" class="tm-logo-img">
+            <img src="img/Meeting-Gen.png" alt="Urxion logo" class="tm-logo-img">
             <!-- <span class="text-uppercase tm-logo-text">Urxion</span> -->
         </div>
     </div>
@@ -155,15 +141,9 @@
         </div>
     </footer>
 
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/parallax.min.js"></script> <!-- https://pixelcog.github.io/parallax.js/ -->
-    <script src="js/tooplate-script.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#parallax-1').parallax({ imageSrc: 'img/biz-oriented-header.jpg' });
-            $('#parallax-3').parallax({ imageSrc: 'img/biz-oriented-footer-2.jpg' });
-        });
-    </script>
-</body>
-</html>
+    
+    
+     <!-- https://pixelcog.github.io/parallax.js/ -->
+    </div>
+</section>
+{% endblock %}

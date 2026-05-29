@@ -1,0 +1,288 @@
+{
+  "run_id": "0f92d2a0b9ec0995",
+  "company_name": "Urxion",
+  "email_domain": "example.com",
+  "company_info": "We build AI agents for companies and IT development. We specialize in Python, Flask, document workflows, evidence mapping, proposal automation, compliance review, and human approval gates.",
+  "created_at": "2026-05-29T02:05:29.468882+00:00",
+  "opportunities": [
+    {
+      "id": "on-cloud-001",
+      "title": "Cloud Migration and Modernization Services",
+      "agency": "Ontario Ministry of Public and Business Service Delivery",
+      "deadline": "2026-09-30",
+      "estimated_value": "$5M - $10M",
+      "summary": "Migration planning, application assessment, phased modernization, governance, reporting, and secure cloud transition support.",
+      "requirements": [
+        "Describe cloud migration methodology and delivery governance.",
+        "Provide relevant public-sector project experience.",
+        "Explain security, privacy, and risk controls.",
+        "Submit project plan, pricing assumptions, and transition approach."
+      ]
+    },
+    {
+      "id": "on-data-002",
+      "title": "Healthcare Data Analytics Platform",
+      "agency": "Ontario Health / Ministry of Health",
+      "deadline": "2026-10-15",
+      "estimated_value": "$10M - $25M",
+      "summary": "Analytics platform support for data ingestion, reporting, population health monitoring, and evidence-based decision workflows.",
+      "requirements": [
+        "Summarize data platform and analytics experience.",
+        "Address privacy, security, and auditability.",
+        "Provide implementation plan and support model.",
+        "Identify evidence gaps before final submission."
+      ]
+    },
+    {
+      "id": "on-learning-003",
+      "title": "Digital Learning Platform Modernization",
+      "agency": "Ontario Ministry of Education",
+      "deadline": "2026-12-01",
+      "estimated_value": "$8M - $15M",
+      "summary": "Modernization of digital learning workflows with accessibility, bilingual support, integrations, training, and reporting.",
+      "requirements": [
+        "Describe platform modernization approach.",
+        "Explain accessibility and user-support controls.",
+        "Provide delivery timeline and stakeholder plan.",
+        "Map claims to evidence and flag unsupported statements."
+      ]
+    }
+  ],
+  "selected_opportunity": {
+    "id": "on-learning-003",
+    "title": "Digital Learning Platform Modernization",
+    "agency": "Ontario Ministry of Education",
+    "deadline": "2026-12-01",
+    "estimated_value": "$8M - $15M",
+    "summary": "Modernization of digital learning workflows with accessibility, bilingual support, integrations, training, and reporting.",
+    "requirements": [
+      "Describe platform modernization approach.",
+      "Explain accessibility and user-support controls.",
+      "Provide delivery timeline and stakeholder plan.",
+      "Map claims to evidence and flag unsupported statements."
+    ]
+  },
+  "package": {
+    "proposal": "Executive Summary\nUrxion appreciates the opportunity to provide a proposal draft for the Ontario Ministry of Education Digital Learning Platform Modernization initiative. Based on the supplied opportunity summary, the Ministry is seeking modernization of digital learning workflows with accessibility, bilingual support, integrations, training, and reporting. Urxion builds AI agents for companies and IT development and specializes in Python, Flask, document workflows, evidence mapping, proposal automation, compliance review, and human approval gates.\n\nUrxion proposes a discovery-led modernization approach focused on mapping current digital learning workflows, identifying user and accessibility needs, defining integration and reporting requirements, and implementing modular workflow capabilities with human review and governance controls. The proposed approach emphasizes traceability between requirements, design decisions, evidence, testing, and approval gates. Because the supplied company context does not include prior education-sector platform deployments, accessibility certifications, bilingual delivery references, public-sector references, security attestations, or pricing, those items are identified as evidence gaps for Ministry review and for Urxion to address before any final submission.\n\nUnderstanding of Need\nThe Ministry requires modernization of digital learning workflows in a public-sector education environment. The requirement indicates several core needs:\n1. A platform modernization approach that can rationalize legacy or fragmented digital learning workflows.\n2. Accessibility and user-support controls suitable for diverse learners, educators, administrators, and other stakeholders.\n3. Bilingual support, which for the Ontario Ministry context is expected to require English and French user experience, content, support workflows, and governance review.\n4. Integration with existing systems or services, although the specific systems, APIs, identity providers, data standards, and reporting environments are not identified in the supplied opportunity summary.\n5. Training and reporting to support adoption, operational oversight, and continuous improvement.\n6. Claims mapped to evidence, with unsupported statements clearly flagged.\n\nUrxion understands that modernization is not only a software development exercise. It requires structured stakeholder engagement, accessibility-by-design, change management, secure and reliable implementation practices, reporting definition, data governance, and transparent approvals. The supplied company context supports Urxion's ability to work with document workflows, evidence mapping, compliance review, proposal automation, and human approval gates. It does not, by itself, evidence full delivery of an enterprise digital learning platform for a provincial education ministry; this is a material evidence gap to be addressed in final review.\n\nProposed Approach\nUrxion proposes a phased modernization approach that begins with discovery and evidence mapping, proceeds through design and implementation, and concludes with controlled rollout, training, reporting, and continuous improvement.\n\nPhase 1: Discovery, current-state assessment, and evidence mapping. Urxion would work with Ministry stakeholders to document existing digital learning workflows, user groups, accessibility needs, bilingual content and support requirements, integration points, reporting needs, operational constraints, and approval processes. Outputs would include a current-state workflow inventory, prioritized modernization backlog, risk register, requirements traceability matrix, evidence map, and gap log.\n\nPhase 2: Target-state platform and workflow design. Urxion would define the target-state workflow architecture, user journeys, integration patterns, data flows, reporting concepts, and approval controls. Where appropriate to Ministry requirements, Urxion's Python and Flask experience may be used for workflow services, APIs, administrative tools, automation components, and integration prototypes. Design artifacts would be reviewed through human approval gates before implementation.\n\nPhase 3: Accessibility and bilingual design controls. Urxion would incorporate accessibility requirements into user stories, design reviews, acceptance criteria, test scripts, and release approval gates. Bilingual support would be addressed through a content and interface governance workflow covering source language, translation, review, approval, publishing, and maintenance. The supplied company context does not include proof of accessibility certification, WCAG audit experience, French-language delivery capacity, or bilingual support references; these must be confirmed or supplemented before final submission.\n\nPhase 4: Build, integration, and workflow automation. Urxion would implement prioritized modernization components using an iterative delivery model. Candidate components may include document workflow automation, evidence mapping, compliance review workflows, administrative review tools, approval gates, and reporting data capture. Integration work would be defined only after Ministry systems, APIs, security requirements, identity requirements, data models, and hosting constraints are confirmed.\n\nPhase 5: Testing, user support readiness, and training. Urxion would support functional testing, accessibility testing coordination, bilingual review coordination, integration testing, user acceptance testing, and operational readiness review. Training materials and support workflows would be developed from approved processes and stakeholder roles. The supplied company context does not evidence an established help desk, service desk, training department, or provincial-scale support operation; this is a gap requiring clarification.\n\nPhase 6: Reporting, rollout, and continuous improvement. Urxion would define reporting needs with Ministry stakeholders and implement reporting workflows where within scope. Reports may include workflow status, approval status, compliance evidence, training completion, issue trends, and adoption indicators, subject to Ministry data availability and privacy/security requirements. Rollout would proceed through controlled pilots, issue resolution, acceptance review, and staged expansion.\n\nRelevant Experience\nThe supplied company context supports the following relevant capabilities:\n- AI agent development for companies and IT development.\n- Python and Flask development.\n- Document workflows.\n- Evidence mapping.\n- Proposal automation.\n- Compliance review.\n- Human approval gates.\n\nThese capabilities are relevant to modernization work where the Ministry needs structured workflows, traceability, evidence-based compliance review, automation, and controlled human approvals. They may also support administrative modernization components, reporting workflows, and integration services.\n\nHowever, the supplied context does not include evidence of the following:\n- Prior Ontario Ministry of Education projects.\n- Prior public-sector contracts.\n- Prior digital learning platform modernization projects.\n- Learning management system or education technology implementation references.\n- Accessibility certifications, WCAG audit reports, or accessible design references.\n- Bilingual English/French implementation or support references.\n- Security certifications, privacy attestations, data residency evidence, or hosting credentials.\n- Formal training delivery references.\n- Enterprise support desk or managed service capability.\n- Named personnel, resumes, project roles, or delivery capacity.\n\nThese gaps should be addressed before final submission or clearly positioned as areas requiring partners, subcontractors, or further evidence.\n\nDelivery Plan\nThe following indicative delivery plan is proposed for Ministry review. Timeline assumptions must be validated against final scope, procurement requirements, integration complexity, security/privacy reviews, accessibility obligations, bilingual review needs, and Ministry stakeholder availability.\n\nStage 1: Mobilization and governance setup, approximately 2 to 4 weeks. Activities include kickoff, stakeholder identification, governance model, communications cadence, project workspace, evidence register, decision log, risk register, and initial delivery plan confirmation.\n\nStage 2: Discovery and requirements mapping, approximately 6 to 10 weeks. Activities include workflow mapping, user group analysis, accessibility and bilingual requirements capture, integration discovery, reporting requirements, data and privacy considerations, current-state pain point analysis, and prioritized backlog creation.\n\nStage 3: Target-state design and prototype planning, approximately 6 to 8 weeks. Activities include target workflow design, integration approach, reporting model, approval gate design, accessibility criteria, bilingual content workflow, test strategy, and implementation roadmap.\n\nStage 4: Iterative build and configuration, approximately 16 to 32 weeks depending on scope. Activities include development of approved workflow components, automation, interfaces, administrative tools, reporting functions, and integration components. Delivery would occur in increments with demonstrations and approval gates.\n\nStage 5: Testing, training, and readiness, approximately 8 to 12 weeks. Activities include functional testing, user acceptance testing, accessibility review coordination, bilingual review coordination, integration testing, training material preparation, support workflow preparation, and operational readiness assessment.\n\nStage 6: Pilot, rollout, and stabilization, approximately 8 to 16 weeks. Activities include pilot deployment, issue triage, stakeholder feedback, release approvals, staged rollout, reporting review, knowledge transfer, and stabilization.\n\nStakeholder Plan\nUrxion proposes a structured stakeholder engagement model:\n- Executive sponsors: confirm objectives, major decisions, risks, and acceptance criteria.\n- Ministry program owners: define learning workflow priorities, policy constraints, reporting requirements, and operational needs.\n- Educators and school-board representatives, if designated by the Ministry: validate user journeys, usability needs, training needs, and adoption considerations.\n- Learner and accessibility representatives, if designated by the Ministry: inform accessible design, plain-language needs, assistive technology considerations, and inclusive user support.\n- French-language and bilingual content reviewers, if designated by the Ministry: validate bilingual interface, content, and support workflows.\n- IT, cybersecurity, privacy, and architecture stakeholders: define integration, data, identity, security, hosting, privacy, and operational requirements.\n- Support and training stakeholders: define help pathways, training materials, service procedures, and knowledge transfer.\n\nEngagement mechanisms would include workshops, documented decisions, review checkpoints, demonstrations, backlog reviews, risk reviews, and formal human approval gates.\n\nRisk and Governance\nUrxion proposes governance based on transparency, traceability, and staged approvals. Core governance artifacts would include a requirements traceability matrix, evidence map, risk and issue log, decision log, change log, stakeholder register, accessibility criteria register, bilingual review log, integration dependency register, and release approval checklist.\n\nKey risks and proposed mitigations include:\n- Accessibility risk: Requirements may be incomplete or not validated by affected users. Mitigation: define accessibility acceptance criteria early, conduct accessibility review checkpoints, and require documented approval before release.\n- Bilingual support risk: French-language content, interface elements, and support workflows may require specialized review. Mitigation: establish bilingual review workflow, identify Ministry reviewers or qualified resources, and maintain approval records.\n- Integration risk: Existing systems and APIs are unknown from the supplied summary. Mitigation: conduct integration discovery, document dependencies, prototype high-risk integrations, and sequence delivery based on confirmed access.\n- Evidence risk: Claims may exceed documented company evidence. Mitigation: maintain a claim audit and flag unsupported claims before final submission.\n- Adoption risk: Stakeholders may have varied needs across roles and regions. Mitigation: conduct role-based workshops, pilot with representative users, and refine training materials before broader rollout.\n- Scope risk: Estimated value and high-level summary suggest significant scope, but detailed specifications are not supplied. Mitigation: create a prioritized backlog, define acceptance criteria, and use change control for new or changed requirements.\n- Security and privacy risk: No security or privacy requirements are provided in the summary, and no Urxion attestations are supplied. Mitigation: obtain Ministry requirements, complete security/privacy review, and do not claim certifications unless evidence is provided.\n\nCompliance Notes\nThe supplied company context supports Urxion's capabilities in AI agents, Python, Flask, document workflows, evidence mapping, proposal automation, compliance review, and human approval gates. These capabilities partially align with modernization, workflow governance, reporting, and evidence mapping requirements.\n\nThe supplied context does not support claims of completed public-sector education modernization, accessibility certification, bilingual service delivery, enterprise training, enterprise support, security certification, hosting compliance, or comparable contract references. Those items are flagged as gaps and should not be represented as established capabilities without additional documentation.\n\nNo pricing, legal terms, certifications, insurance statements, security attestations, resumes, subcontractors, references, or past projects are included because none were supplied. Human final approval is required before submission.\n\nEvidence Gaps\n1. No supplied evidence of prior Ontario Ministry of Education or public-sector work.\n2. No supplied evidence of digital learning platform modernization experience.\n3. No supplied accessibility credentials, WCAG conformance evidence, audit reports, or accessible design case studies.\n4. No supplied evidence of bilingual English/French platform delivery or support.\n5. No supplied integration references or confirmed experience with education-sector systems.\n6. No supplied security, privacy, hosting, data residency, or compliance attestations.\n7. No supplied training program references, training materials, or support model evidence.\n8. No supplied team bios, capacity plan, project manager qualifications, or named delivery personnel.\n9. No supplied pricing or commercial model.\n10. No supplied implementation references, client references, or performance outcomes.\n\nClosing\nUrxion can present a modernization approach grounded in structured workflow analysis, Python/Flask development capability, document workflow automation, evidence mapping, compliance review, and human approval gates. These capabilities are relevant to the Ministry's need for transparent modernization and auditable governance. However, the current evidence package is incomplete for a high-value public-sector digital learning platform modernization. Before final submission, Urxion should provide additional evidence or identify qualified partners for accessibility, bilingual delivery, education platform experience, security/privacy assurance, training, support, and enterprise implementation capacity. This proposal draft is prepared for human review and should not be submitted without final validation and approval.",
+    "compliance_matrix": [
+      [
+        "Requirement",
+        "Status",
+        "Evidence",
+        "Risk"
+      ],
+      [
+        "Describe platform modernization approach.",
+        "partial",
+        "Company context supports Python, Flask, IT development, document workflows, evidence mapping, compliance review, and human approval gates. Proposed phased approach is included, but no prior digital learning modernization evidence was supplied.",
+        "medium"
+      ],
+      [
+        "Explain accessibility controls.",
+        "partial",
+        "Proposal includes accessibility-by-design controls, criteria, review checkpoints, and testing coordination. No accessibility certification, WCAG audit evidence, or accessible design references were supplied.",
+        "high"
+      ],
+      [
+        "Explain user-support controls.",
+        "partial",
+        "Proposal includes support workflow preparation, training readiness, issue triage, and knowledge transfer as proposed controls. No evidence of an established help desk, service desk, or enterprise support operation was supplied.",
+        "high"
+      ],
+      [
+        "Address bilingual support.",
+        "partial",
+        "Proposal includes bilingual content and interface governance workflow. No evidence of French-language delivery capability, bilingual support references, or translation/review capacity was supplied.",
+        "high"
+      ],
+      [
+        "Address integrations.",
+        "partial",
+        "Company context supports IT development, Python, and Flask, which may support API and workflow integration work. Specific Ministry systems, APIs, identity requirements, and prior integration references were not supplied.",
+        "medium"
+      ],
+      [
+        "Address training.",
+        "partial",
+        "Proposal includes training material preparation and role-based training planning. No formal training delivery references or sample materials were supplied.",
+        "medium"
+      ],
+      [
+        "Address reporting.",
+        "partial",
+        "Proposal includes reporting workflows, evidence mapping, status reporting, and adoption/issue reporting concepts. No reporting platform references or sample dashboards were supplied.",
+        "medium"
+      ],
+      [
+        "Provide delivery timeline.",
+        "supported",
+        "Proposal includes an indicative phased timeline with mobilization, discovery, design, build, testing/readiness, pilot, rollout, and stabilization.",
+        "review"
+      ],
+      [
+        "Provide stakeholder plan.",
+        "supported",
+        "Proposal includes stakeholder groups, engagement mechanisms, review checkpoints, and approval gates.",
+        "review"
+      ],
+      [
+        "Map claims to evidence and flag unsupported statements.",
+        "supported",
+        "Proposal includes Evidence Gaps, Compliance Notes, compliance matrix, and claim audit. Company context is used as the evidence base.",
+        "low"
+      ],
+      [
+        "Public-sector education experience.",
+        "gap",
+        "No Ontario Ministry of Education, public-sector, or education-sector project references were supplied.",
+        "high"
+      ],
+      [
+        "Security, privacy, hosting, or compliance attestations.",
+        "gap",
+        "No security certifications, privacy attestations, data residency evidence, hosting model, or compliance credentials were supplied.",
+        "high"
+      ],
+      [
+        "Pricing or commercial response.",
+        "gap",
+        "No pricing, rate card, cost model, legal terms, or assumptions were supplied.",
+        "review"
+      ],
+      [
+        "Named team and capacity.",
+        "gap",
+        "No team bios, resumes, project roles, delivery capacity, or availability information was supplied.",
+        "high"
+      ]
+    ],
+    "checklist": [
+      "Confirm final RFP instructions, mandatory forms, submission portal requirements, page limits, file naming conventions, and deadline time zone for 2026-12-01.",
+      "Obtain and review the full Ontario Ministry of Education RFP document, including mandatory technical, legal, privacy, accessibility, security, and pricing requirements.",
+      "Validate whether Urxion will prime the opportunity or require partners/subcontractors for accessibility, bilingual support, training, security/privacy, hosting, or education platform delivery.",
+      "Provide documented evidence for any claims of accessibility capability, including WCAG experience, audit methods, accessible design process, or third-party accessibility partners if applicable.",
+      "Provide documented evidence for bilingual English/French delivery, translation workflow, bilingual user support, and French-language review capability, if applicable.",
+      "Provide public-sector, education-sector, or comparable modernization references if available; otherwise keep the gap disclosed.",
+      "Define the proposed solution scope and confirm whether Urxion is proposing a full digital learning platform, workflow modernization components, integration services, or advisory/development support.",
+      "Prepare a detailed implementation schedule aligned to the Ministry's required milestones once the full RFP is available.",
+      "Prepare a project organization chart, named personnel, resumes, roles, responsibilities, and availability if required by the RFP.",
+      "Develop a security and privacy response only using verified attestations, policies, hosting details, and compliance evidence.",
+      "Develop an accessibility compliance matrix tied to the RFP's stated standard, if specified.",
+      "Develop an integration plan after identifying Ministry systems, APIs, authentication requirements, data flows, and reporting environments.",
+      "Develop a training and change management plan with audience groups, delivery methods, materials, and acceptance criteria.",
+      "Develop a support model with service hours, escalation paths, roles, issue categories, and service commitments only if supported by company capability and approved terms.",
+      "Prepare pricing only from approved internal estimates and commercial assumptions; do not infer pricing from the estimated opportunity value.",
+      "Complete legal review of all terms, insurance, indemnity, intellectual property, privacy, and security obligations before submission.",
+      "Complete final claim audit to ensure no unsupported certifications, references, prices, legal terms, or past projects are included.",
+      "Obtain human executive approval before submission."
+    ],
+    "claim_audit": [
+      {
+        "claim": "Urxion builds AI agents for companies and IT development.",
+        "support_status": "supported",
+        "source": "company_info"
+      },
+      {
+        "claim": "Urxion specializes in Python and Flask.",
+        "support_status": "supported",
+        "source": "company_info"
+      },
+      {
+        "claim": "Urxion specializes in document workflows.",
+        "support_status": "supported",
+        "source": "company_info"
+      },
+      {
+        "claim": "Urxion specializes in evidence mapping.",
+        "support_status": "supported",
+        "source": "company_info"
+      },
+      {
+        "claim": "Urxion specializes in proposal automation.",
+        "support_status": "supported",
+        "source": "company_info"
+      },
+      {
+        "claim": "Urxion specializes in compliance review.",
+        "support_status": "supported",
+        "source": "company_info"
+      },
+      {
+        "claim": "Urxion specializes in human approval gates.",
+        "support_status": "supported",
+        "source": "company_info"
+      },
+      {
+        "claim": "The Ministry requires modernization of digital learning workflows with accessibility, bilingual support, integrations, training, and reporting.",
+        "support_status": "supported",
+        "source": "rfp_requirement"
+      },
+      {
+        "claim": "Urxion can propose a discovery-led modernization approach using workflow mapping, evidence mapping, and approval gates.",
+        "support_status": "supported",
+        "source": "company_info"
+      },
+      {
+        "claim": "Python and Flask experience may support workflow services, APIs, administrative tools, automation components, and integration prototypes.",
+        "support_status": "needs_review",
+        "source": "company_info"
+      },
+      {
+        "claim": "Urxion has prior Ontario Ministry of Education experience.",
+        "support_status": "unsupported",
+        "source": "gap"
+      },
+      {
+        "claim": "Urxion has prior public-sector contract references.",
+        "support_status": "unsupported",
+        "source": "gap"
+      },
+      {
+        "claim": "Urxion has completed digital learning platform modernization projects.",
+        "support_status": "unsupported",
+        "source": "gap"
+      },
+      {
+        "claim": "Urxion holds accessibility certifications or has verified WCAG audit credentials.",
+        "support_status": "unsupported",
+        "source": "gap"
+      },
+      {
+        "claim": "Urxion has proven bilingual English/French platform delivery and user support capability.",
+        "support_status": "unsupported",
+        "source": "gap"
+      },
+      {
+        "claim": "Urxion has security certifications, privacy attestations, hosting compliance, or data residency evidence for this opportunity.",
+        "support_status": "unsupported",
+        "source": "gap"
+      },
+      {
+        "claim": "Urxion has an established enterprise help desk or managed support operation.",
+        "support_status": "unsupported",
+        "source": "gap"
+      },
+      {
+        "claim": "Urxion has formal training delivery references for public-sector or education users.",
+        "support_status": "unsupported",
+        "source": "gap"
+      },
+      {
+        "claim": "Urxion has supplied named personnel, resumes, project roles, and delivery capacity for the opportunity.",
+        "support_status": "unsupported",
+        "source": "gap"
+      },
+      {
+        "claim": "No pricing is provided in this draft because pricing information was not supplied.",
+        "support_status": "supported",
+        "source": "gap"
+      },
+      {
+        "claim": "Human final approval is required before submission.",
+        "support_status": "supported",
+        "source": "rfp_requirement"
+      }
+    ],
+    "generated_by": "azure:gpt-5.5"
+  }
+}
