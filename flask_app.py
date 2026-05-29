@@ -79,9 +79,22 @@ def _llm_json_completion(
     system_prompt: str, user_prompt: str, *, temperature: float
 ) -> tuple[dict, str]:
     cerebras_api_key = os.environ.get("CEREBRAS_API_KEY", "").strip()
-    cerebras_model = os.environ.get("CEREBRAS_MODEL", "llama-4-scout-17b-16e-instruct").strip()
-    cerebras_base_url = os.environ.get("CEREBRAS_BASE_URL", "https://api.cerebras.ai/v1").strip().rstrip("/")
+    cerebras_model = os.environ.get(
+        "CEREBRAS_MODEL", "llama-4-scout-17b-16e-instruct"
+    ).strip()
+    cerebras_base_url = (
+        os.environ.get("CEREBRAS_BASE_URL", "https://api.cerebras.ai/v1")
+        .strip()
+        .rstrip("/")
+    )
     groq_api_key = os.environ.get("GROQ_API_KEY", "").strip()
+    deepseek_api_key = os.environ.get("DEEPSEEK_API_KEY", "").strip()
+    deepseek_model = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat").strip()
+    deepseek_base_url = (
+        os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
+        .strip()
+        .rstrip("/")
+    )
     openai_api_key = os.environ.get("OPENAI_API_KEY", "").strip()
     azure_api_key = os.environ.get("AZURE_OPENAI_KEY", "").strip()
     azure_endpoint = os.environ.get("AZURE_ENDPOINT", "").strip().rstrip("/")
@@ -97,7 +110,6 @@ def _llm_json_completion(
             {"role": "user", "content": user_prompt},
         ],
     }
-
     provider_errors: list[str] = []
 
     if cerebras_api_key:
@@ -135,36 +147,59 @@ def _llm_json_completion(
         except Exception as exc:
             provider_errors.append(f"groq:{exc}")
 
+    if deepseek_api_key:
+        try:
+            response = requests.post(
+                f"{deepseek_base_url}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {deepseek_api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={**payload, "model": deepseek_model, "temperature": temperature},
+                timeout=90,
+            )
+            response.raise_for_status()
+            content = response.json()["choices"][0]["message"]["content"]
+            return json.loads(content), f"deepseek:{deepseek_model}"
+        except Exception as exc:
+            provider_errors.append(f"deepseek:{exc}")
+
     if azure_api_key and azure_endpoint and azure_deployment:
-        url = f"{azure_endpoint}/openai/deployments/{azure_deployment}/chat/completions?api-version={azure_api_version}"
-        response = requests.post(
-            url,
-            headers={"api-key": azure_api_key, "Content-Type": "application/json"},
-            json=payload,
-            timeout=90,
-        )
-        response.raise_for_status()
-        content = response.json()["choices"][0]["message"]["content"]
-        return json.loads(content), f"azure:{azure_deployment}"
+        try:
+            url = f"{azure_endpoint}/openai/deployments/{azure_deployment}/chat/completions?api-version={azure_api_version}"
+            response = requests.post(
+                url,
+                headers={"api-key": azure_api_key, "Content-Type": "application/json"},
+                json=payload,
+                timeout=90,
+            )
+            response.raise_for_status()
+            content = response.json()["choices"][0]["message"]["content"]
+            return json.loads(content), f"azure:{azure_deployment}"
+        except Exception as exc:
+            provider_errors.append(f"azure:{exc}")
 
     if openai_api_key:
-        model = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
-        response = requests.post(
-            "https://api.openai.com/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {openai_api_key}",
-                "Content-Type": "application/json",
-            },
-            json={**payload, "model": model, "temperature": temperature},
-            timeout=90,
-        )
-        response.raise_for_status()
-        content = response.json()["choices"][0]["message"]["content"]
-        return json.loads(content), model
+        try:
+            model = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
+            response = requests.post(
+                "https://api.openai.com/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {openai_api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={**payload, "model": model, "temperature": temperature},
+                timeout=90,
+            )
+            response.raise_for_status()
+            content = response.json()["choices"][0]["message"]["content"]
+            return json.loads(content), f"openai:{model}"
+        except Exception as exc:
+            provider_errors.append(f"openai:{exc}")
 
     details = f" Provider errors: {' | '.join(provider_errors)}" if provider_errors else ""
     raise RuntimeError(
-        "No working LLM API key is configured. Set CEREBRAS_API_KEY, GROQ_API_KEY, AZURE_OPENAI_KEY with AZURE_ENDPOINT and AZURE_OPENAI_DEPLOYMENT_NAME, or OPENAI_API_KEY."
+        "No working LLM API key is configured. Set CEREBRAS_API_KEY, GROQ_API_KEY, DEEPSEEK_API_KEY, AZURE_OPENAI_KEY with AZURE_ENDPOINT and AZURE_OPENAI_DEPLOYMENT_NAME, or OPENAI_API_KEY."
         + details
     )
 
@@ -1470,7 +1505,7 @@ def _rfp_demo_commentary(
         "structure_recommendations": structure_recommendations,
         "evaluator_lenses": evaluator_lenses,
         "demo_limits": [
-            "This public demo uses a demo-level model route (Cerebras first, then Groq) and a lightweight workflow, not URXION production configuration.",
+            "This public demo uses a lightweight workflow and simpler model configuration.",
             "A production URXION run uses the complete RFP package, attachments, addenda, Q&A, pricing instructions, mandatory forms, and your evidence library.",
             "URXION prepares review-ready work; it does not auto-submit, certify compliance, or replace qualified procurement, legal, or executive review.",
         ],

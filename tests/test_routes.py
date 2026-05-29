@@ -112,6 +112,30 @@ def test_llm_json_completion_falls_back_to_groq(monkeypatch):
     )
 
 
+def test_llm_json_completion_falls_back_to_deepseek(monkeypatch):
+    import flask_app
+
+    calls = []
+    monkeypatch.setenv("CEREBRAS_API_KEY", "cerebras-key")
+    monkeypatch.setenv("GROQ_API_KEY", "groq-key")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "deepseek-key")
+    monkeypatch.setenv("DEEPSEEK_MODEL", "deepseek-chat")
+
+    def fake_post(url, **kwargs):
+        calls.append((url, kwargs["json"]["model"]))
+        if "deepseek" not in url:
+            raise RuntimeError("provider unavailable")
+        return FakeLLMResponse('{"ok": true}')
+
+    monkeypatch.setattr(flask_app.requests, "post", fake_post)
+    payload, model = flask_app._llm_json_completion("system", "user", temperature=0.1)
+    assert payload == {"ok": True}
+    assert model == "deepseek:deepseek-chat"
+    assert calls[0][0] == "https://api.cerebras.ai/v1/chat/completions"
+    assert calls[1][0] == "https://api.groq.com/openai/v1/chat/completions"
+    assert calls[2] == ("https://api.deepseek.com/chat/completions", "deepseek-chat")
+
+
 @pytest.mark.parametrize("path", PUBLIC_GET_ROUTES)
 def test_public_routes_render(client, path):
     response = client.get(path)
