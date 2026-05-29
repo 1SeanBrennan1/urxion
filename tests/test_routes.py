@@ -121,6 +121,32 @@ def test_agent_engineering_resource_hub_and_articles_render(client):
             assert f"https://arxiv.org/abs/{source}" in body
 
 
+def test_agent_engineering_markdown_pages_are_unique_and_deep():
+    content_dir = (
+        Path(__file__).resolve().parents[1] / "content" / "ai-agent-engineering"
+    )
+    framework_first_items = set()
+    failure_first_items = set()
+    checklist_first_items = set()
+    for page in AGENT_RESOURCE_PAGES:
+        path = content_dir / f"{page['slug']}.md"
+        raw = path.read_text(encoding="utf-8")
+        body = raw.split("\n---\n", 1)[1]
+        assert len(body.split()) >= 600
+        assert len(page["description"]) <= 160
+        assert page["description"].endswith(".")
+        assert "is part of a practical engineering framework" not in page["definition"]
+        assert page["related"]
+        for related_slug in page["related"]:
+            assert related_slug in {item["slug"] for item in AGENT_RESOURCE_PAGES}
+        framework_first_items.add(page["framework"][0])
+        failure_first_items.add(page["failure_modes"][0])
+        checklist_first_items.add(page["checklist"][0])
+    assert len(framework_first_items) == len(AGENT_RESOURCE_PAGES)
+    assert len(failure_first_items) == len(AGENT_RESOURCE_PAGES)
+    assert len(checklist_first_items) == len(AGENT_RESOURCE_PAGES)
+
+
 def test_robots_points_to_sitemap(client):
     response = client.get("/robots.txt")
     body = response.get_data(as_text=True)

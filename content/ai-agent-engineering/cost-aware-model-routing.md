@@ -2,29 +2,31 @@
 {
   "slug": "cost-aware-model-routing",
   "title": "Cost-Aware Model Routing | URXION AI Agent Engineering",
-  "description": "Cost-aware agents should use the cheapest capable model for each stage, but escalate when confidence, grounding, risk, or verification fails.",
+  "description": "Practical guide to LLM cost optimization for reliable, evidence-first AI agents with arXiv references, checklists, failure modes, and URXION examples.",
   "h1": "Cost-Aware Model Routing",
   "topic": "LLM cost optimization",
   "short_answer": "Cost-aware agents should use the cheapest capable model for each stage, but escalate when confidence, grounding, risk, or verification fails.",
-  "definition": "Cost-Aware Model Routing is part of a practical engineering framework for reliable, evidence-first AI agents. The focus is operational control, not hype.",
-  "why_it_matters": "Production agent failures usually come from weak architecture, missing evidence, unclear authority, untested state changes, or poor evaluation. Making the workflow explicit reduces those risks.",
+  "definition": "Cost-aware model routing chooses the cheapest model or workflow path that is likely to meet the required quality, latency, risk, and evidence standard for the current stage.",
+  "why_it_matters": "Using the strongest model for every step wastes money. Using the cheapest model for every step creates hidden quality failures. Routing makes the tradeoff explicit.",
   "framework": [
-    "Make the workflow explicit enough to draw as a pipeline or graph.",
-    "Keep policy, routing, retrieval, tool use, memory, and approvals outside prompt-only logic.",
-    "Attach source evidence, state, and acceptance checks to important outputs.",
-    "Escalate when evidence, confidence, authorization, or risk conditions require human review."
+    "Estimate task risk and expected utility before model selection.",
+    "Use cheap-first paths for low-risk, well-grounded stages.",
+    "Escalate when retrieval is weak or verification fails.",
+    "Let safety, compliance, and customer commitments override cost.",
+    "Measure cost per successful validated task."
   ],
   "failure_modes": [
-    "The model guesses where retrieval or evidence should be required.",
-    "Tool calls or side effects bypass deterministic policy checks.",
-    "State lives only in chat history and cannot be replayed or audited.",
-    "Outputs look plausible but fail compliance, safety, or business acceptance checks."
+    "Simple extraction uses an expensive model by default.",
+    "High-risk compliance work stays on a cheap model.",
+    "The system tracks token spend but not success.",
+    "Retries repeat the same failing cheap path."
   ],
   "checklist": [
-    "Is the agent flow explicit and testable?",
-    "Are retrieved sources and durable facts linked to evidence?",
-    "Are high-impact actions routed to approval before execution?",
-    "Are behavior changes covered by regression tests and trace logs?"
+    "What stage is being routed?",
+    "What quality threshold applies?",
+    "What evidence triggers escalation?",
+    "How are cost and latency logged?",
+    "Does safety override routing?"
   ],
   "sources": [
     [
@@ -54,7 +56,12 @@
       "URXION applies these patterns to RFP response, compliance review, SDR research, and custom AI workflow agents."
     ]
   ],
-  "order": 13
+  "order": 13,
+  "related": [
+    "when-to-use-bigger-model",
+    "agent-observability-traces",
+    "agent-regression-testing"
+  ]
 }
 ---
 
@@ -64,28 +71,49 @@
 Cost-aware agents should use the cheapest capable model for each stage, but escalate when confidence, grounding, risk, or verification fails.
 
 ## Definition
-Cost-Aware Model Routing is part of a practical engineering framework for reliable, evidence-first AI agents. The focus is operational control, not hype.
+Cost-aware model routing chooses the cheapest model or workflow path that is likely to meet the required quality, latency, risk, and evidence standard for the current stage.
 
 ## Why it matters
-Production agent failures usually come from weak architecture, missing evidence, unclear authority, untested state changes, or poor evaluation. Making the workflow explicit reduces those risks.
+Using the strongest model for every step wastes money. Using the cheapest model for every step creates hidden quality failures. Routing makes the tradeoff explicit.
 
 ## Practical framework
-- Make the workflow explicit enough to draw as a pipeline or graph.
-- Keep policy, routing, retrieval, tool use, memory, and approvals outside prompt-only logic.
-- Attach source evidence, state, and acceptance checks to important outputs.
-- Escalate when evidence, confidence, authorization, or risk conditions require human review.
+- Estimate task risk and expected utility before model selection.
+- Use cheap-first paths for low-risk, well-grounded stages.
+- Escalate when retrieval is weak or verification fails.
+- Let safety, compliance, and customer commitments override cost.
+- Measure cost per successful validated task.
+
+## Design notes
+Design LLM cost optimization as a measurable workflow capability, not as a prompt preference. The implementation should identify which component owns the decision, which evidence is required, and which failure path applies when the evidence is missing.
+For business workflows, LLM cost optimization should produce artifacts a human can inspect: source links, state records, gap lists, approval notes, or test results. This makes the agent useful even when the final answer still needs review.
+A practical release standard is to ask whether another engineer could replay the run and understand why the system chose its route. If the answer depends on hidden model reasoning, the workflow needs more explicit structure.
 
 ## Common failure modes
-- The model guesses where retrieval or evidence should be required.
-- Tool calls or side effects bypass deterministic policy checks.
-- State lives only in chat history and cannot be replayed or audited.
-- Outputs look plausible but fail compliance, safety, or business acceptance checks.
+- Simple extraction uses an expensive model by default.
+- High-risk compliance work stays on a cheap model.
+- The system tracks token spend but not success.
+- Retries repeat the same failing cheap path.
 
 ## Implementation checklist
-- Is the agent flow explicit and testable?
-- Are retrieved sources and durable facts linked to evidence?
-- Are high-impact actions routed to approval before execution?
-- Are behavior changes covered by regression tests and trace logs?
+- What stage is being routed?
+- What quality threshold applies?
+- What evidence triggers escalation?
+- How are cost and latency logged?
+- Does safety override routing?
+
+## Implementation example
+In a URXION-style workflow, LLM cost optimization is treated as an operational design concern. The system records the input, identifies the required evidence, routes the task through the right checks, and produces review-ready artifacts with visible gaps instead of pretending the output is final. This matters for RFPs, compliance reviews, SDR research, and custom workflow agents because each domain needs traceability and human accountability.
+
+## Review questions
+- What evidence proves the LLM cost optimization behavior worked on this run?
+- What should happen if required evidence or authorization is missing?
+- Which tests would fail if this behavior regressed next week?
+- What does the human reviewer need to see before approving the output?
+
+## Internal links
+- See also: [When To Use Bigger Model](/resources/ai-agent-engineering/when-to-use-bigger-model)
+- See also: [Agent Observability Traces](/resources/ai-agent-engineering/agent-observability-traces)
+- See also: [Agent Regression Testing](/resources/ai-agent-engineering/agent-regression-testing)
 
 ## Research references
 - [arXiv:2602.11931v2](https://arxiv.org/abs/2602.11931v2) — primary research reference
@@ -103,4 +131,7 @@ Because reliable agents must be grounded, observable, testable, cost-aware, and 
 URXION applies these patterns to RFP response, compliance review, SDR research, and custom AI workflow agents.
 
 ## How URXION applies this
-URXION applies this evidence-first pattern in RFP response, compliance review, SDR research, and custom AI workflow agents. The goal is review-ready work, not unsupervised automation.
+URXION applies this evidence-first pattern in RFP response, compliance review, SDR research, and custom AI workflow agents. The goal is review-ready work, not unsupervised automation. When the system cannot support a claim, it should show the missing evidence and route the work for human review.
+
+## Practical takeaway
+The practical takeaway is to turn this principle into an explicit system behavior: define the owner, record the evidence, validate the state transition, and make the review path visible. That is what separates a production agent workflow from a clever prompt demo.
