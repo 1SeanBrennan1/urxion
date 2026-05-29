@@ -147,6 +147,48 @@ def test_agent_engineering_markdown_pages_are_unique_and_deep():
     assert len(checklist_first_items) == len(AGENT_RESOURCE_PAGES)
 
 
+@pytest.mark.parametrize(
+    "path",
+    [
+        "/DispatchAI",
+        "/lastcall",
+        "/business-assessment",
+        "/cold-calling-assessment",
+        "/sales-assessment",
+        "/Knowledge-is-Power",
+        "/blog/challenger",
+        "/blog/break-even-point",
+        "/unsubscribe",
+    ],
+)
+def test_legacy_hidden_pages_are_noindexed_but_followed(client, path):
+    response = client.get(path)
+    body = response.get_data(as_text=True)
+    assert response.status_code == 200
+    assert '<meta name="robots" content="noindex, follow"' in body
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "/",
+        "/rfp",
+        "/compliance",
+        "/sdr",
+        "/custom-agents",
+        "/data-security",
+        "/sample-outputs",
+        "/resources/ai-agent-engineering",
+        "/resources/ai-agent-engineering/system-not-the-model",
+    ],
+)
+def test_current_public_pages_are_indexable(client, path):
+    response = client.get(path)
+    body = response.get_data(as_text=True)
+    assert response.status_code == 200
+    assert 'name="robots" content="noindex' not in body
+
+
 def test_robots_points_to_sitemap(client):
     response = client.get("/robots.txt")
     body = response.get_data(as_text=True)

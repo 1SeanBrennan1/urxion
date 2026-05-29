@@ -7,7 +7,7 @@ import re
 import secrets
 import time
 import zipfile
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from functools import wraps
 from io import BytesIO
 from pathlib import Path
@@ -27,8 +27,8 @@ from flask import (
     url_for,
 )
 
-from rfp_opportunity_cache import ranked_opportunities
 from agent_resources import AGENT_RESOURCE_BY_SLUG, AGENT_RESOURCE_PAGES
+from rfp_opportunity_cache import ranked_opportunities
 
 GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxveq1SuTzj9PPBF5BKgFwF5DxHs7BmLLXLQPL8yV00Ryb9ORjT_K185Q7itjvgvVAm/exec"
 CANONICAL_HOST = os.environ.get("CANONICAL_HOST", "www.urxion.com")
@@ -55,7 +55,7 @@ _rate_limit_hits: dict[str, list[float]] = {}
 def _load_local_env_files() -> None:
     for env_path in (
         Path(__file__).resolve().parent / ".env",
-
+        Path(__file__).resolve().parents[1] / "Athena" / ".env",
     ):
         if not env_path.exists():
             continue
@@ -369,6 +369,49 @@ def should_compress(response):
     )
 
 
+INDEXABLE_PATH_PREFIXES = (
+    "/resources/ai-agent-engineering",
+    "/try-rfp",
+    "/try-compliance",
+)
+INDEXABLE_EXACT_PATHS = {
+    "/",
+    "/defaultsite",
+    "/why-urxion",
+    "/rfp",
+    "/compliance",
+    "/sdr",
+    "/custom-agents",
+    "/data-security",
+    "/sample-outputs",
+    "/demo",
+    "/contact",
+    "/privacy",
+    "/terms",
+}
+
+
+def should_noindex_path(path: str) -> bool:
+    if path in INDEXABLE_EXACT_PATHS:
+        return False
+    if any(
+        path == prefix or path.startswith(f"{prefix}/")
+        for prefix in INDEXABLE_PATH_PREFIXES
+    ):
+        # Run-specific demo result/download pages should stay out of search.
+        return "/results/" in path or "/opportunities/" in path or "/download/" in path
+    return True
+
+
+def inject_noindex_meta(body: str) -> str:
+    if 'name="robots"' in body or "name='robots'" in body:
+        return body
+    tag = '        <meta name="robots" content="noindex, follow" />\n'
+    if "</head>" in body:
+        return body.replace("</head>", f"{tag}</head>", 1)
+    return f"{tag}{body}"
+
+
 @app.after_request
 def optimize_response(response):
     response.headers.setdefault("X-Content-Type-Options", "nosniff")
@@ -379,6 +422,10 @@ def optimize_response(response):
 
     if response.mimetype == "text/html" and response.status_code == 200:
         body = response.get_data(as_text=True)
+        if should_noindex_path(request.path):
+            body = inject_noindex_meta(body)
+            response.set_data(body)
+            response.headers.pop("Content-Length", None)
         if "urxion-global-contrast-fix" not in body:
             if "</body>" in body:
                 body = body.replace("</body>", f"{GLOBAL_CONTRAST_STYLE}</body>", 1)
@@ -1152,6 +1199,16 @@ def custom_agents():
     return render_template("custom-agents.html")
 
 
+@app.route("/data-security")
+def data_security():
+    return render_template("data-security.html")
+
+
+@app.route("/sample-outputs")
+def sample_outputs():
+    return render_template("sample-outputs.html")
+
+
 @app.route("/resources/ai-agent-engineering")
 def agent_resource_hub():
     return render_template("resources/agent_hub.html", pages=AGENT_RESOURCE_PAGES)
@@ -1163,16 +1220,6 @@ def agent_resource_article(slug):
     if not page:
         abort(404)
     return render_template("resources/agent_article.html", page=page)
-
-
-@app.route("/data-security")
-def data_security():
-    return render_template("data-security.html")
-
-
-@app.route("/sample-outputs")
-def sample_outputs():
-    return render_template("sample-outputs.html")
 
 
 # Services Page
@@ -1218,9 +1265,9 @@ RFP_DEMO_TTL = timedelta(hours=48)
 
 def _rfp_demo_cleanup() -> None:
     RFP_DEMO_ROOT.mkdir(parents=True, exist_ok=True)
-    cutoff = datetime.now(timezone.utc) - RFP_DEMO_TTL
+    cutoff = datetime.now(UTC) - RFP_DEMO_TTL
     for path in RFP_DEMO_ROOT.iterdir():
-        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) < cutoff:
+        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, UTC) < cutoff:
             import shutil
 
             shutil.rmtree(path, ignore_errors=True)
@@ -1619,7 +1666,7 @@ def _rfp_demo_opportunity_from_pasted_rfp(rfp_text: str) -> dict:
         "source_name": "User-pasted RFP",
         "source_url": "",
         "source_status": "pasted_full_text",
-        "fetched_at": datetime.now(timezone.utc).isoformat(),
+        "fetched_at": datetime.now(UTC).isoformat(),
         "fit_score": 999,
         "match_reasons": [
             "User pasted RFP text, so this demo uses the supplied solicitation instead of public listing snippets."
@@ -1690,7 +1737,7 @@ def try_rfp():
         "email_domain": email.split("@")[-1],
         "company_info": company_info,
         "rfp_text": "",
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
         "opportunities": opportunities,
         "cache_meta": {
             "fetched_at": cache_meta.get("fetched_at"),
@@ -1794,9 +1841,9 @@ COMPLIANCE_DEMO_TTL = timedelta(hours=48)
 
 def _compliance_demo_cleanup() -> None:
     COMPLIANCE_DEMO_ROOT.mkdir(parents=True, exist_ok=True)
-    cutoff = datetime.now(timezone.utc) - COMPLIANCE_DEMO_TTL
+    cutoff = datetime.now(UTC) - COMPLIANCE_DEMO_TTL
     for path in COMPLIANCE_DEMO_ROOT.iterdir():
-        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) < cutoff:
+        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, UTC) < cutoff:
             import shutil
 
             shutil.rmtree(path, ignore_errors=True)
@@ -2111,7 +2158,7 @@ def try_compliance():
     run_dir.mkdir(parents=True, exist_ok=True)
     state = {
         "run_id": run_id,
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
         "email_domain": email.split("@")[-1],
         "filename": filename,
         "review": review,
@@ -2403,7 +2450,7 @@ def contact():
     CONTACT_SUBMISSIONS_PATH.parent.mkdir(parents=True, exist_ok=True)
     submission = {
         **fields,
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
         "source": "website_contact_form",
     }
     with CONTACT_SUBMISSIONS_PATH.open("a", encoding="utf-8") as handle:
