@@ -20,6 +20,7 @@ PUBLIC_GET_ROUTES = [
     "/custom-agents",
     "/data-security",
     "/sample-outputs",
+    "/demo-vs-production",
     "/resources/ai-agent-engineering",
     "/cold-calling-that-converts",
     "/business-assessment",
@@ -168,6 +169,7 @@ def test_sitemap_uses_canonical_https_domain(client):
     assert "https://www.urxion.com/custom-agents" in body
     assert "https://www.urxion.com/data-security" in body
     assert "https://www.urxion.com/sample-outputs" in body
+    assert "https://www.urxion.com/demo-vs-production" in body
     assert "https://www.urxion.com/resources/ai-agent-engineering" in body
     assert "https://www.urxion.com/resources/ai-agent-engineering/sources" in body
     assert (
@@ -190,6 +192,8 @@ def test_agent_engineering_resource_hub_and_articles_render(client):
     assert sources_response.status_code == 200
     assert "AI Agent Engineering source references" in sources_body
     assert "arXiv:" in sources_body
+    assert "conceptual reference" in sources_body
+    assert "linked" in sources_body
 
     content_dir = (
         Path(__file__).resolve().parents[1] / "content" / "ai-agent-engineering"
@@ -209,6 +213,7 @@ def test_agent_engineering_resource_hub_and_articles_render(client):
         assert f"By {page['author']}" in body
         assert f"Updated {page['updated']}" in body
         assert "Table of contents" in body
+        assert "Evidence-first agent loop" in body
         for source, _note in page["sources"]:
             assert f"https://arxiv.org/abs/{source}" in body
 
@@ -353,6 +358,15 @@ def test_demo_links_are_on_product_pages(client, path, expected):
     assert response.status_code == 200
     assert expected in visible_text(body)
 
+
+
+def test_demo_vs_production_page_renders(client):
+    response = client.get("/demo-vs-production")
+    body = response.get_data(as_text=True)
+    assert response.status_code == 200
+    assert "What the public demo shows, and what production adds" in body
+    assert "Public demo" in body
+    assert "Production URXION" in body
 
 def test_try_demo_routes_render(client):
     rfp_response = client.get("/try-rfp")

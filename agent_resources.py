@@ -53,7 +53,14 @@ def agent_resource_sources() -> list[dict[str, Any]]:
     for page in AGENT_RESOURCE_PAGES:
         for source, note in page.get("sources", []):
             usage.setdefault(
-                source, {"source": source, "url": f"https://arxiv.org/abs/{source}"}
+                source,
+                {
+                    "source": source,
+                    "url": f"https://arxiv.org/abs/{source}",
+                    "title": f"arXiv:{source}",
+                    "link_status": "linked",
+                    "support_level": "conceptual reference",
+                },
             )
             page_map[source].add(page["slug"])
             notes[source].add(note)

@@ -1275,6 +1275,11 @@ def sample_outputs():
     return render_template("sample-outputs.html")
 
 
+@app.route("/demo-vs-production")
+def demo_vs_production():
+    return render_template("demo-vs-production.html")
+
+
 @app.route("/resources/ai-agent-engineering")
 def agent_resource_hub():
     return render_template("resources/agent_hub.html", pages=AGENT_RESOURCE_PAGES)
@@ -1958,6 +1963,36 @@ def _compliance_demo_safe_filename(filename: str) -> str:
     return cleaned or "subcontractor-package.txt"
 
 
+def _extract_pdf_text(raw: bytes) -> str:
+    try:
+        from pypdf import PdfReader
+
+        reader = PdfReader(BytesIO(raw))
+        pages = [(page.extract_text() or "").strip() for page in reader.pages[:30]]
+        text = "\n".join(page for page in pages if page)
+        return text.strip()
+    except Exception:
+        return ""
+
+
+def _extract_docx_text(raw: bytes) -> str:
+    try:
+        from docx import Document
+
+        document = Document(BytesIO(raw))
+        paragraphs = [paragraph.text.strip() for paragraph in document.paragraphs]
+        tables = []
+        for table in document.tables:
+            for row in table.rows:
+                cells = [cell.text.strip() for cell in row.cells if cell.text.strip()]
+                if cells:
+                    tables.append(" | ".join(cells))
+        text = "\n".join([item for item in paragraphs + tables if item])
+        return text.strip()
+    except Exception:
+        return ""
+
+
 def _compliance_demo_read_upload(upload) -> tuple[str, str]:
     filename = _compliance_demo_safe_filename(
         upload.filename or "subcontractor-package.txt"
@@ -1973,9 +2008,17 @@ def _compliance_demo_read_upload(upload) -> tuple[str, str]:
             return filename, raw.decode("utf-8")
         except UnicodeDecodeError:
             return filename, raw.decode("latin-1", errors="ignore")
+    if suffix == ".pdf":
+        text = _extract_pdf_text(raw)
+        if text:
+            return filename, text
+    if suffix == ".docx":
+        text = _extract_docx_text(raw)
+        if text:
+            return filename, text
     return (
         filename,
-        f"Uploaded {suffix.upper()} file {filename}. Text extraction is limited in this public demo preview. A human reviewer should verify the original document.",
+        f"Uploaded {suffix.upper()} file {filename}. Text extraction did not return readable text in this public demo preview. A production workflow would use stronger document extraction and a human reviewer should verify the original document.",
     )
 
 
