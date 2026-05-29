@@ -55,7 +55,7 @@ _rate_limit_hits: dict[str, list[float]] = {}
 def _load_local_env_files() -> None:
     for env_path in (
         Path(__file__).resolve().parent / ".env",
-        Path(__file__).resolve().parents[1] / "Athena" / ".env",
+
     ):
         if not env_path.exists():
             continue
