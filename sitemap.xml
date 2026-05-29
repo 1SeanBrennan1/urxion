@@ -8,10 +8,31 @@
   <url><loc>https://www.urxion.com/custom-agents</loc></url>
   <url><loc>https://www.urxion.com/data-security</loc></url>
   <url><loc>https://www.urxion.com/sample-outputs</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering</loc></url>
   <url><loc>https://www.urxion.com/demo</loc></url>
   <url><loc>https://www.urxion.com/try-rfp</loc></url>
   <url><loc>https://www.urxion.com/try-compliance</loc></url>
   <url><loc>https://www.urxion.com/contact</loc></url>
   <url><loc>https://www.urxion.com/privacy</loc></url>
   <url><loc>https://www.urxion.com/terms</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/system-not-the-model</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/grounding-beats-guessing</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/prompts-do-not-enforce-safety</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/minimum-viable-agent</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/ai-agent-memory-state-design</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/source-linked-agent-memory</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/agent-retrieval-precision</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/multi-agent-orchestration</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/document-worker-agents</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/agent-evaluation-trajectory-testing</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/agent-regression-testing</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/llm-judge-calibration</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/cost-aware-model-routing</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/when-to-use-bigger-model</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/agent-observability-traces</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/human-in-the-loop-agent-design</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/approval-workflows-for-agents</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/tool-use-governance</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/rag-security-prompt-injection</loc></url>
+  <url><loc>https://www.urxion.com/resources/ai-agent-engineering/agent-pr-review-checklist</loc></url>
 </urlset>

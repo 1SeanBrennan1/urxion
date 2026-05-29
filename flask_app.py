@@ -28,6 +28,7 @@ from flask import (
 )
 
 from rfp_opportunity_cache import ranked_opportunities
+from agent_resources import AGENT_RESOURCE_BY_SLUG, AGENT_RESOURCE_PAGES
 
 GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxveq1SuTzj9PPBF5BKgFwF5DxHs7BmLLXLQPL8yV00Ryb9ORjT_K185Q7itjvgvVAm/exec"
 CANONICAL_HOST = os.environ.get("CANONICAL_HOST", "www.urxion.com")
@@ -1149,6 +1150,19 @@ def athena_sdr_legacy():
 @app.route("/custom-agents")
 def custom_agents():
     return render_template("custom-agents.html")
+
+
+@app.route("/resources/ai-agent-engineering")
+def agent_resource_hub():
+    return render_template("resources/agent_hub.html", pages=AGENT_RESOURCE_PAGES)
+
+
+@app.route("/resources/ai-agent-engineering/<slug>")
+def agent_resource_article(slug):
+    page = AGENT_RESOURCE_BY_SLUG.get(slug)
+    if not page:
+        abort(404)
+    return render_template("resources/agent_article.html", page=page)
 
 
 @app.route("/data-security")
@@ -2873,6 +2887,9 @@ def sitemap_xml():
         if rule.rule.startswith("/.well-known"):
             continue
         urls.append(rule.rule)
+
+    for page in AGENT_RESOURCE_PAGES:
+        urls.append(f"/resources/ai-agent-engineering/{page['slug']}")
 
     unique_urls = sorted(set(urls), key=lambda path: (path != "/", path))
     url_entries = "\n".join(

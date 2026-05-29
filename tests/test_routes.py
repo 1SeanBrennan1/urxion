@@ -3,6 +3,7 @@ from io import BytesIO
 
 import pytest
 
+from agent_resources import AGENT_RESOURCE_PAGES
 from flask_app import app
 
 PUBLIC_GET_ROUTES = [
@@ -18,6 +19,7 @@ PUBLIC_GET_ROUTES = [
     "/custom-agents",
     "/data-security",
     "/sample-outputs",
+    "/resources/ai-agent-engineering",
     "/cold-calling-that-converts",
     "/business-assessment",
     "/cold-calling-assessment",
@@ -83,8 +85,33 @@ def test_sitemap_uses_canonical_https_domain(client):
     assert "https://www.urxion.com/custom-agents" in body
     assert "https://www.urxion.com/data-security" in body
     assert "https://www.urxion.com/sample-outputs" in body
+    assert "https://www.urxion.com/resources/ai-agent-engineering" in body
+    assert (
+        "https://www.urxion.com/resources/ai-agent-engineering/system-not-the-model"
+        in body
+    )
     assert "yourdomain.com" not in body
     assert "pythonanywhere" not in body
+
+
+def test_agent_engineering_resource_hub_and_articles_render(client):
+    hub_response = client.get("/resources/ai-agent-engineering")
+    hub_body = hub_response.get_data(as_text=True)
+    assert hub_response.status_code == 200
+    assert "20 practical guides for production AI agents" in hub_body
+    assert "Reliable AI agents are governed systems" in hub_body
+
+    assert len(AGENT_RESOURCE_PAGES) == 20
+    for page in AGENT_RESOURCE_PAGES:
+        response = client.get(f"/resources/ai-agent-engineering/{page['slug']}")
+        body = response.get_data(as_text=True)
+        assert response.status_code == 200
+        assert page["h1"] in body
+        assert "Research references" in body
+        assert "https://arxiv.org/abs/" in body
+        assert "FAQPage" in body
+        for source, _note in page["sources"]:
+            assert f"https://arxiv.org/abs/{source}" in body
 
 
 def test_robots_points_to_sitemap(client):
@@ -390,11 +417,11 @@ def test_clean_product_routes_render_and_legacy_athena_routes_redirect(client):
         assert response.headers["Location"].endswith(new_path)
 
 
-def test_public_top_and_footer_navigation_do_not_link_resources(client):
+def test_public_top_and_footer_navigation_links_engineering_resources_not_legacy_sales(client):
     response = client.get("/")
     body = response.get_data(as_text=True)
     assert response.status_code == 200
-    assert "Resources</a" not in body
+    assert "AI Agent Engineering Guide" in body
     assert "Knowledge is Power</a" not in body
     assert "Sales resources" not in body
     assert "Legacy assessment" not in body
