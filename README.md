@@ -9,14 +9,18 @@ This repo is validated on **Python 3.10**. Use the checked-in `.python-version` 
 ```bash
 python3.10 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
-.venv/bin/pip install -r requirements.txt
+.venv/bin/pip install ".[dev]"
 ```
+
+## Project metadata
+
+Runtime and development dependencies live in `pyproject.toml`. `requirements.txt` is kept as a pinned compatibility export for simple hosts that still install from requirements files.
 
 ## Run tests
 
 ```bash
 .venv/bin/python -m compileall -q flask_app.py agent_resources.py blog_generator.py rfp_opportunity_cache.py scripts tests
-.venv/bin/python -m pytest tests -q
+.venv/bin/python -m pytest
 ```
 
 Current expected baseline:

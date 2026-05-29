@@ -39,7 +39,9 @@ CANONICAL_HOST = os.environ.get("CANONICAL_HOST", "www.urxion.com")
 CANONICAL_BASE_URL = os.environ.get(
     "CANONICAL_BASE_URL", f"https://{CANONICAL_HOST}"
 ).rstrip("/")
-BOOKING_URL = os.environ.get("BOOKING_URL", "https://calendly.com/urxion/30min")
+BOOKING_URL = os.environ.get(
+    "BOOKING_URL", "https://calendly.com/sean-brennan-urxion/30min"
+)
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "sean.brennan@urxion.com")
 STATIC_ASSET_VERSION = os.environ.get("STATIC_ASSET_VERSION", "2026-05-29-form-refresh")
 CONTACT_SUBMISSIONS_PATH = Path(
@@ -201,7 +203,9 @@ def _llm_json_completion(
         except Exception as exc:
             provider_errors.append(f"openai:{exc}")
 
-    details = f" Provider errors: {' | '.join(provider_errors)}" if provider_errors else ""
+    details = (
+        f" Provider errors: {' | '.join(provider_errors)}" if provider_errors else ""
+    )
     raise RuntimeError(
         "No working LLM API key is configured. Set CEREBRAS_API_KEY, GROQ_API_KEY, DEEPSEEK_API_KEY, AZURE_OPENAI_KEY with AZURE_ENDPOINT and AZURE_OPENAI_DEPLOYMENT_NAME, or OPENAI_API_KEY."
         + details
@@ -1364,7 +1368,10 @@ def _rfp_demo_cleanup() -> None:
     RFP_DEMO_ROOT.mkdir(parents=True, exist_ok=True)
     cutoff = datetime.now(timezone.utc) - RFP_DEMO_TTL
     for path in RFP_DEMO_ROOT.iterdir():
-        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) < cutoff:
+        if (
+            path.is_dir()
+            and datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) < cutoff
+        ):
             import shutil
 
             shutil.rmtree(path, ignore_errors=True)
@@ -1631,6 +1638,49 @@ This public demo shows the opening section only. In the full program, URXION wor
 """
 
 
+def _inline_markdown_to_html(text: str) -> str:
+    escaped = escape(text)
+    escaped = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", escaped)
+    return escaped
+
+
+def _render_proposal_preview(text: str) -> str:
+    """Render proposal text as a safe, readable HTML document preview."""
+    blocks: list[str] = []
+    list_items: list[str] = []
+
+    def flush_list() -> None:
+        if list_items:
+            blocks.append("<ul>" + "".join(list_items) + "</ul>")
+            list_items.clear()
+
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line:
+            flush_list()
+            continue
+        if line.startswith("### "):
+            flush_list()
+            blocks.append(f"<h4>{_inline_markdown_to_html(line[4:])}</h4>")
+        elif line.startswith("## "):
+            flush_list()
+            blocks.append(f"<h3>{_inline_markdown_to_html(line[3:])}</h3>")
+        elif line.startswith("# "):
+            flush_list()
+            blocks.append(f"<h2>{_inline_markdown_to_html(line[2:])}</h2>")
+        elif re.match(r"^\d+\.\s+", line):
+            flush_list()
+            heading = re.sub(r"^\d+\.\s+", "", line)
+            blocks.append(f"<h3>{_inline_markdown_to_html(heading)}</h3>")
+        elif line.startswith("- "):
+            list_items.append(f"<li>{_inline_markdown_to_html(line[2:])}</li>")
+        else:
+            flush_list()
+            blocks.append(f"<p>{_inline_markdown_to_html(line)}</p>")
+    flush_list()
+    return "\n".join(blocks)
+
+
 def _rfp_demo_fallback_package(
     company_name: str, company_info: str, opportunity: dict
 ) -> dict:
@@ -1895,7 +1945,10 @@ def try_rfp_results(run_id):
     state = _rfp_demo_read_state(run_id)
     if not state or "package" not in state:
         abort(404)
-    return render_template("try_rfp_results.html", state=state)
+    proposal_html = _render_proposal_preview(state["package"].get("proposal", ""))
+    return render_template(
+        "try_rfp_results.html", state=state, proposal_html=proposal_html
+    )
 
 
 @app.route("/try-rfp/download/<run_id>")
@@ -1949,7 +2002,10 @@ def _compliance_demo_cleanup() -> None:
     COMPLIANCE_DEMO_ROOT.mkdir(parents=True, exist_ok=True)
     cutoff = datetime.now(timezone.utc) - COMPLIANCE_DEMO_TTL
     for path in COMPLIANCE_DEMO_ROOT.iterdir():
-        if path.is_dir() and datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) < cutoff:
+        if (
+            path.is_dir()
+            and datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) < cutoff
+        ):
             import shutil
 
             shutil.rmtree(path, ignore_errors=True)

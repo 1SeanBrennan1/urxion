@@ -382,7 +382,6 @@ def test_demo_links_are_on_product_pages(client, path, expected):
     assert expected in visible_text(body)
 
 
-
 def test_demo_vs_production_page_renders(client):
     response = client.get("/demo-vs-production")
     body = response.get_data(as_text=True)
@@ -390,6 +389,7 @@ def test_demo_vs_production_page_renders(client):
     assert "What the public demo shows, and what production adds" in body
     assert "Public demo" in body
     assert "Production URXION" in body
+
 
 def test_try_demo_routes_render(client):
     rfp_response = client.get("/try-rfp")
@@ -399,7 +399,7 @@ def test_try_demo_routes_render(client):
     assert "Find Real Cached RFPs" in rfp_body
     assert "No fake RFP opportunities" in rfp_body
     assert "Cerebras first, then Groq" in rfp_body
-    assert "not the production URXION configuration" in rfp_body
+    assert "not the production URXION configuration" in visible_text(rfp_body)
     assert 'name="rfp_text"' not in rfp_body
     assert "Use construction example" in rfp_body
 
@@ -745,7 +745,7 @@ def test_footer_has_data_security_and_ownership(client):
     assert response.status_code == 200
     assert (
         "Uploaded documents are used only to generate the workflow output you request"
-        in body
+        in visible_text(body)
     )
     assert "Your documents are not used to train URXION models" in body
 
@@ -809,9 +809,64 @@ def test_demo_page_embeds_calendar(client):
     assert "Try Compliance Demo" in body
     assert "Coming Soon" in body
     assert "Your data stays in a temporary workspace. Deleted after 48 hours." in body
+    assert "https://calendly.com/sean-brennan-urxion/30min" in body
+    assert "https://calendly.com/urxion/30min" not in body
     assert "Cold Calling That Converts" not in body
     assert "Business Assessment" not in body
     assert "Knowledge is Power</a>" not in body
+
+
+def test_public_demo_forms_show_generation_feedback(client):
+    rfp_body = client.get("/try-rfp").get_data(as_text=True)
+    compliance_body = client.get("/try-compliance").get_data(as_text=True)
+    assert 'data-loading-message="Finding real cached RFPs' in rfp_body
+    assert "Please keep this page open" in rfp_body
+    assert (
+        'data-loading-message="Generating your compliance review packet'
+        in compliance_body
+    )
+    assert "Please keep this page open" in compliance_body
+
+
+def test_render_proposal_preview_formats_readable_html():
+    import flask_app
+
+    html = flask_app._render_proposal_preview(
+        "# Title\n\n1. Executive summary\n\nParagraph with **bold** value.\n\n- one\n- two"
+    )
+    assert "<h2>Title</h2>" in html
+    assert "<h3>Executive summary</h3>" in html
+    assert "<strong>bold</strong>" in html
+    assert "<ul><li>one</li><li>two</li></ul>" in html
+
+
+def test_try_rfp_results_renders_formatted_proposal_preview(client):
+    response = client.post(
+        "/try-rfp",
+        data={
+            "email": "buyer@example.com",
+            "company_name": "Demo Contractor",
+            "company_info": "Ontario contractor with WSIB, insurance, municipal renovation work, and safety training.",
+        },
+        follow_redirects=False,
+    )
+    assert response.status_code == 302
+    opportunities_url = response.headers["Location"]
+    run_id = opportunities_url.rstrip("/").split("/")[-1]
+
+    select_response = client.post(
+        f"/try-rfp/select/{run_id}/pasted-rfp",
+        data={
+            "rfp_text": "Municipal renovation RFP requiring WSIB, insurance, safety plan, and project schedule."
+        },
+        follow_redirects=True,
+    )
+    body = select_response.get_data(as_text=True)
+    assert select_response.status_code == 200
+    assert "Proposal draft preview" in body
+    assert "proposal-document" in body
+    assert "<pre" not in body
+    assert "Download Proposal Package" in body
 
 
 def test_philosophy_page_renders_manifesto(client):

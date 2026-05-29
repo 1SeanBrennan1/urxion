@@ -1,59 +1,146 @@
-{% extends "base.html" %}
-{% block title %}Choose a Real RFP | URXION RFP Demo{% endblock %}
-{% block hero %}
+{% extends "base.html" %} {% block title %}Choose a Real RFP | URXION RFP Demo{%
+endblock %} {% block hero %}
 <section class="hero">
     <div class="container hero-grid">
         <div>
             <div class="eyebrow">URXION RFP demo</div>
             <h1>Choose a real cached public opportunity.</h1>
-            <p class="lead">These recommendations come from cached public tender listings with source links. Public listings are often incomplete, so paste the full RFP before generating whenever you have it.</p>
-            {% if state.cache_meta.guidance %}<p class="founder-note">{{ state.cache_meta.guidance }}</p>{% endif %}
-            {% if state.cache_meta.fetched_at %}<p class="muted">Last refreshed: {{ state.cache_meta.fetched_at[:10] }}</p>{% endif %}
+            <p class="lead">
+                These recommendations come from cached public tender listings
+                with source links. Public listings are often incomplete, so
+                paste the full RFP before generating whenever you have it.
+            </p>
+            {% if state.cache_meta.guidance %}
+            <p class="founder-note">{{ state.cache_meta.guidance }}</p>
+            {% endif %} {% if state.cache_meta.fetched_at %}
+            <p class="muted">
+                Last refreshed: {{ state.cache_meta.fetched_at[:10] }}
+            </p>
+            {% endif %}
         </div>
-        <div class="hero-panel"><div class="metric">{{ state.opportunities|length }}</div><p class="muted">real cached listing{% if state.opportunities|length != 1 %}s{% endif %} shown</p></div>
+        <div class="hero-panel">
+            <div class="metric">{{ state.opportunities|length }}</div>
+            <p class="muted">
+                real cached listing{% if state.opportunities|length != 1 %}s{%
+                endif %} shown
+            </p>
+        </div>
     </div>
 </section>
-{% endblock %}
-{% block content %}
-{% if error %}<section class="section"><div class="container"><div class="card proof-card"><h2>RFP demo could not generate yet.</h2><p>{{ error }}</p><p class="muted">Set Cerebras, Groq, DeepSeek, Azure OpenAI, or OpenAI credentials on the server to enable real proposal generation.</p></div></div></section>{% endif %}
-{% if not state.opportunities %}
+{% endblock %} {% block content %} {% if error %}
+<section class="section">
+    <div class="container">
+        <div class="card proof-card">
+            <h2>RFP demo could not generate yet.</h2>
+            <p>{{ error }}</p>
+            <p class="muted">
+                Set Cerebras, Groq, DeepSeek, Azure OpenAI, or OpenAI
+                credentials on the server to enable real proposal generation.
+            </p>
+        </div>
+    </div>
+</section>
+{% endif %} {% if not state.opportunities %}
 <section class="section">
     <div class="container grid-2">
         <div class="card">
             <div class="eyebrow">Real cache unavailable</div>
             <h2>Paste a real RFP while the cache refreshes.</h2>
-            <p>URXION is configured to use real cached public listings. If the cache is temporarily unavailable, you can still paste a real RFP, solicitation, scope, requirements, or portal text below to generate from your own source material.</p>
+            <p>
+                URXION is configured to use real cached public listings. If the
+                cache is temporarily unavailable, you can still paste a real
+                RFP, solicitation, scope, requirements, or portal text below to
+                generate from your own source material.
+            </p>
         </div>
         <div class="card">
-            <form method="post" action="{{ url_for('try_rfp_select', run_id=state.run_id, opportunity_id='pasted-rfp') }}" class="generate-form">
-                <div class="form-group"><label for="rfp_text_direct">Full RFP or solicitation text</label><textarea id="rfp_text_direct" name="rfp_text" class="form-control" rows="12" required placeholder="Paste the RFP scope, mandatory requirements, evaluation criteria, submission instructions, forms, addenda, or portal text here."></textarea></div>
-                <button class="btn-primary" type="submit">Generate Package From Pasted RFP</button>
+            <form
+                method="post"
+                action="{{ url_for('try_rfp_select', run_id=state.run_id, opportunity_id='pasted-rfp') }}"
+                class="generate-form"
+                data-loading-message="Generating your proposal package from pasted RFP text…"
+            >
+                <div class="form-group">
+                    <label for="rfp_text_direct"
+                        >Full RFP or solicitation text</label
+                    ><textarea
+                        id="rfp_text_direct"
+                        name="rfp_text"
+                        class="form-control"
+                        rows="12"
+                        required
+                        placeholder="Paste the RFP scope, mandatory requirements, evaluation criteria, submission instructions, forms, addenda, or portal text here."
+                    ></textarea>
+                </div>
+                <button class="btn-primary" type="submit">
+                    Generate Package From Pasted RFP
+                </button>
             </form>
         </div>
     </div>
 </section>
-{% endif %}
-{% if state.opportunities %}
+{% endif %} {% if state.opportunities %}
 <section class="section">
     <div class="container grid-3">
         {% for opp in state.opportunities %}
         <div class="card opportunity-card">
-            <div class="eyebrow">{{ opp.source_name }} · {{ opp.source_status }}</div>
+            <div class="eyebrow">
+                {{ opp.source_name }} · {{ opp.source_status }}
+            </div>
             <h2>{{ opp.title }}</h2>
             <p class="muted">Agency: {{ opp.agency }}</p>
-            <p class="muted">Deadline: {{ opp.deadline }} · Value: {{ opp.estimated_value }}</p>
+            <p class="muted">
+                Deadline: {{ opp.deadline }} · Value: {{ opp.estimated_value }}
+            </p>
             <p>{{ opp.summary }}</p>
-            <p><span class="badge">Recommendation confidence: {{ opp.fit_confidence|default('possible') }}</span></p>
-            {% if opp.match_reasons %}<ul>{% for reason in opp.match_reasons %}<li>{{ reason }}</li>{% endfor %}</ul>{% endif %}
-            {% if opp.fit_confidence == 'weak' %}<p class="founder-note">Weak match. Add more company details next time or paste the full RFP below before generating.</p>{% endif %}
-            <div class="actions">{% if opp.source_url %}<a class="btn-secondary" href="{{ opp.source_url }}">Open source posting</a>{% endif %}</div>
-            <form method="post" action="{{ url_for('try_rfp_select', run_id=state.run_id, opportunity_id=opp.id) }}" class="generate-form">
-                <div class="form-group"><label for="rfp_text_{{ loop.index }}">Optional full RFP text for this package</label><textarea id="rfp_text_{{ loop.index }}" name="rfp_text" class="form-control" rows="7" placeholder="Paste scope, mandatory requirements, evaluation criteria, submission instructions, forms, addenda, or portal text here before generating."></textarea></div>
-                <button class="btn-primary" type="submit">Generate Package</button>
+            <p>
+                <span class="badge"
+                    >Recommendation confidence: {{
+                    opp.fit_confidence|default('possible') }}</span
+                >
+            </p>
+            {% if opp.match_reasons %}
+            <ul>
+                {% for reason in opp.match_reasons %}
+                <li>{{ reason }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% if opp.fit_confidence == 'weak' %}
+            <p class="founder-note">
+                Weak match. Add more company details next time or paste the full
+                RFP below before generating.
+            </p>
+            {% endif %}
+            <div class="actions">
+                {% if opp.source_url %}<a
+                    class="btn-secondary"
+                    href="{{ opp.source_url }}"
+                    >Open source posting</a
+                >{% endif %}
+            </div>
+            <form
+                method="post"
+                action="{{ url_for('try_rfp_select', run_id=state.run_id, opportunity_id=opp.id) }}"
+                class="generate-form"
+                data-loading-message="Generating your proposal package…"
+            >
+                <div class="form-group">
+                    <label for="rfp_text_{{ loop.index }}"
+                        >Optional full RFP text for this package</label
+                    ><textarea
+                        id="rfp_text_{{ loop.index }}"
+                        name="rfp_text"
+                        class="form-control"
+                        rows="7"
+                        placeholder="Paste scope, mandatory requirements, evaluation criteria, submission instructions, forms, addenda, or portal text here before generating."
+                    ></textarea>
+                </div>
+                <button class="btn-primary" type="submit">
+                    Generate Package
+                </button>
             </form>
         </div>
         {% endfor %}
     </div>
 </section>
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}

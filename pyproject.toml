@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "urxion-website"
+version = "0.1.0"
+description = "URXION Flask website and public demo workflows"
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+dependencies = [
+    "Flask==3.1.2",
+    "requests==2.32.3",
+    "python-dotenv==1.0.1",
+    "pypdf==5.1.0",
+    "python-docx==1.1.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.4.1",
+]
+
+[tool.setuptools]
+py-modules = [
+    "agent_resources",
+    "blog_generator",
+    "flask_app",
+    "rfp_opportunity_cache",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-q"
+
+[tool.compileall]
+paths = [
+    "flask_app.py",
+    "agent_resources.py",
+    "blog_generator.py",
+    "rfp_opportunity_cache.py",
+    "scripts",
+    "tests",
+]
