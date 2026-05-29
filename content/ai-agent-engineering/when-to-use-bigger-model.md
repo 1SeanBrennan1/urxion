@@ -61,7 +61,9 @@
     "cost-aware-model-routing",
     "agent-evaluation-trajectory-testing",
     "human-in-the-loop-agent-design"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

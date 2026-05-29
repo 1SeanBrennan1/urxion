@@ -61,7 +61,9 @@
     "agent-retrieval-precision",
     "rag-security-prompt-injection",
     "document-worker-agents"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

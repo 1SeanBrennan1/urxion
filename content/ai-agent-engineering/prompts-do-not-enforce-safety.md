@@ -61,7 +61,9 @@
     "rag-security-prompt-injection",
     "tool-use-governance",
     "human-in-the-loop-agent-design"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

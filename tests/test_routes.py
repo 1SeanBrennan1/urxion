@@ -169,6 +169,7 @@ def test_sitemap_uses_canonical_https_domain(client):
     assert "https://www.urxion.com/data-security" in body
     assert "https://www.urxion.com/sample-outputs" in body
     assert "https://www.urxion.com/resources/ai-agent-engineering" in body
+    assert "https://www.urxion.com/resources/ai-agent-engineering/sources" in body
     assert (
         "https://www.urxion.com/resources/ai-agent-engineering/system-not-the-model"
         in body
@@ -183,6 +184,12 @@ def test_agent_engineering_resource_hub_and_articles_render(client):
     assert hub_response.status_code == 200
     assert "20 practical guides for production AI agents" in hub_body
     assert "Reliable AI agents are governed systems" in hub_body
+
+    sources_response = client.get("/resources/ai-agent-engineering/sources")
+    sources_body = sources_response.get_data(as_text=True)
+    assert sources_response.status_code == 200
+    assert "AI Agent Engineering source references" in sources_body
+    assert "arXiv:" in sources_body
 
     content_dir = (
         Path(__file__).resolve().parents[1] / "content" / "ai-agent-engineering"
@@ -199,6 +206,9 @@ def test_agent_engineering_resource_hub_and_articles_render(client):
         assert "Research references" in body
         assert "https://arxiv.org/abs/" in body
         assert "FAQPage" in body
+        assert f"By {page['author']}" in body
+        assert f"Updated {page['updated']}" in body
+        assert "Table of contents" in body
         for source, _note in page["sources"]:
             assert f"https://arxiv.org/abs/{source}" in body
 
@@ -293,7 +303,11 @@ def test_new_product_pages_render_conversion_copy(client, path, expected):
     text = visible_text(body)
     assert response.status_code == 200
     assert expected in text
-    assert "https://calendly.com/sean-brennan-urxion/30min" in body
+    assert (
+        "Book a call" in body
+        or "Schedule My Free" in body
+        or "Book a discovery call" in body
+    )
     assert "URXION" in body
     assert "Athena" not in body
 

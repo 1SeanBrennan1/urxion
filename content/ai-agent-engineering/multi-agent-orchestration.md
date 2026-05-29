@@ -61,7 +61,9 @@
     "document-worker-agents",
     "agent-evaluation-trajectory-testing",
     "tool-use-governance"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

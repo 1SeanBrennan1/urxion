@@ -27,7 +27,11 @@ from flask import (
     url_for,
 )
 
-from agent_resources import AGENT_RESOURCE_BY_SLUG, AGENT_RESOURCE_PAGES
+from agent_resources import (
+    AGENT_RESOURCE_BY_SLUG,
+    AGENT_RESOURCE_PAGES,
+    AGENT_RESOURCE_SOURCES,
+)
 from rfp_opportunity_cache import ranked_opportunities
 
 GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxveq1SuTzj9PPBF5BKgFwF5DxHs7BmLLXLQPL8yV00Ryb9ORjT_K185Q7itjvgvVAm/exec"
@@ -37,7 +41,7 @@ CANONICAL_BASE_URL = os.environ.get(
 ).rstrip("/")
 BOOKING_URL = os.environ.get("BOOKING_URL", "https://calendly.com/sean-brennan-urxion/30min")
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "sean.brennan@urxion.com")
-STATIC_ASSET_VERSION = os.environ.get("STATIC_ASSET_VERSION", "2026-05-29-form-refresh")
+STATIC_ASSET_VERSION = os.environ.get("STATIC_ASSET_VERSION", "2026-05-29")
 CONTACT_SUBMISSIONS_PATH = Path(
     os.environ.get(
         "CONTACT_SUBMISSIONS_PATH",
@@ -1274,6 +1278,13 @@ def sample_outputs():
 @app.route("/resources/ai-agent-engineering")
 def agent_resource_hub():
     return render_template("resources/agent_hub.html", pages=AGENT_RESOURCE_PAGES)
+
+
+@app.route("/resources/ai-agent-engineering/sources")
+def agent_resource_sources():
+    return render_template(
+        "resources/agent_sources.html", sources=AGENT_RESOURCE_SOURCES
+    )
 
 
 @app.route("/resources/ai-agent-engineering/<slug>")

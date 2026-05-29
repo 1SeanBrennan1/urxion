@@ -61,7 +61,9 @@
     "approval-workflows-for-agents",
     "tool-use-governance",
     "document-worker-agents"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

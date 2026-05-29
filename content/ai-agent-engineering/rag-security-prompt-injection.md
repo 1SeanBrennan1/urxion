@@ -61,7 +61,9 @@
     "grounding-beats-guessing",
     "prompts-do-not-enforce-safety",
     "tool-use-governance"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

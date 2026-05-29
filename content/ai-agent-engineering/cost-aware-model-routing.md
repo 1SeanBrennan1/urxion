@@ -61,7 +61,9 @@
     "when-to-use-bigger-model",
     "agent-observability-traces",
     "agent-regression-testing"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

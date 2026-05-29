@@ -61,7 +61,9 @@
     "agent-evaluation-trajectory-testing",
     "ai-agent-memory-state-design",
     "cost-aware-model-routing"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

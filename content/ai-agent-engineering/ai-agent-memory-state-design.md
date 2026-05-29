@@ -61,7 +61,9 @@
     "source-linked-agent-memory",
     "agent-retrieval-precision",
     "ai-agent-memory-state-design"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

@@ -61,7 +61,9 @@
     "multi-agent-orchestration",
     "document-worker-agents",
     "document-worker-agents"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

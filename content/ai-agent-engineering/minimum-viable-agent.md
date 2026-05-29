@@ -61,7 +61,9 @@
     "system-not-the-model",
     "agent-regression-testing",
     "agent-regression-testing"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

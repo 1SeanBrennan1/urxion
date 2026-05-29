@@ -61,7 +61,9 @@
     "human-in-the-loop-agent-design",
     "tool-use-governance",
     "ai-agent-memory-state-design"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

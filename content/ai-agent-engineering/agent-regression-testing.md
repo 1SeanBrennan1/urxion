@@ -61,7 +61,9 @@
     "agent-evaluation-trajectory-testing",
     "llm-judge-calibration",
     "agent-regression-testing"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

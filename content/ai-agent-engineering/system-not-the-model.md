@@ -61,7 +61,9 @@
     "grounding-beats-guessing",
     "tool-use-governance",
     "agent-observability-traces"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

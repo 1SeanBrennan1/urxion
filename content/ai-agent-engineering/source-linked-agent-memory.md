@@ -61,7 +61,9 @@
     "ai-agent-memory-state-design",
     "rag-security-prompt-injection",
     "agent-observability-traces"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

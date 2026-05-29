@@ -61,7 +61,9 @@
     "agent-evaluation-trajectory-testing",
     "agent-regression-testing",
     "human-in-the-loop-agent-design"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

@@ -61,7 +61,9 @@
     "agent-regression-testing",
     "llm-judge-calibration",
     "agent-observability-traces"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

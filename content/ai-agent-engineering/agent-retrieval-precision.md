@@ -61,7 +61,9 @@
     "grounding-beats-guessing",
     "source-linked-agent-memory",
     "document-worker-agents"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 

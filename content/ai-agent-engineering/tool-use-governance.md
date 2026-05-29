@@ -61,7 +61,9 @@
     "prompts-do-not-enforce-safety",
     "approval-workflows-for-agents",
     "rag-security-prompt-injection"
-  ]
+  ],
+  "author": "Sean Brennan, URXION",
+  "updated": "2026-05-29"
 }
 ---
 
