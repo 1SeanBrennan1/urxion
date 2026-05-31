@@ -2,50 +2,46 @@
 {% block title %}Hacking Sales Chapter 14: The Wrap-Up{% endblock %}
 {% block content %}
 <section class="section legacy-page">
-    <div class="container legacy-content">
-<div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
-        <div class="tm-logo" style="background-color: transparent;">
-            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Urxion logo" class="tm-logo-img">
-        </div>
-    </div>
-    <div class="tm-nav-container-outer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="navbar navbar-expand-lg" id="tm-main-nav">
-                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
-                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
-                        </button>
-                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
-                            <ul class="navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container legacy-content">
+<div class="parallax-window" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" data-parallax="scroll" id="parallax-1">
 
+</div>
+<div class="tm-nav-container-outer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-12">
+<nav class="navbar navbar-expand-lg" id="tm-main-nav">
+<button aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler toggler-example" data-target="#navbar-nav" data-toggle="collapse" type="button">
+<span class="dark-blue-text"><i class="fas fa-bars"></i></span>
+</button>
+<div class="collapse navbar-collapse tm-nav" id="navbar-nav">
+<ul class="navbar-nav ml-auto">
+<li class="nav-item">
+<a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
+</li>
+<li class="nav-item">
+<a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
+</li>
+<li class="nav-item">
+<a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
+</li>
+</ul>
+</div>
+</nav>
+</div>
+</div>
+</div>
+</div>
 <div class="chapter-content">`
 <h2>Chapter 14: The Wrap-Up</h2>
 <h3>Main Concepts</h3>
 <p>
     The book provides a comprehensive framework and toolkit for modern salespeople.
     Embracing data-driven, technology-enabled sales techniques can give you a competitive advantage.
-</p>
+</p><p><strong>Loved this summary?</strong> See how our AI agents apply this concept → <a href="https://www.urxion.com/sdr">Learn more</a></p>
 <h3>Discussion Topics</h3>
 <ul>
 <li>The future of the sales profession and the impact of technology on the role of salespeople.</li>
@@ -78,10 +74,6 @@
 </p>
 ```</div>
 </div>
-</div>
-</div>
-</div>
-</div>
 <footer class="container-fluid">
 <div class="row">
 <p class="col-lg-9 col-md-8 mb-5 mb-md-0">
@@ -95,6 +87,5 @@
 </div>
 </div>
 </footer>
-    </div>
 </section>
 {% endblock %}

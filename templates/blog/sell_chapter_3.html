@@ -2,43 +2,39 @@
 {% block title %}Sell Chapter 3: Understanding Buyers{% endblock %}
 {% block content %}
 <section class="section legacy-page">
-    <div class="container legacy-content">
-<div id="parallax-1" class="parallax-window" data-parallax="scroll" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}">
-        <div class="tm-logo" style="background-color: transparent;">
-            <img src="{{ url_for('static', filename='img/Meeting-Gen.png') }}" alt="Urxion logo" class="tm-logo-img">
-        </div>
-    </div>
-    <div class="tm-nav-container-outer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="navbar navbar-expand-lg" id="tm-main-nav">
-                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
-                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
-                        </button>
-                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
-                            <ul class="navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container legacy-content">
+<div class="parallax-window" data-image-src="{{ url_for('static', filename='img/biz-oriented-header.jpg') }}" data-parallax="scroll" id="parallax-1">
 
+</div>
+<div class="tm-nav-container-outer">
+<div class="container-fluid">
+<div class="row">
+<div class="col-12">
+<nav class="navbar navbar-expand-lg" id="tm-main-nav">
+<button aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler toggler-example" data-target="#navbar-nav" data-toggle="collapse" type="button">
+<span class="dark-blue-text"><i class="fas fa-bars"></i></span>
+</button>
+<div class="collapse navbar-collapse tm-nav" id="navbar-nav">
+<ul class="navbar-nav ml-auto">
+<li class="nav-item">
+<a class="nav-link tm-nav-link" href="{{ url_for('index') }}">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link tm-nav-link" href="{{ url_for('cold_calling') }}">COLD CALLING THAT CONVERTS</a>
+</li>
+<li class="nav-item">
+<a class="nav-link tm-nav-link" href="{{ url_for('business_assessment') }}">Business Assessment</a>
+</li>
+<li class="nav-item">
+<a class="nav-link tm-nav-link" href="{{ url_for('knowledge_is_power') }}">Knowledge is Power</a>
+</li>
+</ul>
+</div>
+</nav>
+</div>
+</div>
+</div>
+</div>
 <div class="tm-nav-container-outer">
 <div class="container-fluid">
 <div class="container-fluid">
@@ -46,8 +42,7 @@
 <div class="col-12">
 <h1>Chapter 3: Understanding Buyers</h1>
 <div class="chapter-content"><div>
-
-<p>This chapter provides a deep dive into the world of business buyers, exploring their unique characteristics, needs, and decision-making processes. It distinguishes between consumer and business markets, highlighting the complexities of derived demand, fluctuating demand levels, and the involvement of professional buyers and buying teams. The chapter outlines the eight stages of the business buying process, from need recognition to performance evaluation, and examines how salespeople can strategically influence each stage. It also explores the different types of buyer needs, including situational, functional, social, psychological, and knowledge needs, and how understanding these needs can guide effective selling strategies.</p>
+<p>This chapter provides a deep dive into the world of business buyers, exploring their unique characteristics, needs, and decision-making processes. It distinguishes between consumer and business markets, highlighting the complexities of derived demand, fluctuating demand levels, and the involvement of professional buyers and buying teams. The chapter outlines the eight stages of the business buying process, from need recognition to performance evaluation, and examines how salespeople can strategically influence each stage. It also explores the different types of buyer needs, including situational, functional, social, psychological, and knowledge needs, and how understanding these needs can guide effective selling strategies.</p><p><strong>Loved this summary?</strong> See how our AI agents apply this concept → <a href="https://www.urxion.com/sdr">Learn more</a></p>
 <h3>Key Terms and Definitions</h3>
 <ul>
 <li><strong>Consumer Market:</strong> Individuals or households who purchase goods and services for personal consumption.</li>
@@ -146,16 +141,16 @@
 <li>The impact of globalization and e-commerce on the buying process.</li>
 <li>The future of the customer experience and the role of artificial intelligence in shaping buying decisions.</li>
 </ul>
-<br><br>
-<br><br>
+<br/><br/>
+<br/><br/>
 <li>
-                <h3><a href="{{ url_for('sell_chapter_4') }}">Chapter 4: Communication Skills</a></h3>
-                <ul>
-                    <li>Emphasizes the role of effective communication in building buyer relationships.</li>
-                    <li>Focuses on active listening and various questioning techniques for effective conversations.</li>
-                    <li>Discusses the importance of nonverbal communication and body language.</li>
-                </ul>
-            </li>
+<h3><a href="{{ url_for('sell_chapter_4') }}">Chapter 4: Communication Skills</a></h3>
+<ul>
+<li>Emphasizes the role of effective communication in building buyer relationships.</li>
+<li>Focuses on active listening and various questioning techniques for effective conversations.</li>
+<li>Discusses the importance of nonverbal communication and body language.</li>
+</ul>
+</li>
 </div>
 </div>
 </div>
@@ -174,6 +169,6 @@
 </div>
 </div>
 </footer>
-    </div>
-</section>
+</div>
+</div></div></section>
 {% endblock %}
