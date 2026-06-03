@@ -81,134 +81,149 @@ def _load_local_env_files() -> None:
 _load_local_env_files()
 
 
+import os
+import json
+import re
+from cerebras.cloud.sdk import Cerebras
+from groq import Groq
+
 def _llm_json_completion(
     system_prompt: str, user_prompt: str, *, temperature: float
 ) -> tuple[dict, str]:
-    cerebras_api_key = os.environ.get("CEREBRAS_API_KEY", "").strip()
-    cerebras_model = os.environ.get(
-        "CEREBRAS_MODEL", "llama-4-scout-17b-16e-instruct"
-    ).strip()
-    cerebras_base_url = (
-        os.environ.get("CEREBRAS_BASE_URL", "https://api.cerebras.ai/v1")
-        .strip()
-        .rstrip("/")
-    )
-    groq_api_key = os.environ.get("GROQ_API_KEY", "").strip()
-    deepseek_api_key = os.environ.get("DEEPSEEK_API_KEY", "").strip()
-    deepseek_model = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat").strip()
-    deepseek_base_url = (
-        os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
-        .strip()
-        .rstrip("/")
-    )
-    openai_api_key = os.environ.get("OPENAI_API_KEY", "").strip()
-    azure_api_key = os.environ.get("AZURE_OPENAI_KEY", "").strip()
-    azure_endpoint = os.environ.get("AZURE_ENDPOINT", "").strip().rstrip("/")
-    azure_deployment = os.environ.get("AZURE_OPENAI_DEPLOYMENT_NAME", "").strip()
-    azure_api_version = os.environ.get(
-        "AZURE_OPENAI_API_VERSION", "2024-02-15-preview"
-    ).strip()
+    """
+    Cycle through Cerebras & Groq models using official SDKs.
+    Supports reasoning_effort via env var REASONING_EFFORT.
+    Returns (parsed_json, "provider:model") on first success.
+    """
 
+    # ---------- Helper: robust JSON extraction ----------
+    def _extract_json(text: str) -> dict:
+        if not text:
+            raise ValueError("Empty response content")
+
+        # Remove <think>...</think> blocks (Qwen reasoning)
+        cleaned = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
+        # Remove any other stray XML tags
+        cleaned = re.sub(r"<[^>]+>", "", cleaned).strip()
+
+        # 1. Direct parse
+        try:
+            return json.loads(cleaned)
+        except json.JSONDecodeError:
+            pass
+
+        # 2. Code block ```json ... ```
+        m = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
+        if m:
+            try:
+                return json.loads(m.group(1))
+            except json.JSONDecodeError:
+                pass
+
+        # 3. Balanced braces from first '{'
+        start = text.find("{")
+        if start != -1:
+            count = 0
+            for i in range(start, len(text)):
+                if text[i] == "{":
+                    count += 1
+                elif text[i] == "}":
+                    count -= 1
+                    if count == 0:
+                        try:
+                            return json.loads(text[start:i+1])
+                        except json.JSONDecodeError:
+                            break
+
+        # Last resort: re-raise direct parse error
+        return json.loads(cleaned)   # will raise
+
+    # ---------- Provider keys ----------
+    cerebras_key = os.environ.get("CEREBRAS_API_KEY", "").strip()
+    groq_key = os.environ.get("GROQ_API_KEY", "").strip()
+
+    # ---------- Model fallback sequence ----------
+    # (provider, model_name, extra_kwargs)
+    models = [
+        ("cerebras", "gpt-oss-120b", {
+            "max_completion_tokens": 4000, "top_p": 1.0, "reasoning_effort": "high"
+        }),
+        ("cerebras", "zai-glm-4.7", {
+            "max_completion_tokens": 8000, "top_p": 0.95
+        }),
+        ("groq", "openai/gpt-oss-120b", {
+            "max_completion_tokens": 4000, "top_p": 1.0, "reasoning_effort": "high"
+        }),
+        ("groq", "qwen/qwen3-32b", {
+            "max_completion_tokens": 3000, "top_p": 0.95
+        }),
+    ]
+
+    # Global reasoning override from env (optional)
+    global_reasoning = os.environ.get("REASONING_EFFORT", "").strip()
+
+    # Build the message payload (same as before)
     payload = {
-        "response_format": {"type": "json_object"},
+        "response_format": {"type": "json_object"},   # still force JSON where possible
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ],
     }
-    provider_errors: list[str] = []
 
-    if cerebras_api_key:
+    errors: list[str] = []
+
+    for provider, model, extra in models:
+        # Handle reasoning_effort precedence
+        params = extra.copy()
+        if global_reasoning:
+            params["reasoning_effort"] = global_reasoning
+        elif "reasoning_effort" in params:
+            pass   # keep model default
+        else:
+            params.pop("reasoning_effort", None)
+
+        # Skip if no key for this provider
+        if provider == "cerebras" and not cerebras_key:
+            continue
+        if provider == "groq" and not groq_key:
+            continue
+
         try:
-            response = requests.post(
-                f"{cerebras_base_url}/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {cerebras_api_key}",
-                    "Content-Type": "application/json",
-                },
-                json={**payload, "model": cerebras_model, "temperature": temperature},
-                timeout=90,
-            )
-            response.raise_for_status()
-            content = response.json()["choices"][0]["message"]["content"]
-            return json.loads(content), f"cerebras:{cerebras_model}"
-        except Exception as exc:
-            provider_errors.append(f"cerebras:{exc}")
+            if provider == "cerebras":
+                client = Cerebras(api_key=cerebras_key)
+                completion = client.chat.completions.create(
+                    model=model,
+                    messages=payload["messages"],
+                    temperature=temperature,
+                    stream=False,
+                    **params
+                )
+                raw = completion.choices[0].message.content
+                parsed = _extract_json(raw)
+                return parsed, f"cerebras:{model}"
 
-    if groq_api_key:
-        try:
-            model = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b").strip()
-            response = requests.post(
-                "https://api.groq.com/openai/v1/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {groq_api_key}",
-                    "Content-Type": "application/json",
-                },
-                json={**payload, "model": model, "temperature": temperature},
-                timeout=90,
-            )
-            response.raise_for_status()
-            content = response.json()["choices"][0]["message"]["content"]
-            return json.loads(content), f"groq:{model}"
-        except Exception as exc:
-            provider_errors.append(f"groq:{exc}")
+            elif provider == "groq":
+                client = Groq(api_key=groq_key)
+                completion = client.chat.completions.create(
+                    model=model,
+                    messages=payload["messages"],
+                    temperature=temperature,
+                    stream=False,
+                    stop=None,
+                    **params
+                )
+                raw = completion.choices[0].message.content
+                parsed = _extract_json(raw)
+                return parsed, f"groq:{model}"
 
-    if deepseek_api_key:
-        try:
-            response = requests.post(
-                f"{deepseek_base_url}/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {deepseek_api_key}",
-                    "Content-Type": "application/json",
-                },
-                json={**payload, "model": deepseek_model, "temperature": temperature},
-                timeout=90,
-            )
-            response.raise_for_status()
-            content = response.json()["choices"][0]["message"]["content"]
-            return json.loads(content), f"deepseek:{deepseek_model}"
         except Exception as exc:
-            provider_errors.append(f"deepseek:{exc}")
+            errors.append(f"{provider}:{model} -> {exc}")
 
-    if azure_api_key and azure_endpoint and azure_deployment:
-        try:
-            url = f"{azure_endpoint}/openai/deployments/{azure_deployment}/chat/completions?api-version={azure_api_version}"
-            response = requests.post(
-                url,
-                headers={"api-key": azure_api_key, "Content-Type": "application/json"},
-                json=payload,
-                timeout=90,
-            )
-            response.raise_for_status()
-            content = response.json()["choices"][0]["message"]["content"]
-            return json.loads(content), f"azure:{azure_deployment}"
-        except Exception as exc:
-            provider_errors.append(f"azure:{exc}")
-
-    if openai_api_key:
-        try:
-            model = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
-            response = requests.post(
-                "https://api.openai.com/v1/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {openai_api_key}",
-                    "Content-Type": "application/json",
-                },
-                json={**payload, "model": model, "temperature": temperature},
-                timeout=90,
-            )
-            response.raise_for_status()
-            content = response.json()["choices"][0]["message"]["content"]
-            return json.loads(content), f"openai:{model}"
-        except Exception as exc:
-            provider_errors.append(f"openai:{exc}")
-
-    details = (
-        f" Provider errors: {' | '.join(provider_errors)}" if provider_errors else ""
-    )
     raise RuntimeError(
-        "No working LLM API key is configured. Set CEREBRAS_API_KEY, GROQ_API_KEY, DEEPSEEK_API_KEY, AZURE_OPENAI_KEY with AZURE_ENDPOINT and AZURE_OPENAI_DEPLOYMENT_NAME, or OPENAI_API_KEY."
-        + details
+        "All LLM providers/models failed. "
+        "Ensure CEREBRAS_API_KEY and/or GROQ_API_KEY are set. "
+        + " | ".join(errors)
     )
 
 
